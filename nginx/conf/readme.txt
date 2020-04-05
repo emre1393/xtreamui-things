@@ -16,6 +16,6 @@ but with this you need to use certbot webroot challenge method.
 mkdir -p /var/www/_letsencrypt
 chown xtreamcodes /var/www/_letsencrypt
 
-sudo certbot certonly --webroot --preferred-challenges http -d yourdomain.com --email info@yourdomain.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+sudo certbot certonly --webroot --preferred-challenges http -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
