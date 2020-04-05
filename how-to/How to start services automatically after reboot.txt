@@ -1,0 +1,12 @@
+How to start services automatically after reboot?
+
+
+this is for both main server and lb servers. you can do this for rest of your servers.
+
+open crontab with,
+
+sudo nano /etc/crontab
+
+paste this and save.
+
+@reboot root /home/xtreamcodes/iptv_xtream_codes/start_services.sh

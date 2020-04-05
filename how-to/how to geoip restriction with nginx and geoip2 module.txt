@@ -1,0 +1,124 @@
+Normally you can block or allow ip address/ip range/ip cidr/asn/country with firewall if you have an advanced firewall solution or blacklists of those ip's.
+
+I wanted to block bot connections from china, russia and etc. I find out this can be done with nginx geoip2 module. 
+
+
+Xtream ui panel is using geolite2.mmdb for identify origin of ip addresses and geoip load balancing and allowing connection. 
+but not for blocking a specific country (unless adding all countries except unwanted ones in manage servers page)
+
+Basicly i googled about it and gathered things about it in here.
+
+
+First, we need an nginx build with compiled with nginx geoip2 module.
+i compiled nginx with latest nginx version, http2 support, openssl 1.1.1d and ngx_http_geoip2_module from github.
+[attachment=1]nginx 1.17.8 with geoip2 module.zip[/attachment]
+go to /home/xtreamcodes/iptv_xtream_codes/nginx/sbin folder,
+backup your current nginx file, put this new one and set 755 permissions and xtreamcodes ownership.
+
+
+then lets look how it works,
+
+ -we will put geoip{} block in http{} block, this will tell nginx which file is geoip database and create custom variables that will keep the data from the GeoIP2 database and then later pass the data to the map directives.
+
+geoip2 /home/xtreamcodes/iptv_xtream_codes/GeoLite2-Country.mmdb {
+    $geoip2_data_country_code country iso_code;   #you can allow/block a country
+  }
+
+ -we will put map{} block under the geoip{} block, we are setting a variable allowed_country which will be used to allow all the country except Russia and China (RU-Russia, CN-China) to access your site.
+
+#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2  
+ map $geoip2_data_country_code $allowed_country {
+  default yes;
+  CN no;
+  RU no;
+} 
+
+ -we will put if{} condition block in server{} block, this will tell nginx if ip complies (or doesn't) to rule, allow or deny it.
+
+		if ($allowed_country = no) {
+  return 403;
+}
+
+
+for an example, 
+i downloaded geoip2 database from maxmind, i put the file to panel folder with 755 permission and xtreamcodes ownership 
+and blocked russia and china for broadcast server block and admin panel server block, nginx will deny connections from those countries, 
+nginx.conf will look like this;
+
+http {
+.............
+.............
+geoip2 /home/xtreamcodes/iptv_xtream_codes/GeoLite2-Country.mmdb {
+    $geoip2_data_country_code country iso_code;   #for allow/block a country
+  } 
+#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2  
+ map $geoip2_data_country_code $allowed_country {
+  default yes;
+  CN no;
+  RU no;
+} 
+
+##broadcast server block 
+    server {
+        listen 25461;
+        listen 25463;
+	server_name yourdomain.com;
+	if ($allowed_country = no) {
+  return 403;
+}
+
+........
+
+##admin panel server block
+    server {
+           listen 25500;
+	   server_name yourdomain.com;
+	   if ($allowed_country = no) {
+  return 403;
+}
+.......
+
+
+
+
+another example, i want to block every country except Turkey for admin panel (why not? i am from Turkey)
+nginx.conf will look like this.
+
+http {
+.............
+.............
+geoip2 /home/xtreamcodes/iptv_xtream_codes/GeoLite2-Country.mmdb {
+    $geoip2_data_country_code country iso_code;   #for allow/block a country
+  } 
+#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2  
+#allowed connections only from turkey
+ map $geoip2_data_country_code $allowed_country {
+  default no;
+  TR yes;
+} 
+
+##broadcast server block 
+    server {
+        listen 25461;
+        listen 25463;
+	server_name yourdomain.com;
+#i won't put anything for broadcast server block
+........
+
+##admin panel server block
+    server {
+           listen 25500;
+	   server_name yourdomain.com;
+	   if ($allowed_country = no) {
+  return 403;
+}
+.......
+
+
+
+sources:
+https://dev.iachieved.it/iachievedit/geoip2-and-nginx/
+https://guides.wp-bullet.com/blocking-country-and-continent-with-nginx-geoip-on-ubuntu-18-04/
+https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-by-geoip/
+https://github.com/leev/ngx_http_geoip2_module
+http://acmeextension.com/block-visitors-from-a-country-nginx/

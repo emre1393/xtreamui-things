@@ -1,0 +1,6 @@
+you can use this to encode down/expired/banned videos.
+	   
+/home/xtreamcodes/iptv_xtream_codes/bin/ffmpeg -i /root/input.mp4 \
+       -c:v mpeg2video -qscale:v 2 \
+       -c:a mp2 -b:a 96k \
+       /root/output.ts
