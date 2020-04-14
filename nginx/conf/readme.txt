@@ -20,6 +20,6 @@ sudo certbot certonly --webroot --preferred-challenges http -w /var/www/_letsenc
 
 
 
-also enable https streaming in panel with adding server id to settings > use_https data like this.
+also enable https streaming in panel with adding server id to settings > use_https data like this with a mysql querry.
 
-`UPDATE `xtream_iptvpro`.`settings` set `use_https` = '["1","2","3",....,"xyz"]' where `id` = 1;`
+UPDATE `xtream_iptvpro`.`settings` set `use_https` = '["1","2","3",....,"xyz"]' where `id` = 1;
