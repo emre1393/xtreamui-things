@@ -19,3 +19,7 @@ chown xtreamcodes /var/www/_letsencrypt
 sudo certbot certonly --webroot --preferred-challenges http -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
+
+also enable https streaming in panel with adding server id to settings > use_https data like this.
+
+`UPDATE `xtream_iptvpro`.`settings` set `use_https` = '["1","2","3",....,"xyz"]' where `id` = 1;`
