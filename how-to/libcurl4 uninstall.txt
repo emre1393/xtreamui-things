@@ -1,2 +1,0 @@
-apt-get purge libcurl4
-apt-get install libcurl3
