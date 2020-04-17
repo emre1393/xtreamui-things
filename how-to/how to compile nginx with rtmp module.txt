@@ -1,5 +1,7 @@
 how to compile nginx with rtmp module
 
+sudo apt-get -y install build-essential zlib1g-dev libpcre3 libpcre3-dev libbz2-dev libssl-dev libgd-dev libxslt-dev libgeoip-dev tar unzip curl
+
 
 cd /tmp/
 sudo wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1f.tar.gz
