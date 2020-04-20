@@ -348,29 +348,28 @@
                             <li>
                                 <a href="#"> <i class="mdi mdi-download"></i><span>Download Box</span><span class="arrow-right"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
+                                    <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
                                     <li><a href="./radarr.php">Radarr for Movies</a></li>
                                     <?php }
 									if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
                                     <li><a href="./sonarr.php">Sonarr for Series</a></li>
-                                    <?php }
-                                    if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+                                    <?php } 
+									if (hasPermissions("adv", "movies", "series", "episodes")) { ?>
                                     <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
                                     <?php }
-                                    if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
                                     <li><a href="./plex-web.php">Plex Media Server</a></li>
-                                    <?php } 
-									if (hasPermissions("adv", "movies", "series")) { ?>
+                                    <?php }
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
                                     <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                     <?php }
-									if (hasPermissions("adv", "movies", "series")) { ?>
-                                    <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a> 
-                                    <!-- 
-                                    put your jacket web ui link
-                                    use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                    <a href="./jackett.php">Jackett</a>
-                                    --> 
-                                    </li>
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a></li>
+                                        <!-- 
+                                        put your jacket web ui link
+                                        use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
+                                        <a href="./jackett.php">Jackett for P2P Indexes</a>
+                                         --> 
                                     <?php } ?>
                                 </ul>
                             </li>
