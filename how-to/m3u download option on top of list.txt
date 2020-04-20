@@ -1,0 +1,8 @@
+Sorted devices table for "Download Playlist" menu
+List starts with m3u, put the sql file to your server, import the sql file.
+(it has only devices table)
+
+
+wget https://github.com/emre1393/xtreamui-things/raw/master/xc_sorted_devices.sql
+
+sudo mysql -u root xtream_iptvpro < xc_sorted_devices.sql
