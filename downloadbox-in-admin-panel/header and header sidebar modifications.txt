@@ -1,6 +1,5 @@
 header_sidebar.php mod (row 345-376)
 
-                            <?php }
 							if ((hasPermissions("adv", "movies", "add_movie", "import_movies")) OR (hasPermissions("adv", "series", "add_series", "episodes"))) { ?>
                             <li>
                                 <a href="#"> <i class="mdi mdi-download"></i><span>Download Box</span><span class="arrow-right"></span></a>
@@ -25,10 +24,49 @@ header_sidebar.php mod (row 345-376)
                                     <?php } ?>
                                 </ul>
                             </li>
+                            <?php }
 
 
+header.php dlbox menu mod (row 350-381)
 
-header.php mod (row 347-374)
+
+							if ($rPermissions["is_admin"]) {
+                            if ((hasPermissions("adv", "add_movie")) OR (hasPermissions("adv", "import_movies")) OR (hasPermissions("adv", "movies")) OR (hasPermissions("adv", "series")) OR (hasPermissions("adv", "add_series"))) { ?>
+                            <li class="has-submenu">
+                                <a href="#"> <i class="la la-download"></i>Download Box<div class="arrow-down"></div></a>
+                                <ul class="submenu">
+                                    <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
+                                    <li><a href="./radarr.php">Radarr for Movies</a></li>
+                                    <?php }
+									if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="./sonarr.php">Sonarr for Series</a></li>
+                                    <?php } 
+									if (hasPermissions("adv", "movies", "series", "episodes")) { ?>
+                                    <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
+                                    <?php }
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="./plex-web.php">Plex Media Server</a></li>
+                                    <?php }
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
+                                    <?php }
+									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a></li>
+                                        <!-- 
+                                        put your jacket web ui link
+                                        use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
+                                        <a href="./jackett.php">Jackett</a>
+                                         --> 
+                                    <?php } ?>
+                                </ul>
+                            </li>
+                            <?php }
+                            }
+
+
+                            
+
+header.php under vod submenu mod (row 347-374)
 
 
                                     <li>
