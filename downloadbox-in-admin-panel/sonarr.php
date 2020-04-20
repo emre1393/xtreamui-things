@@ -7,28 +7,49 @@ if ($rSettings["sidebar"]) {
 } else {
     include "header.php";
 }
-        if ($rSettings["sidebar"]) { ?>
-        <div class="content-page"><div class="content"><div class="container-fluid">
-        <?php } else { ?>
-        <div class="wrapper"><div class="container-fluid">
-        <?php } ?>
+            if ($rSettings["sidebar"]) { ?>
+            <div class="content-page"><div class="content"><div class="container-fluid">
+            <?php } else { ?>
+            <div class="wrapper"><div class="container-fluid">
+            <?php } ?>
+
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li>
+                                    <a href="javascript:location.reload();">
+                                        <button type="button" class="btn btn-dark waves-effect waves-light btn-sm">
+                                            <i class="mdi mdi-refresh"></i> Refresh
+                                        </button>
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Sonarr for Series</h4>
+                    </div>
+                </div>
+            </div>     
+            <!-- end page title --> 
+
                 <div class="row">
                     <div class="col-12">
-                        <div class="page-title-box">
-                            <h4 class="page-title">Sonarr for Series</h4>
-<html lang="en">
-<!-- edit src="link" for your sonarr web interface link -->
-    <center><iframe src="http://192.168.1.240/sonarr" style=" background: white; border: none; width: 100%; height: 800px; align: center"></iframe></center>
-</html>       
+                        <html lang="en">
+                        <!-- edit src="link" for your sonarr web interface link -->
+                        <center><iframe src="http://192.168.1.240/sonarr" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
+                        </html>
 
-                        </div>
-                    </div>
-
-                <!-- end row -->
+                        </div><!-- end col-->
+                </div><!-- end row-->
             </div> <!-- end container -->
-        </div>
-        <!-- end wrapper -->
+        </div> <!-- end wrapper -->
+
         <?php if ($rSettings["sidebar"]) { echo "</div>"; } ?>
+
+        <!-- Footer Start -->
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
@@ -47,10 +68,6 @@ if ($rSettings["sidebar"]) {
         <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
         <script src="assets/libs/datatables/buttons.html5.min.js"></script>
         <script src="assets/libs/datatables/buttons.flash.min.js"></script>
-        <script src="assets/libs/datatables/buttons.print.min.js"></script>
-        <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
-        <script src="assets/libs/datatables/dataTables.select.min.js"></script>
-        <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
-        <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
+        <script src="assets/js/app.min.js"></script>
     </body>
 </html>
