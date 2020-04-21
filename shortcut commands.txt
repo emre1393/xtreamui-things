@@ -1,0 +1,11 @@
+sudo /home/xtreamcodes/iptv_xtream_codes/start_services.sh  
+
+
+wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/sbin/nginx" -O /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx  
+
+wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx_rtmp/sbin/nginx_rtmp" -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp  
+
+wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/conf/nginx.conf" -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf
+
+wget https://github.com/emre1393/xtreamui-things/raw/master/pytools/config.py && python config.py ENCRYPT  
+
