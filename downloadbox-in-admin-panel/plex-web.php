@@ -1,3 +1,7 @@
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+
 <?php
 include "session.php"; include "functions.php";
 if (($rPermissions["is_admin"]) && (!hasPermissions("adv", "movies", "series"))) { exit; }
@@ -39,7 +43,7 @@ if ($rSettings["sidebar"]) {
                     <div class="col-12">
                         <html lang="en">
                         <!-- edit src="link" for your plex web interface link -->
-                        <center><iframe src="http://192.168.1.240/plex" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
+                        <center><iframe src="https://yourdomain.com/plex" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
                         </html>    
 
                     </div><!-- end col-->
