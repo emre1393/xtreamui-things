@@ -39,7 +39,7 @@ if ($rSettings["sidebar"]) {
                     <div class="col-12">
                         <html lang="en">
                         <!-- edit src="link" for your jackett web interface link -->
-                        <center><iframe src="http://192.168.1.240/jackett" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
+                        <center><iframe src="https://yourdomain.com/jackett" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
                         </html>
 
                         </div><!-- end col-->
