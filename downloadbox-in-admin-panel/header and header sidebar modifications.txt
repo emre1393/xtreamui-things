@@ -20,11 +20,11 @@ header_sidebar.php mod (row 347-376)
                                     <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                     <?php }
 									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a></li>
+                                    <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                         <!-- 
                                         put your jacket web ui link
                                         use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                        <a href="./jackett.php">Jackett for P2P Indexes</a>
+                                        <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
                                          --> 
                                     <?php } ?>
                                 </ul>
@@ -55,11 +55,11 @@ header.php dlbox menu mod (row 350-379)
                                     <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                     <?php }
 									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a></li>
+                                    <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                         <!-- 
                                         put your jacket web ui link
                                         use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                        <a href="./jackett.php">Jackett</a>
+                                        <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
                                          --> 
                                     <?php } ?>
                                 </ul>
@@ -90,11 +90,11 @@ header.php under vod submenu mod (row 347-374)
                                             <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                             <?php }
 		        							if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                            <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a></li>
+                                            <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                                 <!-- 
                                                 put your jacket web ui link
                                                 use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                                <a href="./jackett.php">Jackett</a>
+                                                <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
                                                  --> 
                                             <?php } ?>
                                         </ul>

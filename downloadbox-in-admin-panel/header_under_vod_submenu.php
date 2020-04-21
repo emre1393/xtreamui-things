@@ -362,13 +362,12 @@
                                                 <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                                 <?php }
 											if (hasPermissions("adv", "movies", "series")) { ?>
-                                                <li><a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a> 
+                                                <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                                 <!-- 
                                                 put your jacket web ui link
                                                 use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                                <a href="./jackett.php">Jackett</a>
+                                                <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
                                                  --> 
-                                                </li>
                                                 <?php } ?>
                                          </ul>
                                     </li>
