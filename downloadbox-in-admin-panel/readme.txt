@@ -14,3 +14,13 @@ iptables -I INPUT -p tcp -s 0.0.0.0/0 --dport 32400 -j DROP
 iptables -I INPUT -p tcp -s 127.0.0.1 --dport 32400 -j ACCEPT  
 
 you must enable login authentication in radarr/sonarr... it is a public server, you can't leave them unprotected, don't be stupid.  
+
+
+
+if you want to use nginx reverse proxy for dlbox item, you need to use webroot challange obtain ssl certificate.
+
+-Create a common ACME-challenge directory (for Let's Encrypt):
+mkdir -p /var/www/_letsencrypt
+chown xtreamcodes /var/www/_letsencrypt
+
+sudo certbot certonly --webroot -d yourdomain.com --email info@yourdomain.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
