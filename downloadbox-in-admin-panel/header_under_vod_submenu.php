@@ -366,7 +366,7 @@
                                                 <!-- 
                                                 put your jacket web ui link
                                                 use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                                <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
+                                                <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
                                                  --> 
                                                 <?php } ?>
                                          </ul>

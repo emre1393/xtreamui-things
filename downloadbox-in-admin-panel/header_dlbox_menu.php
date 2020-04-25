@@ -349,7 +349,7 @@
                             <?php }
                             if ((hasPermissions("adv", "add_movie")) OR (hasPermissions("adv", "import_movies")) OR (hasPermissions("adv", "movies")) OR (hasPermissions("adv", "series")) OR (hasPermissions("adv", "add_series"))) { ?>
                             <li class="has-submenu">
-                                <a href="#"> <i class="la la-download"></i>Download Box <div class="arrow-down"></div></a>
+                                <a href="./dlbox.php"> <i class="la la-download"></i>Download Box <div class="arrow-down"></div></a>
                                 <ul class="submenu">
                                     <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
                                     <li><a href="./radarr.php">Radarr for Movies</a></li>
@@ -371,7 +371,7 @@
                                         <!-- 
                                         put your jacket web ui link
                                         use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                        <a href="http://192.168.1.240/jackett" target="_blank">Jackett for P2P Indexes</a>
+                                        <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
                                          --> 
                                     <?php } ?>
                                 </ul>
