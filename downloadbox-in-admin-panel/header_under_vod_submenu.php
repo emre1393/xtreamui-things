@@ -346,29 +346,32 @@
                                     </li>
                                     <li>
                                         <ul> 
-                                        <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
+                                        <?php if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                            <li><a href="./dlbox.php">Download Box</a></li>
+                                            <?php }
+									        if (hasPermissions("adv", "movies", "import_movies")) { ?>
                                             <li><a href="./radarr.php">Radarr for Movies</a></li>
                                             <?php }
 											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
-                                                <li><a href="./sonarr.php">Sonarr for Series</a></li>
-                                                <?php } 
+                                            <li><a href="./sonarr.php">Sonarr for Series</a></li>
+                                            <?php } 
 											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
-                                                <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
-                                                <?php }
+                                            <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
+                                            <?php }
 											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
-                                                <li><a href="./plex-web.php">Plex Media Server</a></li>
-                                                <?php }
+                                            <li><a href="./plex-web.php">Plex Media Server</a></li>
+                                            <?php }
 											if (hasPermissions("adv", "movies", "series")) { ?>
-                                                <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
-                                                <?php }
+                                            <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
+                                            <?php }
 											if (hasPermissions("adv", "movies", "series")) { ?>
-                                                <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
+                                                li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                                 <!-- 
                                                 put your jacket web ui link
                                                 use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
                                                 <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
                                                  --> 
-                                                <?php } ?>
+                                            <?php } ?>
                                          </ul>
                                     </li>
                                 </ul>
