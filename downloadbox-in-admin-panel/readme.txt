@@ -8,10 +8,11 @@ i also added nginx reverse proxy config with ssl on port 443.
 
 then put all php files into panel's admin folder.   
 
-(optional) disable public connection with iptables, only reverse proxy will work with login auth by nginx.  
-
-iptables -I INPUT -p tcp -s 0.0.0.0/0 --dport 5111:5116 -j DROP  
-iptables -I INPUT -p tcp -s 127.0.0.1 --dport 5111:5116 -j ACCEPT
+(optional) disable public connections to the container, setup your dlbox and bind localhost ip to ports within docker-compose.yml,  you need to down and up docker-compose again.  
+set reverse proxy to work with login auth by nginx.  
+example:  
+    ports:
+      - "127.0.0.1:5111:8112"
 
 
 you must enable login authentication in radarr/sonarr... it is a public server, you can't leave them unprotected, don't be stupid.  
