@@ -19,10 +19,41 @@ you must enable login authentication in radarr/sonarr... it is a public server, 
 
 
 
-if you want to use nginx reverse proxy for dlbox item, you need to use webroot challange obtain ssl certificate.
+if you want to use nginx reverse proxy for dlbox item, you need to use webroot challange obtain ssl certificate.  
 
--Create a common ACME-challenge directory (for Let's Encrypt):
-mkdir -p /var/www/_letsencrypt
-chown xtreamcodes /var/www/_letsencrypt
+wget https://ssl-config.mozilla.org/ffdhe4096.txt -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/  
+sed -i 's|yourdomain.com|YOURREALDOMAINHERE|g' /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf  
+chown xtreamcodes:xtreamcodes -R /home/xtreamcodes  
 
-sudo certbot certonly --webroot -d yourdomain.com --email info@yourdomain.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+-Create a common ACME-challenge directory (for Let's Encrypt):  
+
+mkdir -p /var/www/_letsencrypt  
+chown xtreamcodes /var/www/_letsencrypt  
+
+--Certbot procedure  
+
+Install Certbot  
+sudo apt-get update  
+sudo apt-get install software-properties-common  
+sudo add-apt-repository universe  
+sudo add-apt-repository ppa:certbot/certbot -y  
+sudo apt-get update  
+sudo apt-get install certbot  
+
+1.Comment out SSL related directives in configuration:  
+
+sed -i -r 's/(listen .*443)/\1;#/g; s/(ssl_(certificate|certificate_key|trusted_certificate) )/#;#\1/g' /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf  
+
+2.Reload NGINX:  
+
+sudo /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx -s reload  
+
+3.Obtain certificate (replace "yourdomain.com"):  
+
+sudo certbot certonly --webroot -d yourdomain.com --email info@yourdomain.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal  
+
+4.Uncomment SSL related directives in configuration:  
+
+sed -i -r 's/#?;#//g' /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf  
+
+sudo /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx -s reload  
