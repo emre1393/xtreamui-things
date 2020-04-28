@@ -15,15 +15,19 @@ example:
       - "127.0.0.1:5111:8112"
 
 
-you must enable login authentication in radarr/sonarr... it is a public server, you can't leave them unprotected, don't be stupid.  
+you must enable login authentication in radarr/sonarr... it is a public server, you can't leave them unprotected.  
 
 
 
-if you want to use nginx reverse proxy for dlbox item, you need to use webroot challange obtain ssl certificate.  
+if you want to use nginx reverse proxy for dlbox items, you need to use webroot challange obtain ssl certificate.  
 
-wget https://ssl-config.mozilla.org/ffdhe4096.txt -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/  
+
+wget https://github.com/emre1393/xtreamui-things/raw/master/downloadbox-in-admin-panel/dlbox_nginx.conf -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf  
+wget https://ssl-config.mozilla.org/ffdhe4096.txt -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dhparam.pem  
 sed -i 's|yourdomain.com|YOURREALDOMAINHERE|g' /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf  
+sed -i '$i'"$(echo 'include dlbox_nginx.conf;')" /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf  
 chown xtreamcodes:xtreamcodes -R /home/xtreamcodes  
+
 
 -Create a common ACME-challenge directory (for Let's Encrypt):  
 

@@ -34,15 +34,3 @@ UPDATE `xtream_iptvpro`.`settings` set `use_https` = '["1","2","3",....,"xyz"]' 
 
 
 
-
-
-for lb servers, if you want to use nginx reverse proxy for dlbox items, you need to use webroot challange obtain ssl certificate.
-
-wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/conf/nginx_for_lb.conf" -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf
-wget "https://github.com/emre1393/xtreamui-things/raw/master/downloadbox-in-admin-panel/dlbox_nginx.conf" -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/dlbox_nginx.conf
-
--Create a common ACME-challenge directory (for Let's Encrypt):
-mkdir -p /var/www/_letsencrypt
-chown xtreamcodes /var/www/_letsencrypt
-
-sudo certbot certonly --webroot -d yourdomain.com --email info@yourdomain.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
