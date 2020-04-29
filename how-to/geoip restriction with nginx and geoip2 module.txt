@@ -97,6 +97,13 @@ geoip2 /home/xtreamcodes/iptv_xtream_codes/GeoLite2-Country.mmdb {
   TR yes;
 } 
 
+geo $allowed-ip {  
+127.0.0.1/24 yes;  
+MAIN_ip yes;  
+LB1_ip yes;  
+LB2_ip yes;  
+}  
+
 ##broadcast server block 
     server {
         listen 25461;
@@ -109,7 +116,11 @@ geoip2 /home/xtreamcodes/iptv_xtream_codes/GeoLite2-Country.mmdb {
     server {
            listen 25500;
 	   server_name yourdomain.com;
-	   if ($allowed_country = no) {
+
+if ($allowed-ip = yes) {  
+set $allowed_country yes;  
+}  
+	  if ($allowed_country = no) {
   return 403;
 }
 .......
