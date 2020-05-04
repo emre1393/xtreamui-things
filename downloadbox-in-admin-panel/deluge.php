@@ -7,6 +7,7 @@ if ($rSettings["sidebar"]) {
 } else {
     include "header.php";
 }
+//  edit dlbox_links.php and put related link
 include "dlbox_links.php";
             if ($rSettings["sidebar"]) { ?>
             <div class="content-page"><div class="content"><div class="container-fluid">
@@ -36,15 +37,14 @@ include "dlbox_links.php";
             </div>     
             <!-- end page title --> 
 
-            <!-- edit dlbox_links.php and put related link -->
                 <div class="row">
                     <div class="col-12">
                         <html lang="en">
-                            <!-- edit src="link" for your deluge web interface link -->
                             <center><iframe src="<?=$_["deluge_url"]?>" style=" background: white; border: none; width: 100%; height: 750px; align: center"></iframe></center>
                         </html>
                     </div><!-- end col-->
                 </div><!-- end row-->
+                
             </div> <!-- end container -->
         </div> <!-- end wrapper -->
 
