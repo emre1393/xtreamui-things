@@ -350,39 +350,36 @@
                                 </ul>
                             </li>
                             <?php }
-                            if ((hasPermissions("adv", "movies", "add_movie", "import_movies")) OR (hasPermissions("adv", "series", "add_series", "episodes"))) { ?>
-                            <li>
-                                <a href="#"> <i class="mdi mdi-download"></i><span>Download Box</span><span class="arrow-right"></span></a>
-                                <ul class="nav-second-level" aria-expanded="false">
-                                    <?php if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="./dlbox.php">Download Box</a></li>
-                                    <?php }
-									if (hasPermissions("adv", "movies", "import_movies")) { ?>
-                                    <li><a href="./radarr.php">Radarr for Movies</a></li>
-                                    <?php }
-									if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="./sonarr.php">Sonarr for Series</a></li>
-                                    <?php } 
-									if (hasPermissions("adv", "movies", "series", "episodes")) { ?>
-                                    <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
-                                    <?php }
-									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="./plex-web.php">Plex Media Server</a></li>
-                                    <?php }
-									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
-                                    <?php }
-									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                    <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
-                                        <!-- 
-                                        put your jacket web ui link
-                                        use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
-                                        <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
-                                         --> 
-                                    <?php } ?>
-                                </ul>
-                            </li>
-							<?php }
+                            if ((hasPermissions("adv", "add_movie")) OR (hasPermissions("adv", "import_movies")) OR (hasPermissions("adv", "movies")) OR (hasPermissions("adv", "series")) OR (hasPermissions("adv", "add_series"))) { ?>
+                                <li class="has-submenu">
+                                    <a href="./dlbox.php"> <i class="la la-download"></i>Download Box <div class="arrow-down"></div></a>
+                                    <ul class="submenu">
+                                        <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
+                                        <li><a href="./radarr.php">Radarr for Movies</a></li>
+                                        <?php }
+                                        if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+                                        <li><a href="./sonarr.php">Sonarr for Series</a></li>
+                                        <?php } 
+                                        if (hasPermissions("adv", "movies", "series", "episodes")) { ?>
+                                        <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
+                                        <?php }
+                                        if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                        <li><a href="./plex-web.php">Plex Media Server</a></li>
+                                        <?php }
+                                        if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                        <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
+                                        <?php }
+                                        if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                        <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
+                                            <!-- 
+                                            put your jacket web ui link
+                                            use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
+                                            <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
+                                             --> 
+                                        <?php } ?>
+                                    </ul>
+                                </li>
+                            <?php }
 							if ((hasPermissions("adv", "add_stream")) OR (hasPermissions("adv", "import_streams")) OR (hasPermissions("adv", "create_channel")) OR (hasPermissions("adv", "streams")) OR (hasPermissions("adv", "mass_edit_streams"))  OR (hasPermissions("adv", "stream_tools"))  OR (hasPermissions("adv", "stream_errors"))  OR (hasPermissions("adv", "fingerprint"))) { ?>
                             <li class="has-submenu">
                                 <a href="#"> <i class="la la-play-circle-o"></i><?=$_["streams"]?> <div class="arrow-down"></div></a>
