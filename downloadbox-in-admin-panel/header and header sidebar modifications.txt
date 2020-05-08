@@ -1,4 +1,4 @@
-header_sidebar.php mod (row 353-385)
+header_sidebar.php mod (row 350-382)
 
 							if ((hasPermissions("adv", "movies", "add_movie", "import_movies")) OR (hasPermissions("adv", "series", "add_series", "episodes"))) { ?>
                             <li>
@@ -35,7 +35,7 @@ header_sidebar.php mod (row 353-385)
 							<?php }
 
 
-header.php dlbox menu mod (row 350-379)
+header.php dlbox menu mod (row 353-382)
 
 
                             if ((hasPermissions("adv", "add_movie")) OR (hasPermissions("adv", "import_movies")) OR (hasPermissions("adv", "movies")) OR (hasPermissions("adv", "series")) OR (hasPermissions("adv", "add_series"))) { ?>
@@ -72,7 +72,7 @@ header.php dlbox menu mod (row 350-379)
 
                             
 
-header.php under vod submenu mod (row 347-376)
+header.php under vod submenu mod (row 350-379)
 
 
                                     <li>
