@@ -76,7 +76,7 @@
                         </li>
                         <?php } ?>
                         <?php if ($rPermissions["is_admin"]) {
-						if ((hasPermissions("adv", "settings")) OR (hasPermissions("adv", "database")) OR (hasPermissions("adv", "block_ips")) OR (hasPermissions("adv", "block_uas")) OR (hasPermissions("adv", "categories")) OR (hasPermissions("adv", "channel_order")) OR (hasPermissions("adv", "epg")) OR (hasPermissions("adv", "folder_watch")) OR (hasPermissions("adv", "mng_groups")) OR (hasPermissions("adv", "mass_delete")) OR (hasPermissions("adv", "mng_packages")) OR (hasPermissions("adv", "process_monitor")) OR (hasPermissions("adv", "rtmp")) OR (hasPermissions("adv", "subresellers")) OR (hasPermissions("adv", "tprofiles"))) { ?>
+						if ((hasPermissions("adv", "settings")) OR (hasPermissions("adv", "database")) OR (hasPermissions("adv", "block_ips")) OR (hasPermissions("adv", "block_isps")) OR (hasPermissions("adv", "block_uas")) OR (hasPermissions("adv", "categories")) OR (hasPermissions("adv", "channel_order")) OR (hasPermissions("adv", "epg")) OR (hasPermissions("adv", "folder_watch")) OR (hasPermissions("adv", "mng_groups")) OR (hasPermissions("adv", "mass_delete")) OR (hasPermissions("adv", "mng_packages")) OR (hasPermissions("adv", "process_monitor")) OR (hasPermissions("adv", "rtmp")) OR (hasPermissions("adv", "subresellers")) OR (hasPermissions("adv", "tprofiles"))) { ?>
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fe-settings noti-icon"></i>
@@ -88,6 +88,9 @@
 								if (hasPermissions("adv", "block_ips")) { ?>
                                 <a href="./ips.php" class="dropdown-item notify-item"><span><?=$_["blocked_ips"]?></span></a>
 								<?php }
+                                if (hasPermissions("adv", "block_isps")) { ?>
+                                <a href="./isps.php" class="dropdown-item notify-item"><span><?=$_["blocked_isps"]?></span></a>
+                                <?php }
 								if (hasPermissions("adv", "block_uas")) { ?>
                                 <a href="./useragents.php" class="dropdown-item notify-item"><span><?=$_["blocked_uas"]?></span></a>
 								<?php }
@@ -347,11 +350,14 @@
                                 </ul>
                             </li>
                             <?php }
-                            if ((hasPermissions("adv", "add_movie")) OR (hasPermissions("adv", "import_movies")) OR (hasPermissions("adv", "movies")) OR (hasPermissions("adv", "series")) OR (hasPermissions("adv", "add_series"))) { ?>
-                            <li class="has-submenu">
-                                <a href="./dlbox.php"> <i class="la la-download"></i>Download Box <div class="arrow-down"></div></a>
-                                <ul class="submenu">
-                                    <?php if (hasPermissions("adv", "movies", "add_movie", "import_movies")) { ?>
+                            if ((hasPermissions("adv", "movies", "add_movie", "import_movies")) OR (hasPermissions("adv", "series", "add_series", "episodes"))) { ?>
+                            <li>
+                                <a href="#"> <i class="mdi mdi-download"></i><span>Download Box</span><span class="arrow-right"></span></a>
+                                <ul class="nav-second-level" aria-expanded="false">
+                                    <?php if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                    <li><a href="./dlbox.php">Download Box</a></li>
+                                    <?php }
+									if (hasPermissions("adv", "movies", "import_movies")) { ?>
                                     <li><a href="./radarr.php">Radarr for Movies</a></li>
                                     <?php }
 									if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
@@ -376,7 +382,7 @@
                                     <?php } ?>
                                 </ul>
                             </li>
-                            <?php }
+							<?php }
 							if ((hasPermissions("adv", "add_stream")) OR (hasPermissions("adv", "import_streams")) OR (hasPermissions("adv", "create_channel")) OR (hasPermissions("adv", "streams")) OR (hasPermissions("adv", "mass_edit_streams"))  OR (hasPermissions("adv", "stream_tools"))  OR (hasPermissions("adv", "stream_errors"))  OR (hasPermissions("adv", "fingerprint"))) { ?>
                             <li class="has-submenu">
                                 <a href="#"> <i class="la la-play-circle-o"></i><?=$_["streams"]?> <div class="arrow-down"></div></a>

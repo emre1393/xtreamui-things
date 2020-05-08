@@ -76,7 +76,7 @@
                         </li>
                         <?php } ?>
                         <?php if ($rPermissions["is_admin"]) {
-						if ((hasPermissions("adv", "settings")) OR (hasPermissions("adv", "database")) OR (hasPermissions("adv", "block_ips")) OR (hasPermissions("adv", "block_uas")) OR (hasPermissions("adv", "categories")) OR (hasPermissions("adv", "channel_order")) OR (hasPermissions("adv", "epg")) OR (hasPermissions("adv", "folder_watch")) OR (hasPermissions("adv", "mng_groups")) OR (hasPermissions("adv", "mass_delete")) OR (hasPermissions("adv", "mng_packages")) OR (hasPermissions("adv", "process_monitor")) OR (hasPermissions("adv", "rtmp")) OR (hasPermissions("adv", "subresellers")) OR (hasPermissions("adv", "tprofiles"))) { ?>
+						if ((hasPermissions("adv", "settings")) OR (hasPermissions("adv", "database")) OR (hasPermissions("adv", "block_ips")) OR (hasPermissions("adv", "block_isps")) OR (hasPermissions("adv", "block_uas")) OR (hasPermissions("adv", "categories")) OR (hasPermissions("adv", "channel_order")) OR (hasPermissions("adv", "epg")) OR (hasPermissions("adv", "folder_watch")) OR (hasPermissions("adv", "mng_groups")) OR (hasPermissions("adv", "mass_delete")) OR (hasPermissions("adv", "mng_packages")) OR (hasPermissions("adv", "process_monitor")) OR (hasPermissions("adv", "rtmp")) OR (hasPermissions("adv", "subresellers")) OR (hasPermissions("adv", "tprofiles"))) { ?>
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fe-settings noti-icon"></i>
@@ -88,6 +88,9 @@
 								if (hasPermissions("adv", "block_ips")) { ?>
                                 <a href="./ips.php" class="dropdown-item notify-item"><span><?=$_["blocked_ips"]?></span></a>
 								<?php }
+                                if (hasPermissions("adv", "block_isps")) { ?>
+                                <a href="./isps.php" class="dropdown-item notify-item"><span><?=$_["blocked_isps"]?></span></a>
+                                <?php }
 								if (hasPermissions("adv", "block_uas")) { ?>
                                 <a href="./useragents.php" class="dropdown-item notify-item"><span><?=$_["blocked_uas"]?></span></a>
 								<?php }
@@ -346,37 +349,37 @@
                                     </li>
                                     <li>
                                         <ul> 
-                                        <?php if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
-                                            <li><a href="./dlbox.php">Download Box</a></li>
+                                            <?php if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                             <li><a href="./dlbox.php">Download Box</a></li>
                                             <?php }
 									        if (hasPermissions("adv", "movies", "import_movies")) { ?>
                                             <li><a href="./radarr.php">Radarr for Movies</a></li>
                                             <?php }
-											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+						        			if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
                                             <li><a href="./sonarr.php">Sonarr for Series</a></li>
                                             <?php } 
-											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+		        							if (hasPermissions("adv", "movies", "series", "episodes")) { ?>
                                             <li><a href="./bazarr.php">Bazarr for Subtitles</a></li>
                                             <?php }
-											if (hasPermissions("adv", "series", "add_series", "episodes")) { ?>
+        									if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
                                             <li><a href="./plex-web.php">Plex Media Server</a></li>
                                             <?php }
-											if (hasPermissions("adv", "movies", "series")) { ?>
+						        			if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
                                             <li><a href="./deluge.php">Deluge for P2P Downloads</a></li>
                                             <?php }
-											if (hasPermissions("adv", "movies", "series")) { ?>
-                                                li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
+		        							if (hasPermissions("adv", "movies", "import_movies", "series", "add_series", "episodes")) { ?>
+                                            <li><a href="./jackett.php">Jackett for P2P Indexes</a></li>
                                                 <!-- 
                                                 put your jacket web ui link
                                                 use "open in new tab" instead of in iframe until samesite=none shit solved in jackett 
                                                 <a href="https://yourdomain.com/jackett" target="_blank">Jackett for P2P Indexes</a>
                                                  --> 
                                             <?php } ?>
-                                         </ul>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
-							<?php }
+                            <?php }
 							if ((hasPermissions("adv", "add_stream")) OR (hasPermissions("adv", "import_streams")) OR (hasPermissions("adv", "create_channel")) OR (hasPermissions("adv", "streams")) OR (hasPermissions("adv", "mass_edit_streams"))  OR (hasPermissions("adv", "stream_tools"))  OR (hasPermissions("adv", "stream_errors"))  OR (hasPermissions("adv", "fingerprint"))) { ?>
                             <li class="has-submenu">
                                 <a href="#"> <i class="la la-play-circle-o"></i><?=$_["streams"]?> <div class="arrow-down"></div></a>
