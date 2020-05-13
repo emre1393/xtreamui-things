@@ -24,7 +24,7 @@ wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/conf/nginx_is
 mkdir -p /var/www/_letsencrypt
 chown xtreamcodes /var/www/_letsencrypt
 
-sudo certbot certonly --webroot --preferred-challenges http-01 -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
+sudo certbot certonly --preferred-challenges http-01 --webroot -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
 
