@@ -2,7 +2,7 @@ this nginx.conf file is prepared to use with certbot ssl certificates
 
 challange method is standalone, it will use 80 port.
 
-sudo certbot certonly --standalone --preferred-challenges http -d  yourdomain.com 
+sudo certbot certonly --standalone --preferred-challenges http-01 -d  yourdomain.com 
 
 
 also use wget command to get dhparam from mozilla
@@ -24,7 +24,7 @@ wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/conf/nginx_is
 mkdir -p /var/www/_letsencrypt
 chown xtreamcodes /var/www/_letsencrypt
 
-sudo certbot certonly --webroot --preferred-challenges http -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
+sudo certbot certonly --webroot --preferred-challenges http-01 -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
 
