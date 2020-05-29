@@ -32,9 +32,9 @@ unzip v1.2.1.zip
 
 cd /root/
 
-wget http://nginx.org/download/nginx-1.18.0.tar.gz
-tar -xzvf nginx-1.18.0.tar.gz
-cd nginx-1.18.0
+wget http://nginx.org/download/nginx-1.19.0.tar.gz
+tar -xzvf nginx-1.19.0.tar.gz
+cd nginx-1.19.0
 
 ./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/ --lock-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx_rtmp.lock --conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf --error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_error.log --http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_access.log --pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx.pid --add-module=/root/nginx-rtmp-module-1.2.1 --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --without-http_rewrite_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=/tmp/openssl-OpenSSL_1_1_1g --add-module=/root/ngx_http_geoip2_module --with-http_ssl_module
 
