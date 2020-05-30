@@ -15,7 +15,7 @@ function common_xpcom(){
     this.images   = [];
     this.storages = {};
     this.player = {};
-    this.key_lock = true;
+    this.key_lock = false;
     this.power_off = false;
     this.additional_services_on = 0;
     this.header_ua_ext = [];
@@ -1050,7 +1050,7 @@ function common_xpcom(){
 
             _debug('checking conditions 2');
 
-            if ((this.num_banks == 2 || ['MAG256', 'MAG257', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'MAG420'].indexOf(this.type) >= 0) && params.update_type == 'http_update'){
+            if ((this.num_banks == 2 || ['MAG256', 'MAG257', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352'].indexOf(this.type) >= 0) && params.update_type == 'http_update'){
                 try{
                     _debug('this.user[update_url]', this.user['update_url']);
 
@@ -1116,7 +1116,7 @@ function common_xpcom(){
             return;
         }
 
-        if (['MAG200', 'MAG256', 'MAG257', 'MAG260', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'MAG420', 'IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']){
+        if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']){
             var match = /Player Engine version: (\S+)/.exec(this.version);
             _debug('match', match);
 
@@ -1130,7 +1130,7 @@ function common_xpcom(){
                 stb.loader.stop();
                 this.cut_off(get_word('outdated_firmware'));
 
-                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'WR320',' MAG420', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
+                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
                     this.check_image_version();
                 }
 
@@ -1236,7 +1236,7 @@ function common_xpcom(){
 
                 _debug('this.user[update_url]', this.user['update_url']);
 
-                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'MAG420', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
+                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
                     this.check_image_version();
                 }
 
