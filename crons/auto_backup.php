@@ -4,13 +4,14 @@
 To run this script, put it into /home/xtreamcodes/iptv_xtream_codes/crons folder. 
 Restart panel, panel will add this php file as a cronjob for xtreamcodes user.
 Otherwise add manually,*/
-
-// add this: */1 * * * * /home/xtreamcodes/iptv_xtream_codes/php/bin/php /home/xtreamcodes/iptv_xtream_codes/crons/auto_backup.php # Xtream-Codes IPTV Panel 
+// sudo crontab -e -u xtreamcodes
+// -then add this: 
+// */1 * * * * /home/xtreamcodes/iptv_xtream_codes/php/bin/php /home/xtreamcodes/iptv_xtream_codes/crons/auto_backup.php # Xtream-Codes IPTV Panel 
 
 /*
 i forked this php from https://www.worldofiptv.com/threads/how-to-get-work-automatique-backup-in-xtream-ui-22f.7853/
 
-what it does? it backups db, compresses, then copies this compressed file to your rclone remote path
+what it does? it backups db, compresses, then copies this compressed file to your rclone remote path or your mail address or does both.
 
 
 https://rclone.org/commands/rclone_copy/
