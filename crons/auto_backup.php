@@ -13,6 +13,7 @@ i forked this php from https://www.worldofiptv.com/threads/how-to-get-work-autom
 
 what it does? it backups db, compresses, then copies this compressed file to your rclone remote path or your mail address or does both.
 
+For Rclone,
 
 https://rclone.org/commands/rclone_copy/
 
@@ -20,6 +21,12 @@ https://rclone.org/install/
 
 First install rclone, then run "rclone config" to setup your remote storage.
 See rclone config docs for more details.
+
+
+For sending mail, install mutt and sendmail
+
+sudo apt-get install mutt sendmail
+
 */
 
 include "/home/xtreamcodes/iptv_xtream_codes/admin/functions.php";
@@ -34,13 +41,13 @@ $AutoDBBackup = false; // DON'T touch to this.
 
 // choose mail or rclone below and edit related parts.
 
-    $rMailorRclone = "M";   # use "M" or "R", if statement will use one of these, use "B" for both options, don't forget to setup rclone and install mutt and sendmail !!!
+    $rMailorRclone = "M";   // use "M" or "R", if statement will use one of these, use "B" for both options, don't forget to setup rclone and install mutt and sendmail !!!
 
 //edit mail addresses if you want to use mutt,
 
-    $rSenderMail = "sender@example.com"; # mail address of sender
+    $rSenderMail = "sender@example.com"; // mail address of sender
 
-    $rRecepeintMail = "receipient@example.com";  # mail address of recepeint.
+    $rRecepeintMail = "receipient@example.com";  // mail address of recepeint.
 
 
 // edit these 2 line to send backup with rclone
