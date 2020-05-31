@@ -27,6 +27,10 @@ $AutoDBBackup = false; // DON'T touch to this.
 
 
 
+//script can run without sending the file to mail or rclone remote, set invalid option to mailorrclone variable for that.
+
+//if you want to send file after backup, edit next 6 variable according to the notes i put.
+
 // choose mail or rclone below and edit related parts.
 
     $rMailorRclone = "M";   # use "M" or "R", if statement will use one of these, use "B" for both options, don't forget to setup rclone and install mutt and sendmail !!!
@@ -147,12 +151,12 @@ if ($AutoDBBackup) {
             Sendwithmail();         
         } else {
 
-            echo "Invalid send choice, wont' send anything.";
+            echo "Invalid send choice, won't send anything.";
         }
     }
 
-    // delete .gz file
-    $rRet = shell_exec("rm ".$rTheGzipFile." 2>&1;");
+    // delete .gz file, also delete "sent" file, it is an output file after sending a email.
+    $rRet = shell_exec("rm ".$rTheGzipFile." && rm \"/home/xtreamcodes/sent\" 2>&1;");
 
     if (file_exists($rFilename)) {
 
