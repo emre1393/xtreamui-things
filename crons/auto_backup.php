@@ -51,9 +51,8 @@ $AutoDBBackup = false; // DON'T touch to this.
 
 
 // edit these 2 line to send backup with rclone
-//edit rclone remote name in $rRemoteFolder line, i named mine as "google_drive", replace it with yours, you don't need to change other thigs.
 
-    $rRemotePath = "google_drive";  // you can edit rclone remote name in $rRemoteFolder line here and in the rclone config when you want.
+    $rRemotePath = "google_drive";  // you can edit rclone remote name in $rRemoteFolder line here and i named mine as "google_drive", replace it with yours.
 
     $rRemoteFolder = "db_backups";  // this is the target folder in the rclone remote path. 
 
