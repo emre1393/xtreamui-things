@@ -23,7 +23,34 @@ See rclone config docs for more details.
 
 include "/home/xtreamcodes/iptv_xtream_codes/admin/functions.php";
 
-$AutoDBBackup = false;
+$AutoDBBackup = false; // DON'T touch to this.
+
+
+
+// choose mail or rclone below and edit related parts.
+
+    $rMailorRclone = "M";   # use "M" or "R", if statement will use one of these, use "B" for both options, don't forget to setup rclone and install mutt and sendmail !!!
+
+//edit mail addresses if you want to use mutt,
+
+    $rSenderMail = "sender@example.com"; # mail address of sender
+
+    $rRecepeintMail = "receipient@example.com";  # mail address of recepeint.
+
+
+// edit these 2 line to send backup with rclone
+//edit rclone remote name in $rRemoteFolder line, i named mine as "google_drive", replace it with yours, you don't need to change other thigs.
+
+    $rRemotePath = "google_drive";  // you can edit rclone remote name in $rRemoteFolder line here and in the rclone config when you want.
+
+    $rRemoteFolder = "db_backups";  // this is the target folder in the rclone remote path. 
+
+    $rSleepTimeForBackup = 5; //i had to use "sleep" to wait mysql process done before gzip command. increase it if your db is big or server is slow.
+
+
+
+
+
 
 // if last backup time is lower than (current time - periodicity), script runs.
 //(or day or week or month, why the hell do you backup once a month?) 
@@ -50,45 +77,57 @@ if (isset($rAdminSettings['automatic_backups']) && ! empty($rAdminSettings['auto
 
 }
 
-// choose mail or rclone below and edit related parts.
+
+
+// defining variables below
+//You DON'T need to edit rest of them.
+
+$rDateOfNow =  date("Y-m-d_H:i:s");  // define current time, example: 2020-05-27_18:18:33
+
+$rFilename = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".sql";
+
+$rTheGzipFile = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".gz";
+
+
+$rCommand0 = "mysqldump -u ".$_INFO["db_user"]." -p".$_INFO["db_pass"]." -P ".$_INFO["db_port"]." ".$_INFO["db_name"]." --ignore-table=xtream_iptvpro.user_activity --ignore-table=xtream_iptvpro.stream_logs --ignore-table=xtream_iptvpro.panel_logs --ignore-table=xtream_iptvpro.client_logs --ignore-table=xtream_iptvpro.epg_data --ignore-table=xtream_iptvpro.mag_logs > \"".$rFilename."\" && sleep ".$rSleepTimeForBackup."; gzip < ".$rFilename." > ".$rTheGzipFile.";";
+
+$rCommand1 = "export EMAIL=".$rSenderMail." && echo \"Database Backup ".$rDateOfNow."\" | mutt -e 'my_hdr From: Admin <".$rSenderMail.">' -s \"Database Backup ".$rDateOfNow."\" -a ".$rTheGzipFile." -- \"".$rRecepeintMail."\"";
+
+$rCommand2 = "/usr/bin/rclone copy --no-traverse ".$rTheGzipFile." ".$rRemotePath.":".$rRemoteFolder.";";
+
+
+function Sendwithmail() {
+    global $rCommand1;
+    //check mutt and sendmail exists in xtreamcodes user
+    if (file_exists("/usr/bin/mutt") && file_exists("/usr/sbin/sendmail")) {
+
+        shell_exec($rCommand1); // . "2>&1"
+
+        } else {
+
+        shell_exec("echo \"mutt and/or sendmail couldn't found, please install them first\nsudo apt-get install mutt sendmail\" >> /home/xtreamcodes/auto_backup.log;");
+            echo "check error logs in /home/xtreamcodes/auto_backup.log";
+        }
+  }
+
+function CopytoRcloneRemote() {
+    global $rCommand2;
+        //check rclone remote config file exists in xtreamcodes user
+        if (file_exists("/home/xtreamcodes/.config/rclone/rclone.conf")) {
+
+        shell_exec($rCommand2); // . "2>&1"
+
+        } else {
+                // tell user to setup rclone first.
+        shell_exec("echo \"rclone config couldn't found, make sure you did setup your rclone remote\n if you already did setup rclone remote drive, copy rclone config file from root user to xtreamcodes user's home folder with this command.\nmkdir -p /home/xtreamcodes/.config/rclone/ && cp /root/.config/rclone/rclone.conf /home/xtreamcodes/.config/rclone/rclone.conf; \" >> /home/xtreamcodes/auto_backup.log;");
+            echo "check error logs in /home/xtreamcodes/auto_backup.log";
+        }
+  }
+
 
 if ($AutoDBBackup) {
-
-    $rDateOfNow =  date("Y-m-d_H:i:s");  // define current time example: 2020-05-27_18:18:33
-    
-    $rMailorRclone = "M";   # use "M" or "R", if statement will use one of these.
-
-//edit mail addresses if you want to use mutt,
-
-    $rSenderMail = "sender@example.com"; # mail address of sender
-
-    $rRecepeintMail = "receipient@example.com";  # mail address of recepeint.
-
-
-// edit these 2 line to send backup with rclone
-//edit rclone remote name in $rRemoteFolder line, i named mine as "google_drive", replace it with yours, you don't need to change other thigs.
-
-    $rRemotePath = "google_drive";  // you can edit rclone remote name in $rRemoteFolder line here and in the rclone config when you want.
-
-    $rRemoteFolder = "db_backups";  // this is the target folder in the rclone remote path. 
-
-    $rSleepTimeForBackup = 5; //i had to use "sleep" to wait mysql process done before gzip command. increase it if your db is big or server is slow.
-
-    //You DON'T need to edit rest of them.
-
-    $rFilename = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".sql";
-
-    $rTheGzipFile = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".gz";
-
-
-    $rCommand0 = "mysqldump -u ".$_INFO["db_user"]." -p".$_INFO["db_pass"]." -P ".$_INFO["db_port"]." ".$_INFO["db_name"]." --ignore-table=xtream_iptvpro.user_activity --ignore-table=xtream_iptvpro.stream_logs --ignore-table=xtream_iptvpro.panel_logs --ignore-table=xtream_iptvpro.client_logs --ignore-table=xtream_iptvpro.epg_data --ignore-table=xtream_iptvpro.mag_logs > \"".$rFilename."\" && sleep ".$rSleepTimeForBackup."; gzip < ".$rFilename." > ".$rTheGzipFile.";";
-
-    $rCommand1 = "export EMAIL=".$rSenderMail." && echo \"Database Backup ".$rDateOfNow."\" | mutt -e 'my_hdr From: Admin <".$rSenderMail.">' -s \"Database Backup ".$rDateOfNow."\" -a ".$rTheGzipFile." -- \"".$rRecepeintMail."\"";
-
-    $rCommand2 = "/usr/bin/rclone copy --no-traverse ".$rTheGzipFile." ".$rRemotePath.":".$rRemoteFolder.";";
-
     //backup db with first command
-    $rRet = shell_exec($rCommand0);
+    shell_exec($rCommand0);
 
     //echo($rCommand1);  //for debug
 
@@ -98,28 +137,14 @@ if ($AutoDBBackup) {
     if (file_exists($rTheGzipFile)) {
 
         if ($rMailorRclone == 'M') {
-            if (file_exists("/usr/bin/mutt") && file_exists("/usr/sbin/sendmail")) {
+            Sendwithmail();
 
-            $rRet = shell_exec($rCommand1); // . "2>&1"
-
-            } else {
-
-                $rRet = shell_exec("echo \"mutt and/or sendmail couldn't found, please install them first\nsudo apt-get install mutt sendmail\" >> /home/xtreamcodes/auto_backup.log;");
-                echo "check error logs in /home/xtreamcodes/auto_backup.log";
-            }
         } else if ($rMailorRclone == 'R') {
-                    //check rclone remote config file exists in xtreamcodes user
-                if (file_exists("/home/xtreamcodes/.config/rclone/rclone.conf")) {
+            CopytoRcloneRemote();
 
-                    $rRet = shell_exec($rCommand2); // . "2>&1"
-
-                } else {
-                        // tell user to setup rclone first.
-                    $rRet = shell_exec("echo \"rclone config couldn't found, make sure you did setup your rclone remote\n if you already did setup rclone remote drive, copy rclone config file from root user to xtreamcodes user's home folder with this command.\nmkdir -p /home/xtreamcodes/.config/rclone/ && cp /root/.config/rclone/rclone.conf /home/xtreamcodes/.config/rclone/rclone.conf; \" >> /home/xtreamcodes/auto_backup.log;");
-                    echo "check error logs in /home/xtreamcodes/auto_backup.log";
-                }
-            } 
-
+        } else if ($rMailorRclone == 'B') {
+            Sendwithmail();
+            CopytoRcloneRemote();         
         } else {
 
             echo "Invalid send choice, wont' send anything.";
