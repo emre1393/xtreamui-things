@@ -61,7 +61,7 @@ $AutoDBBackup = false; // DON'T touch to this.
 
 
 
-
+//You DON'T need to edit rest of them.
 
 // if last backup time is lower than (current time - periodicity), script runs.
 //(or day or week or month, why the hell do you backup once a month?) 
@@ -91,7 +91,6 @@ if (isset($rAdminSettings['automatic_backups']) && ! empty($rAdminSettings['auto
 
 
 // defining variables below
-//You DON'T need to edit rest of them.
 
 $rDateOfNow =  date("Y-m-d_H:i:s");  // define current time, example: 2020-05-27_18:18:33
 
