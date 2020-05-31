@@ -143,8 +143,8 @@ if ($AutoDBBackup) {
             CopytoRcloneRemote();
 
         } else if ($rMailorRclone == 'B') {
-            Sendwithmail();
-            CopytoRcloneRemote();         
+            CopytoRcloneRemote();
+            Sendwithmail();         
         } else {
 
             echo "Invalid send choice, wont' send anything.";
