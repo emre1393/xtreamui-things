@@ -25,4 +25,4 @@ sudo echo > /home/xtreamcodes/iptv_xtream_codes/logs/error.log
 #DELETE FROM `mag_logs` WHERE `date` < UNIX_TIMESTAMP(NOW() - INTERVAL 3 DAY);  
 #DELETE FROM `client_logs` WHERE `date` < UNIX_TIMESTAMP(NOW() - INTERVAL 3 DAY);  
 #DELETE FROM `stream_logs` WHERE `date` < UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY);  
-#DELETE FROM `epg_data` WHERE `start` < NOW() - INTERVAL 10 DAY;  
+#DELETE FROM `epg_data` WHERE `start` < (NOW() - INTERVAL 10 DAY);  
