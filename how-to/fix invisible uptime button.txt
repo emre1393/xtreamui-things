@@ -1,0 +1,3 @@
+revert button class to earlier versions in r22f table_search.php
+
+sed -i 's|btn btn-rounded btn-xs waves-effect waves-light|btn btn-outline-success btn-rounded btn-xs waves-effect waves-light|g' /home/xtreamcodes/iptv_xtream_codes/admin/table_search.php
