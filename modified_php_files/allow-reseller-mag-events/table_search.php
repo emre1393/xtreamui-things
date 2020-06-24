@@ -11,10 +11,6 @@ $rStatusArray = Array(0 => "<button type='button' class='btn btn-outline-warning
 $rVODStatusArray = Array(0 => "<i class='text-dark mdi mdi-checkbox-blank-circle-outline'></i>", 1 => "<i class='text-success mdi mdi-check-circle'></i>", 2 => "<i class='text-warning mdi mdi-checkbox-blank-circle'></i>", 3 => "<i class='text-primary mdi mdi-web'></i>", 4 => "<i class='text-danger mdi mdi-triangle'></i>");
 $rWatchStatusArray = Array(1 => "<button type='button' class='btn btn-outline-success btn-rounded btn-xs waves-effect waves-light'>ADDED</button>", 2 => "<button type='button' class='btn btn-outline-danger btn-rounded btn-xs waves-effect waves-light'>SQL FAILED</button>", 3 => "<button type='button' class='btn btn-outline-danger btn-rounded btn-xs waves-effect waves-light'>NO CATEGORY</button>", 4 => "<button type='button' class='btn btn-outline-danger btn-rounded btn-xs waves-effect waves-light'>NO TMDb MATCH</button>", 5 => "<button type='button' class='btn btn-outline-danger btn-rounded btn-xs waves-effect waves-light'>INVALID FILE</button>");
 
-foreach ($_GET as $rKey => $rValue) {
-    
-}
-
 $rType = $_GET["id"];
 $rStart = intval($_GET["start"]);
 $rLimit = intval($_GET["length"]);
@@ -73,7 +69,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(`users`.`id`) AS `count` FROM `users` LEFT JOIN `reg_users` ON `reg_users`.`id` = `users`.`member_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -231,7 +228,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(`users`.`id`) AS `count` FROM `users` LEFT JOIN `reg_users` ON `reg_users`.`id` = `users`.`member_id` INNER JOIN `mag_devices` ON `mag_devices`.`user_id` = `users`.`id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -385,7 +383,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(`users`.`id`) AS `count` FROM `users` LEFT JOIN `reg_users` ON `reg_users`.`id` = `users`.`member_id` INNER JOIN `enigma2_devices` ON `enigma2_devices`.`user_id` = `users`.`id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -532,7 +531,8 @@ if ($rType == "users") {
             $rWhere[] = "`streams_sys`.`server_id` = ".intval($_GET["server"]);
         }
         if ($rOrder[$rOrderRow]) {
-            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+            $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
         }
     }
     if (count($rWhere) > 0) {
@@ -778,7 +778,8 @@ if ($rType == "users") {
             $rWhere[] = "`streams_sys`.`server_id` = ".intval($_GET["server"]);
         }
         if ($rOrder[$rOrderRow]) {
-            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+            $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
         }
     }
     if (count($rWhere) > 0) {
@@ -982,7 +983,8 @@ if ($rType == "users") {
             $rWhere[] = "`streams_sys`.`server_id` = ".intval($_GET["server"]);
         }
         if ($rOrder[$rOrderRow]) {
-            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+            $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
         }
     }
     if (count($rWhere) > 0) {
@@ -1141,7 +1143,8 @@ if ($rType == "users") {
         }
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1222,7 +1225,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `user_activity` LEFT JOIN `users` ON `user_activity`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity`.`server_id` = `streaming_servers`.`id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1311,7 +1315,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `user_activity_now` LEFT JOIN `users` ON `user_activity_now`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity_now`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity_now`.`server_id` = `streaming_servers`.`id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1413,7 +1418,8 @@ if ($rType == "users") {
         $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%')";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1472,7 +1478,8 @@ if ($rType == "users") {
         }
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1547,7 +1554,8 @@ if ($rType == "users") {
         $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%')";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1594,7 +1602,8 @@ if ($rType == "users") {
         $rWhere[] = "(`series`.`id` LIKE '%{$rSearch}%' OR `series`.`title` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%')";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1655,7 +1664,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `credits_log` LEFT JOIN `reg_users` AS `target` ON `target`.`id` = `credits_log`.`target_id` LEFT JOIN `reg_users` AS `owner` ON `owner`.`id` = `credits_log`.`admin_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1698,7 +1708,8 @@ if ($rType == "users") {
     }
     $rWhereString = "WHERE ".join(" AND ", $rWhere);
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(DISTINCT(`user_activity`.`user_id`)) AS `count` FROM `user_activity` LEFT JOIN `users` ON `users`.`id` = `user_activity`.`user_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1756,7 +1767,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `client_logs` LEFT JOIN `streams` ON `streams`.`id` = `client_logs`.`stream_id` LEFT JOIN `users` ON `users`.`id` = `client_logs`.`user_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1817,7 +1829,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `reg_userlog` LEFT JOIN `reg_users` ON `reg_users`.`id` = `reg_userlog`.`owner` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1878,7 +1891,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `stream_logs` LEFT JOIN `streams` ON `streams`.`id` = `stream_logs`.`stream_id` LEFT JOIN `streaming_servers` ON `streaming_servers`.`id` = `stream_logs`.`server_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -1918,7 +1932,8 @@ if ($rType == "users") {
         $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%')";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -1978,7 +1993,8 @@ if ($rType == "users") {
         $rWhereString = "";
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     $rCountQuery = "SELECT COUNT(*) AS `count` FROM `reg_users` LEFT JOIN `member_groups` ON `member_groups`.`group_id` = `reg_users`.`member_group_id` LEFT JOIN `reg_users` AS `r` on `r`.`id` = `reg_users`.`owner_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
@@ -2059,7 +2075,8 @@ if ($rType == "users") {
         }
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"].", `series`.`id` ASC";
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection.", `series`.`id` ASC";
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);
@@ -2151,7 +2168,8 @@ if ($rType == "users") {
             $rWhere[] = "`streams_sys`.`server_id` = ".intval($_GET["server"]);
         }
         if ($rOrder[$rOrderRow]) {
-            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+            $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+            $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
         }
     }
     if (count($rWhere) > 0) {
@@ -2316,7 +2334,8 @@ if ($rType == "users") {
         $rWhere[] = "`watch_output`.`status` = ".intval($_GET["status"]);
     }
     if ($rOrder[$rOrderRow]) {
-        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$_GET["order"][0]["dir"];
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
     }
     if (count($rWhere) > 0) {
         $rWhereString = "WHERE ".join(" AND ", $rWhere);

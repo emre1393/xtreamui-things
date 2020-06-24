@@ -273,8 +273,8 @@ if (isset($_GET["id"])) {
     if (!$rUser) {
         exit;
     }
-    $rUser["mac_address_mag"] = getMAGUser($_GET["id"]);
-    $rUser["mac_address_e2"] = getE2User($_GET["id"]);
+    $rUser["mac_address_mag"] = base64_decode(getMAGUser($_GET["id"])["mac"]);
+    $rUser["mac_address_e2"] = getE2User($_GET["id"])["mac"];
     $rUser["outputs"] = getOutputs($rUser["id"]);
 }
 
