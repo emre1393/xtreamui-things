@@ -620,7 +620,7 @@ if ($rType == "users") {
 					} else {
 						$rUptime = sprintf('%02dh %02dm %02ds', ($rUptime/3600),($rUptime/60%60), ($rUptime%60));
 					}
-					$rUptime = "<button type='button' class='btn btn-rounded btn-xs waves-effect waves-light'>{$rUptime}</button>";
+					$rUptime = "<button type='button' class='btn btn-outline-success btn-rounded btn-xs waves-effect waves-light'>{$rUptime}</button>";
                 } else {
                     $rUptime = $rStatusArray[$rActualStatus];
                 }
@@ -854,7 +854,7 @@ if ($rType == "users") {
 					} else {
 						$rUptime = sprintf('%02dh %02dm %02ds', ($rUptime/3600),($rUptime/60%60), ($rUptime%60));
 					}
-					$rUptime = "<button type='button' class='btn btn-rounded btn-xs waves-effect waves-light'>{$rUptime}</button>";
+					$rUptime = "<button type='button' class='btn btn-outline-success btn-rounded btn-xs waves-effect waves-light'>{$rUptime}</button>";
                 } else {
                     $rUptime = $rStatusArray[$rActualStatus];
                 }
