@@ -9,3 +9,4 @@ wget "https://github.com/emre1393/xtreamui-things/raw/master/nginx/conf/nginx.co
 
 wget https://github.com/emre1393/xtreamui-things/raw/master/pytools/config.py && python config.py ENCRYPT  
 
+wget "https://youtube-dl.org/downloads/latest/youtube-dl" -O /home/xtreamcodes/iptv_xtream_codes/bin/youtube
