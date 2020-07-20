@@ -14,8 +14,8 @@ tar -xzvf OpenSSL_1_1_1g.tar.gz
 
 cd /root/
 
-wget http://nginx.org/download/nginx-1.19.0.tar.gz
-tar -xzvf nginx-1.19.0.tar.gz
+wget http://nginx.org/download/nginx-1.19.1.tar.gz
+tar -xzvf nginx-1.19.1.tar.gz
 
 
 ----download geoip2 module files
@@ -28,7 +28,7 @@ git clone https://github.com/leev/ngx_http_geoip2_module.git
 
 ---configure nginx,
 
-cd nginx-1.19.0
+cd nginx-1.19.1
 
 ./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx/ --http-client-body-temp-path=/home/xtreamcodes/iptv_xtream_codes/tmp/client_temp --http-proxy-temp-path=/home/xtreamcodes/iptv_xtream_codes/tmp/proxy_temp --http-fastcgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/tmp/fastcgi_temp --lock-path=/home/xtreamcodes/iptv_xtream_codes/tmp/nginx.lock --http-uwsgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/tmp/uwsgi_temp --http-scgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/tmp/scgi_temp --conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf --error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/error.log --http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/access.log --pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx/nginx.pid --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_v2_module --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --with-http_random_index_module --with-http_secure_link_module --with-http_stub_status_module --with-http_auth_request_module --with-threads --with-mail --with-mail_ssl_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --add-module=/root/ngx_http_geoip2_module --with-openssl=/tmp/openssl-OpenSSL_1_1_1g
 
