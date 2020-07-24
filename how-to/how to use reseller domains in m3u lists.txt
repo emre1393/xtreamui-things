@@ -6,16 +6,28 @@ if you enable it, panel generate stream links with default domain name of main s
 
 
 
-also if you want to hide main server's domain name in player_api.php results, edit player_api.php;
+--also if you want to hide main server's domain name in player_api.php and panel_api.php results, 
+
+--edit player_api.php;
 
 
-
-find:
+-find:
 
 E9902f3200be146dfc047b189173ae14: $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bf8D35765bE2408C50712Ce7a43AD::$StreamingServers[SERVER_ID]["\144\157\155\x61\x69\x6e\137\156\141\x6d\x65"]) ? A78BF8d35765bE2408C50712ce7A43ad::$StreamingServers[SERVER_ID]["\163\145\162\x76\145\162\x5f\x69\x70"] : A78BF8D35765bE2408c50712CE7A43aD::$StreamingServers[SERVER_ID]["\x64\x6f\x6d\x61\x69\x6e\137\156\141\x6d\145"];
 
 
-replace:
+-replace:
 
 E9902f3200be146dfc047b189173ae14: list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bf8D35765bE2408C50712Ce7a43AD::$StreamingServers[SERVER_ID]["domain_name"]) ? A78BF8d35765bE2408C50712ce7A43ad::$StreamingServers[SERVER_ID]["server_ip"] : $customhost;
 
+
+--edit panel_api.php;
+
+-find :
+
+$e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["\x64\157\x6d\x61\151\156\137\x6e\x61\x6d\x65"]) ? a78BF8d35765BE2408c50712Ce7A43ad::$StreamingServers[SERVER_ID]["\x73\145\x72\166\x65\162\x5f\151\160"] : a78BF8d35765bE2408C50712cE7A43AD::$StreamingServers[SERVER_ID]["\144\157\155\141\151\156\x5f\x6e\141\155\145"];
+
+
+-replace:
+
+list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["domain_name"]) ? a78BF8d35765BE2408c50712Ce7A43ad::$StreamingServers[SERVER_ID]["server_ip"] : $customhost;
