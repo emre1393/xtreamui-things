@@ -1,0 +1,4 @@
+ Fix for Dashboard Stats 
+add initial data with this, then enable client logs and dashboard stats settings.
+
+INSERT INTO xtream_iptvpro.dashboard_statistics (type, time, count) VALUES('conns', UNIX_TIMESTAMP(), 0),('users', UNIX_TIMESTAMP(), 0);

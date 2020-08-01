@@ -1,0 +1,5 @@
+ Fix "uptime" button is invisible in light mode
+
+css class is different in r22f, run this to revert it to one from earlier versions.
+
+sed -i 's|btn btn-rounded btn-xs waves-effect waves-light|btn btn-outline-success btn-rounded btn-xs waves-effect waves-light|g' /home/xtreamcodes/iptv_xtream_codes/admin/table_search.php

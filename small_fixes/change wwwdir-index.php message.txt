@@ -1,0 +1,2 @@
+You can change index.php message quickly 
+sed -i 's|Xtream Codes Reborn|Access Denied|g' /home/xtreamcodes/iptv_xtream_codes/wwwdir/index.php

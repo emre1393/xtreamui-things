@@ -1,0 +1,9 @@
+Disable Image Resizing in table_search.php 
+if you have a slow server that can't handle this process, delete image resize request from code.
+find this
+
+$rIcon = "<img src='./resize.php?max=32&url=".$rRow["stream_icon"]."' />";
+
+and replace with this
+ 
+$rIcon = "";

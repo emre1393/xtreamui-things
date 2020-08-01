@@ -1,0 +1,10 @@
+How to fix " Failed to update GeoLite2! Please try again" error in the pannel settings :
+
+1. Access ssh and log in as root
+2. Type in : sudo visudo
+3  Modify the existing line : 
+xtreamcodes ALL = (root) NOPASSWD: /sbin/iptables
+   to look like this:  
+xtreamcodes ALL = (root) NOPASSWD: /sbin/iptables, /usr/bin/chattr 
+ and save it 
+4. Go back in the panel and try again to update GeoLite2.

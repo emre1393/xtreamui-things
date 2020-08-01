@@ -1,0 +1,9 @@
+go to wwwdir/includes/functions.php, 
+
+find this,
+
+$Af218a53429705d6e319475a2185cd90 = "\x30\x20\61\40\52\x20\52\x20\x2a";
+
+replace with you own cron time, this one runs at 03:00am every day, (you can use this web site https://crontab.guru/)
+
+$Af218a53429705d6e319475a2185cd90 = "0 3 * * *";

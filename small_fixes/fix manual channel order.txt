@@ -1,0 +1,5 @@
+Fix manual channel order 
+
+mag stb shows 0 for channel numbers, looks like it is using "number" column instead of "order" column. so edit related php files like this, then sort channels again.  
+
+sed -i 's|`order` = ".intval($rSort)."|`order` = ".intval($rSort).", `number` = ".intval($rSort)."|g' /home/xtreamcodes/iptv_xtream_codes/admin/channel_order*.php
