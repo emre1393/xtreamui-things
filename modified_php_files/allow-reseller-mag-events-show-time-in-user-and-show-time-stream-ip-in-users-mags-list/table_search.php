@@ -201,8 +201,8 @@ if ($rType == "users") {
                     $rTime = "";
                 }
 
-				if(strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a><img src='https://www.ip-tracker.org/images/ip-flags/" . strtolower($row2['geoip_country_code']) . ".png'> </img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
+				if(!empty($row2["geoip_country_code"])) {
+                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a> <img src='https://www.ip-tracker.org/images/ip-flags/".strtolower($row2["geoip_country_code"]).".png'></img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
                 } else if(strlen($row2["user_ip"]) > 0) {
                     $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a>";
                 } else {
@@ -385,8 +385,8 @@ if ($rType == "users") {
                     $rTime = "";
                 }
 
-				if(strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a><img src='https://www.ip-tracker.org/images/ip-flags/" . strtolower($row2['geoip_country_code']) . ".png'> </img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
+				if(!empty($row2["geoip_country_code"])) {
+                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a> <img src='https://www.ip-tracker.org/images/ip-flags/".strtolower($row2["geoip_country_code"]).".png'></img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
                   } else if(strlen($row2["user_ip"]) > 0) {
                     $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a>";
                   } else {
