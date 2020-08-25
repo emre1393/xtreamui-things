@@ -140,7 +140,7 @@ if __name__ == "__main__":
                     print "Granted access from: %s" % rHost
                     print " "
                     if rHost <> ["localhost", "127.0.0.1"]: rCommand = "GRANT SELECT, INSERT, UPDATE, DELETE ON %s.* TO '%s'@'%s' IDENTIFIED BY '%s';" % (rConfig["db_name"], rConfig["db_user"], rHost, rMySQLPass)
-                    else: rCommand = "GRANT ALL PRIVILEGES ON %s.* TO '%s'@'%s' IDENTIFIED BY '%s';" % (rConfig["db_name"], rConfig["db_user"], rHost, rMySQLPass)
+                    else: rCommand = "CREATE USER '%s'@'%s' IDENTIFIED BY '%s'; GRANT ALL PRIVILEGES ON %s.* TO '%s'@'%s' WITH GRANT OPTION; GRANT SELECT, LOCK TABLES ON *.* TO '%s'@'%s';" % (rConfig["db_user"], rHost, rMySQLPass, rConfig["db_name"], rConfig["db_user"], rHost, rConfig["db_user"], rHost)
                     if rRootPass: rRet = os.system("mysql -u root -p%s -e \"%s\" >/dev/null 2>&1" % (rRootPass, rCommand))
                     else: rRet = os.system("mysql -u root -e \"%s\" >/dev/null 2>&1" % rCommand)
                 rCommand = "FLUSH PRIVILEGES;"
