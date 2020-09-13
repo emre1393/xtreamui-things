@@ -602,6 +602,8 @@ if (isset($_GET["action"])) {
                 $return["total_streams"] += $rServerArray["total_streams"];
                 $return["total_running_streams"] += $rServerArray["total_running_streams"];
                 $return["offline_streams"] += $rServerArray["offline_streams"];
+                $return["bytes_received"] += $rServerArray["bytes_received"]; // total input
+                $return["bytes_sent"] += $rServerArray["bytes_sent"]; // total output
             }
         }
         echo json_encode($return);exit;
