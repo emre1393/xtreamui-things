@@ -1,0 +1,26 @@
+how to download vod with wget
+
+use regex on visual studio code and prepare  wget -O "file" "link" rows
+
+
+for movies,
+
+find,
+
+#EXTINF:0, tvg-id="" tvg-logo="(.+)" tvg-name="(.+)"  group-title="(.+)",(.+)\nhttp://(.+)/movie/(.+)/(.+)/(.+)\.(.+)
+
+replace,
+
+wget -qq -O "/home/example/$2/$2.$9" "http://$5/movie/$6/$7/$8.$9"
+
+
+
+for series,
+
+find,
+
+#EXTINF:0, tvg-id="" tvg-logo="(.+)" tvg-name="(.+)"  group-title="(.+)",(.+)\nhttp://(.+)/series/(.+)/(.+)/(.+)\.(.+)
+
+replace,
+
+wget -qq -O "/home/example/$2.$9" "http://$5/movie/$6/$7/$8.$9"
