@@ -1,6 +1,6 @@
 disable "Use domain in lists" option in settings > streaming tab.
 
-panel will generate m3u with domain name of request.
+panel will generate m3u with domain name of request. 
 
 if you enable it, panel generate stream links with default domain name of main server.
 
