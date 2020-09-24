@@ -61,8 +61,8 @@ $b491382721126ed130f32155d616b806 = array('total_ram' => $E747328102236137f1cbe6
 $A752e3fbe7ed63f10be97634c544dc8f = array_values(array_unique(array_map('trim', explode('', shell_exec('ip -4 addr | grep -oP \'(?<=inet\\s)\\d+(\\.\\d+){3}\'')))));
 $f566700a43ee8e1f0412fe10fbdf03df->query('UPDATE `streaming_servers` SET `server_hardware` = \'%s\',`whitelist_ips` = \'%s\' WHERE `id` = \'%d\'', json_encode($b491382721126ed130f32155d616b806), json_encode($A752e3fbe7ed63f10be97634c544dc8f), SERVER_ID);
 define('GEOIP2_FILENAME', IPTV_PANEL_DIR . 'GeoLite2.mmdb');
-if (!file_exists(GEOIP2_FILENAME) || 86400 <= time() - filemtime(GEOIP2_FILENAME)) {
+/*if (!file_exists(GEOIP2_FILENAME) || 86400 <= time() - filemtime(GEOIP2_FILENAME)) {
    passthru('wget --no-check-certificate --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36" --timeout=40 "https://xtream-ui.com/GeoLite2/GeoLite2.mmdb" -O "' . GEOIP2_FILENAME . '" -q 2>/dev/null');
    touch(GEOIP2_FILENAME);
-}
+}*/
 ?>
