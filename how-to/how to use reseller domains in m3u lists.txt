@@ -18,16 +18,16 @@ E9902f3200be146dfc047b189173ae14: $e3539ad64f4d9fc6c2e465986c622369 = empty(A78b
 
 -replace:
 
-E9902f3200be146dfc047b189173ae14: list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bf8D35765bE2408C50712Ce7a43AD::$StreamingServers[SERVER_ID]["domain_name"]) ? A78BF8d35765bE2408C50712ce7A43ad::$StreamingServers[SERVER_ID]["server_ip"] : $customhost;
+E9902f3200be146dfc047b189173ae14: list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bf8D35765bE2408C50712Ce7a43AD::$StreamingServers[SERVER_ID]["domain_name"]) ? $customhost : $customhost;
 
 
 --edit panel_api.php;
 
 -find :
 
-$e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["\x64\157\x6d\x61\151\156\137\x6e\x61\x6d\x65"]) ? a78BF8d35765BE2408c50712Ce7A43ad::$StreamingServers[SERVER_ID]["\x73\145\x72\166\x65\162\x5f\151\160"] : a78BF8d35765bE2408C50712cE7A43AD::$StreamingServers[SERVER_ID]["\144\157\155\141\151\156\x5f\x6e\141\155\145"];
+ff3c48d0dfde9053694371e60347b1c1: $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["\x64\157\x6d\x61\151\156\137\x6e\x61\x6d\x65"]) ? a78BF8d35765BE2408c50712Ce7A43ad::$StreamingServers[SERVER_ID]["\x73\145\x72\166\x65\162\x5f\151\160"] : a78BF8d35765bE2408C50712cE7A43AD::$StreamingServers[SERVER_ID]["\144\157\155\141\151\156\x5f\x6e\141\155\145"];
 
 
 -replace:
 
-list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["domain_name"]) ? a78BF8d35765BE2408c50712Ce7A43ad::$StreamingServers[SERVER_ID]["server_ip"] : $customhost;
+ff3c48d0dfde9053694371e60347b1c1: list($customhost, $act) = explode(':', $_SERVER['HTTP_HOST']); $e3539ad64f4d9fc6c2e465986c622369 = empty(A78bF8d35765be2408c50712ce7A43Ad::$StreamingServers[SERVER_ID]["domain_name"]) ? $customhost : $customhost;
