@@ -4,7 +4,8 @@ import os, sys, json, MySQLdb, requests, random, string, socket
 from itertools import cycle, izip
 
 """
- i forked this script from GTA's check_hacks.py script, if you want to change main ip but keep db passwd, use this.
+ i forked this script from GTA's check_hacks.py script, 
+ use this script if you want to change main server info on all lb servers.
 
 #dependencies 
 sudo apt-get install python-mysqldb python-requests
@@ -57,7 +58,7 @@ def decryptConfig(rConfig):
 def encryptConfig(rConfig):
     return ''.join(chr(ord(c)^ord(k)) for c,k in izip(json.dumps(rConfig), cycle('5709650b0d7806074842c6de575025b1'))).encode('base64').replace('\n', '')
 
-def generate(length=23): return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
+#def generate(length=23): return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
 
 
 if __name__ == "__main__":
