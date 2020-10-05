@@ -98,6 +98,7 @@ if __name__ == "__main__":
                 try: 
                     new_main_ip = raw_input("New Main Server Ip: %s" % (" "*4))
                     new_db_pass = raw_input("New DB Password: %s" % (" "*7))
+                    print " "
                 except:
                     print "Invalid entries!"
                     sys.exit(1)
