@@ -2,6 +2,13 @@ this nginx.conf file is prepared to use with certbot ssl certificates
 
 challange method is standalone, it will use 80 port.
 
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot 
+
 sudo certbot certonly --standalone --preferred-challenges http-01 -d  yourdomain.com 
 
 
@@ -27,10 +34,23 @@ chown xtreamcodes /var/www/_letsencrypt
 sudo certbot certonly --preferred-challenges http-01 --webroot -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
+or for wildcard certificate
+
+sudo certbot certonly --preferred-challenges=dns -email info@yourdomain.com -n --agree-tos --force-renewal -d *.yourdomain.com
+
+"Please deploy a DNS TXT record under the name and use the value given by certbot
+_acme-challenge.yourdomain.com"
+
 
 also enable https streaming in panel with adding server id to settings > use_https data like this with a mysql querry.
 
 UPDATE `xtream_iptvpro`.`settings` set `use_https` = '["1","2","3",....,"xyz"]' where `id` = 1;
 
 
+echo -n "deploy-hook = /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx -s reload" >> /etc/letsencrypt/cli.ini
+
+
+clear nginx logs every 3 hours
+
+0 */3 * * * echo "" > /home/xtreamcodes/iptv_xtream_codes/logs/main.error.log && echo "" > /home/xtreamcodes/iptv_xtream_codes/logs/main.access.log
 
