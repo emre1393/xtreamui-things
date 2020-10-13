@@ -34,12 +34,6 @@ chown xtreamcodes /var/www/_letsencrypt
 sudo certbot certonly --preferred-challenges http-01 --webroot -w /var/www/_letsencrypt -d yourdomain.com --email info@yourdomain.com -n --agree-tos --force-renewal
 
 
-or for wildcard certificate
-
-sudo certbot certonly --preferred-challenges=dns -email info@yourdomain.com -n --agree-tos --force-renewal -d *.yourdomain.com
-
-"Please deploy a DNS TXT record under the name and use the value given by certbot
-_acme-challenge.yourdomain.com"
 
 
 also enable https streaming in panel with adding server id to settings > use_https data like this with a mysql querry.
