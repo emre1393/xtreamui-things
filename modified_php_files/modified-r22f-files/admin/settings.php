@@ -6,13 +6,6 @@ if ((!hasPermissions("adv", "settings")) && (!hasPermissions("adv", "database"))
 $rTMDBLanguages = Array("" => "Default - EN", "aa" => "Afar", "af" => "Afrikaans", "ak" => "Akan", "an" => "Aragonese", "as" => "Assamese", "av" => "Avaric", "ae" => "Avestan", "ay" => "Aymara", "az" => "Azerbaijani", "ba" => "Bashkir", "bm" => "Bambara", "bi" => "Bislama", "bo" => "Tibetan", "br" => "Breton", "ca" => "Catalan", "cs" => "Czech", "ce" => "Chechen", "cu" => "Slavic", "cv" => "Chuvash", "kw" => "Cornish", "co" => "Corsican", "cr" => "Cree", "cy" => "Welsh", "da" => "Danish", "de" => "German", "dv" => "Divehi", "dz" => "Dzongkha", "eo" => "Esperanto", "et" => "Estonian", "eu" => "Basque", "fo" => "Faroese", "fj" => "Fijian", "fi" => "Finnish", "fr" => "French", "fy" => "Frisian", "ff" => "Fulah", "gd" => "Gaelic", "ga" => "Irish", "gl" => "Galician", "gv" => "Manx", "gn" => "Guarani", "gu" => "Gujarati", "ht" => "Haitian", "ha" => "Hausa", "sh" => "Serbo-Croatian", "hz" => "Herero", "ho" => "Hiri Motu", "hr" => "Croatian", "hu" => "Hungarian", "ig" => "Igbo", "io" => "Ido", "ii" => "Yi", "iu" => "Inuktitut", "ie" => "Interlingue", "ia" => "Interlingua", "id" => "Indonesian", "ik" => "Inupiaq", "is" => "Icelandic", "it" => "Italian", "ja" => "Japanese", "kl" => "Kalaallisut", "kn" => "Kannada", "ks" => "Kashmiri", "kr" => "Kanuri", "kk" => "Kazakh", "km" => "Khmer", "ki" => "Kikuyu", "rw" => "Kinyarwanda", "ky" => "Kirghiz", "kv" => "Komi", "kg" => "Kongo", "ko" => "Korean", "kj" => "Kuanyama", "ku" => "Kurdish", "lo" => "Lao", "la" => "Latin", "lv" => "Latvian", "li" => "Limburgish", "ln" => "Lingala", "lt" => "Lithuanian", "lb" => "Letzeburgesch", "lu" => "Luba-Katanga", "lg" => "Ganda", "mh" => "Marshall", "ml" => "Malayalam", "mr" => "Marathi", "mg" => "Malagasy", "mt" => "Maltese", "mo" => "Moldavian", "mn" => "Mongolian", "mi" => "Maori", "ms" => "Malay", "my" => "Burmese", "na" => "Nauru", "nv" => "Navajo", "nr" => "Ndebele", "nd" => "Ndebele", "ng" => "Ndonga", "ne" => "Nepali", "nl" => "Dutch", "nn" => "Norwegian Nynorsk", "nb" => "Norwegian Bokmal", "no" => "Norwegian", "ny" => "Chichewa", "oc" => "Occitan", "oj" => "Ojibwa", "or" => "Oriya", "om" => "Oromo", "os" => "Ossetian; Ossetic", "pi" => "Pali", "pl" => "Polish", "pt" => "Portuguese", "pt-BR" => "Portuguese - Brazil", "qu" => "Quechua", "rm" => "Raeto-Romance", "ro" => "Romanian", "rn" => "Rundi", "ru" => "Russian", "sg" => "Sango", "sa" => "Sanskrit", "si" => "Sinhalese", "sk" => "Slovak", "sl" => "Slovenian", "se" => "Northern Sami", "sm" => "Samoan", "sn" => "Shona", "sd" => "Sindhi", "so" => "Somali", "st" => "Sotho", "es" => "Spanish", "sq" => "Albanian", "sc" => "Sardinian", "sr" => "Serbian", "ss" => "Swati", "su" => "Sundanese", "sw" => "Swahili", "sv" => "Swedish", "ty" => "Tahitian", "ta" => "Tamil", "tt" => "Tatar", "te" => "Telugu", "tg" => "Tajik", "tl" => "Tagalog", "th" => "Thai", "ti" => "Tigrinya", "to" => "Tonga", "tn" => "Tswana", "ts" => "Tsonga", "tk" => "Turkmen", "tr" => "Turkish", "tw" => "Twi", "ug" => "Uighur", "uk" => "Ukrainian", "ur" => "Urdu", "uz" => "Uzbek", "ve" => "Venda", "vi" => "Vietnamese", "vo" => "Volapük", "wa" => "Walloon", "wo" => "Wolof", "xh" => "Xhosa", "yi" => "Yiddish", "za" => "Zhuang", "zu" => "Zulu", "ab" => "Abkhazian", "zh" => "Mandarin", "ps" => "Pushto", "am" => "Amharic", "ar" => "Arabic", "bg" => "Bulgarian", "cn" => "Cantonese", "mk" => "Macedonian", "el" => "Greek", "fa" => "Persian", "he" => "Hebrew", "hi" => "Hindi", "hy" => "Armenian", "en" => "English", "ee" => "Ewe", "ka" => "Georgian", "pa" => "Punjabi", "bn" => "Bengali", "bs" => "Bosnian", "ch" => "Chamorro", "be" => "Belarusian", "yo" => "Yoruba");
 $rMAGs = Array("AuraHD","AuraHD2","AuraHD3","AuraHD4","AuraHD5","AuraHD6","AuraHD7","AuraHD8","AuraHD9","MAG200","MAG245","MAG245D","MAG250","MAG254","MAG255","MAG256","MAG257","MAG260","MAG270","MAG275","MAG322","MAG323","MAG324","MAG325","MAG349","MAG350","MAG351","MAG352","MAG420","WR320");
 
-if (isset($_GET["geolite2"])) {
-    if (updateGeoLite2()) {
-        $_STATUS = 3;
-    } else {
-        $_STATUS = 2;
-    }
-}
 
 if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     $rArray = getSettings();
@@ -44,6 +37,14 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
         $rAdminSettings["reseller_mag_events"] = false;
     }
     // previous 6 lines are for reseller mag events
+    // next 6 lines are for reseller mag conversion
+    if (isset($_POST["reseller_mag_converion"])) {
+        $rAdminSettings["reseller_mag_converion"] = true;
+        unset($_POST["reseller_mag_converion"]);
+    } else {
+        $rAdminSettings["reseller_mag_converion"] = false;
+    }
+    // previous 6 lines are for reseller mag conversion
 	if (isset($_POST["ip_logout"])) {
         $rAdminSettings["ip_logout"] = true;
         unset($_POST["ip_logout"]);
@@ -243,76 +244,7 @@ if ($rSettings["sidebar"]) {
                                 </button>
                                 There was an error saving settings! Please check the form entry and try again.
                             </div>
-                            <?php } else if ((isset($_STATUS)) && ($_STATUS == 2)) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                Failed to update GeoLite2! Please try again.
-                            </div>
-                            <?php } else if ((isset($_STATUS)) && ($_STATUS == 3)) { ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                GeoLite2 has been updated sucessfully.
-                            </div>
-                            <?php } else if ((isset($_STATUS)) && ($_STATUS > 0)) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                There was an error saving settings! Please check the form entry and try again.
-                            </div>
-                            <?php }
-							$rContext = stream_context_create(array('http'=> array('timeout' => 3)));
-							$rCurrent = json_decode(file_get_contents("https://xtream-ui.com/current.json", false, $rContext), True);
-                            $rGeoLite2 = json_decode(file_get_contents("https://xtream-ui.com/GeoLite2/status.json", false, $rContext), True);
-                            if (intval($rGeoLite2["version"]) > $rAdminSettings["geolite2_version"]) {
-							?>
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                A new version of GeoLite2 (<?=$rGeoLite2["version"]?>) is available. <a href="./settings.php?geolite2">Click here to update!</a>
-                            </div>
                             <?php } ?>
-                            <div class="card">
-                                <div class="card-body">
-									<div class="bg-soft-light border-light border">
-										<div class="row text-center">
-											<div class="col-md-3">
-												<p class="text-muted mb-0 mt-3">Installed Version</p>
-												<h2 class="font-weight-normal mb-3">
-													<small class="mdi mdi-checkbox-blank-circle text-success align-middle mr-1"></small>
-													<span><?=$rRelease?><sup class="font-13"><?=$rEarlyAccess?></sup></span>
-												</h2>
-											</div>
-											<div class="col-md-3">
-												<p class="text-muted mb-0 mt-3">Official Release</p>
-												<h2 class="font-weight-normal mb-3">
-													<small class="mdi mdi-checkbox-blank-circle text-info align-middle mr-1"></small>
-													<span><?=$rCurrent["official"][0]?><sup class="font-13"> <?=$rCurrent["official"][1]?></sup></span>
-												</h2>
-											</div>
-											<div class="col-md-3">
-												<p class="text-muted mb-0 mt-3">Early Access Release</p>
-												<h2 class="font-weight-normal mb-3">
-													<small class="mdi mdi-checkbox-blank-circle text-danger align-middle mr-1"></small>
-													<span><?=$rCurrent["ea"][0]?><sup class="font-13"><?=$rCurrent["ea"][1]?></sup></span>
-												</h2>
-											</div>
-                                            <div class="col-md-3">
-												<p class="text-muted mb-0 mt-3">GeoLite2 Version</p>
-												<h2 class="font-weight-normal mb-3">
-													<small class="mdi mdi-checkbox-blank-circle text-pink align-middle mr-1"></small>
-													<span><?=substr($rAdminSettings["geolite2_version"], 4, 2).".".substr($rAdminSettings["geolite2_version"], 6, 2)?></span>
-												</h2>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
                             <div class="card">
                                 <div class="card-body">
                                     <div id="basicwizard">
@@ -605,6 +537,10 @@ if ($rSettings["sidebar"]) {
 															<label class="col-md-4 col-form-label" for="reseller_mag_events">Send Mag Events <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Select this option if you'd like Resellers to be able to send mag events." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input name="reseller_mag_events" id="reseller_mag_events" type="checkbox"<?php if ($rAdminSettings["reseller_mag_events"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                            <label class="col-md-4 col-form-label" for="reseller_mag_converion">Mag to User Conversion<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Select this option if you'd like Resellers to be able to convert mag lines to.<br>NOTE: Mag Device to Normal User conversion is one way process, mag device will be deleted from database." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="reseller_mag_converion" id="reseller_mag_converion" type="checkbox"<?php if ($rAdminSettings["reseller_mag_converion"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -115,9 +115,6 @@ if ($rSettings["sidebar"]) {
                                             <th class="text-center">Active</th>
                                             <th class="text-center">Conns.</th>
                                             <th class="text-center">Last Connection</th>
-                                            <th class="text-center">Stream</th>
-                                            <th class="text-center">Time</th>
-                                            <th class="text-center">IP</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
@@ -360,9 +357,9 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,4,5,6,7,8,9,10,11,12,13,14]},
+                    {"className": "dt-center", "targets": [0,4,5,6,7,8,9,10,11]},
                     {"visible": false, "targets": [10]},
-                    {"orderable": false, "targets": [11,12,13,14]}
+                    {"orderable": false, "targets": [11]}
                 ],
                 order: [[ 0, "desc" ]],
                 pageLength: <?=$rAdminSettings["default_entries"] ?: 10?>,

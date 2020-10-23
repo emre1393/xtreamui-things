@@ -183,34 +183,8 @@ if ($rType == "users") {
                     $rLastActive = "Never";
                 }
 
-                // added stream, time, ip column data with next rows.
-                $query = "SELECT user_activity_now.date_start, user_activity_now.geoip_country_code, user_activity_now.user_ip, user_activity_now.stream_id, user_activity_now.user_id, streams.id, streams.stream_display_name FROM user_activity_now LEFT JOIN streams ON user_activity_now.stream_id = streams.id WHERE user_id = ". $rRow["id"];
-                $result = $db->query($query);
-                $row2 = mysqli_fetch_assoc($result);
-				
-                if(!empty($row2['stream_display_name'])) {
-                  $rStream_name = "<a href='./stream.php?id=" . $row2["stream_id"] . "'><b><span style='color: #20a009;'>" . $row2['stream_display_name'];
-                } else {
-                  $rStream_name = "";
-                }
-
-                if(!empty($row2['date_start'])) {
-                    $rTime = intval(time()) - intval($row2["date_start"]);
-					$rTime = sprintf('%02d:%02d:%02d', ($rTime/3600),($rTime/60%60), $rTime%60);
-                } else {
-                    $rTime = "";
-                }
-
-				if(!empty($row2["geoip_country_code"])) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a> <img src='https://www.ip-tracker.org/images/ip-flags/".strtolower($row2["geoip_country_code"]).".png'></img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
-                } else if(strlen($row2["user_ip"]) > 0) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a>";
-                } else {
-                    $rGeoCountry = "";
-                }
-                
   
-                $rReturn["data"][] = Array($rRow["id"], $rRow["username"], $rRow["password"], $rRow["owner_name"], $rStatus, $rActive, $rTrial, $rExpDate, $rActiveConnections, $rRow["max_connections"], $rLastActive, $rStream_name, $rTime, $rGeoCountry, $rButtons);
+                $rReturn["data"][] = Array($rRow["id"], $rRow["username"], $rRow["password"], $rRow["owner_name"], $rStatus, $rActive, $rTrial, $rExpDate, $rActiveConnections, $rRow["max_connections"], $rLastActive, $rButtons);
             }
         }
     }
@@ -364,36 +338,14 @@ if ($rType == "users") {
                 if ((($rPermissions["is_reseller"]) && ($rPermissions["delete_users"])) OR (($rPermissions["is_admin"]) && (hasPermissions("adv", "edit_mag")))) {
                     $rButtons .= '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["id"].', \'delete\');"><i class="mdi mdi-close"></i></button>';
                 }
+                // mag to user conversion code start here also
+                if (($rPermissions["is_reseller"]) && ($rAdminSettings["reseller_mag_converion"])) {
+                    $rButtons .= '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Convert to normal user" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["id"].', \'magtouser\');"><i class="mdi mdi-logout"></i></button>';
+                }
+                // mag to user conversion code stop here also
                 $rButtons .= '</div>';
                 
-                // added to show stream time ip
-                // added stream, time, ip column data with next rows.
-                $query = "SELECT user_activity_now.date_start, user_activity_now.geoip_country_code, user_activity_now.user_ip, user_activity_now.stream_id, user_activity_now.user_id, streams.id, streams.stream_display_name FROM user_activity_now LEFT JOIN streams ON user_activity_now.stream_id = streams.id WHERE user_id = ". $rRow["id"];
-                $result = $db->query($query);
-                $row2 = mysqli_fetch_assoc($result);
-				
-                if(!empty($row2['stream_display_name'])) {
-                  $rStream_name = "<a href='./stream.php?id=" . $row2["stream_id"] . "'><b><span style='color: #20a009;'>" . $row2['stream_display_name'];
-                } else {
-                  $rStream_name = "";
-                }
-
-                if(!empty($row2['date_start'])) {
-                    $rTime = intval(time()) - intval($row2["date_start"]);
-					$rTime = sprintf('%02d:%02d:%02d', ($rTime/3600),($rTime/60%60), $rTime%60);
-                } else {
-                    $rTime = "";
-                }
-
-				if(!empty($row2["geoip_country_code"])) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a> <img src='https://www.ip-tracker.org/images/ip-flags/".strtolower($row2["geoip_country_code"]).".png'></img>" . " <b><span style='text-transform: uppercase;'>" . ($row2['geoip_country_code']);
-                  } else if(strlen($row2["user_ip"]) > 0) {
-                    $rGeoCountry = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=" . $row2["user_ip"] . "'>" . $row2["user_ip"] . "</a>";
-                  } else {
-                      $rGeoCountry = "";
-                  }
-
-                  $rReturn["data"][] = Array($rRow["id"], $rRow["username"], base64_decode($rRow["mac"]), $rRow["owner_name"], $rStatus, $rActiveConnections, $rTrial, $rExpDate, $rStream_name, $rTime, $rGeoCountry, $rButtons);
+                  $rReturn["data"][] = Array($rRow["id"], $rRow["username"], base64_decode($rRow["mac"]), $rRow["owner_name"], $rStatus, $rActiveConnections, $rTrial, $rExpDate, $rButtons);
             }
         }
     }

@@ -100,6 +100,18 @@ if (isset($_GET["action"])) {
         } else if ($rSub == "disable") {
             $db->query("UPDATE `users` SET `enabled` = 0 WHERE `id` = ".intval($rUserID).";");
             echo json_encode(Array("result" => True));exit;
+        // mag to user conversion code start here also
+        } else if ($rSub == "magtouser") {
+            $rUserDetails = getUser($rUserID);
+            if ($rUserDetails) {
+                if ($rUserDetails["is_mag"]) {
+                    $db->query("INSERT INTO `reg_userlog`(`owner`, `username`, `password`, `date`, `type`) VALUES(".intval($rUserInfo["id"]).", '".ESC($rUserDetails["username"])."', '".ESC($rUserDetails["password"])."', ".intval(time()).", '[<b>UserPanel</b> -> <a href=\"./user_reseller.php?id=".ESC($rUserDetails["id"])."\"><u>MAG Device to Normal User conversion.</u></a>]');");
+                }
+            }
+            $db->query("UPDATE `users` SET `is_mag` = 0, `play_token` = ''  WHERE `id` = ".intval($rUserID).";");
+            $db->query("DELETE FROM `mag_devices` WHERE `user_id` = ".intval($rUserID).";");
+            echo json_encode(Array("result" => True));exit;
+        // mag to user conversion code start stop also
         } else if ($rSub == "ban") {
             if (!$rPermissions["is_admin"]) { echo json_encode(Array("result" => False)); exit; }
             $db->query("UPDATE `users` SET `admin_enabled` = 0 WHERE `id` = ".intval($rUserID).";");

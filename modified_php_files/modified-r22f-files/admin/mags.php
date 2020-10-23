@@ -119,9 +119,6 @@ if ($rSettings["sidebar"]) {
                                             <th class="text-center"><?=$_["online"]?></th>
                                             <th class="text-center"><?=$_["trial"]?></th>
                                             <th class="text-center"><?=$_["expiration"]?></th>
-											<th class="text-center">Stream</th>
-											<th class="text-center">Time</th>
-											<th class="text-center">IP</th>
                                             <th class="text-center"><?=$_["actions"]?></th>
                                         </tr>
                                     </thead>
@@ -227,6 +224,14 @@ if ($rSettings["sidebar"]) {
                     return;
                 }
             }
+            // mag to user conversion code start here
+            if (rType == "magtouser") {
+                if (confirm('Are you sure you want to convert this device to normal user?\nThe Mag device info will be deleted.\nUser ID is ' + rID) == false) {
+                    return;
+                }
+            }
+            // mag to user conversion code stop here
+
             $.getJSON("./api.php?action=user&sub=" + rType + "&user_id=" + rID, function(data) {
                 if (data.result === true) {
                     if (rType == "delete") {
@@ -239,7 +244,13 @@ if ($rSettings["sidebar"]) {
                         $.toast("<?=$_["device_confirmed_4"]?>");
                     } else if (rType == "ban") {
                         $.toast("<?=$_["device_confirmed_5"]?>");
-                    }
+                    // mag to user conversion code start here also
+                    } else if (rType == "magtouser") {
+                        $.toast({text:"<a href=\"./user_reseller.php?id=" + rID +"\">Go to User " + rID + " with this link</a>",
+                        heading:'Conversion is succesfull',
+                        hideAfter: 20000});
+                    // mag to user conversion code stop here also
+                    }                    
                     $.each($('.tooltip'), function (index, element) {
                         $(this).remove();
                     });
@@ -351,8 +362,8 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,2,4,5,6,7,8,9,10,11]},
-                    {"orderable": false, "targets": [8,9,10,11]},
+                    {"className": "dt-center", "targets": [0,2,4,5,6,7,8]},
+                    {"orderable": false, "targets": [8]},
                     {"visible": false, "targets": [1]}
                 ],
                 order: [[ 0, "desc" ]],
