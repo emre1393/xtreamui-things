@@ -345,7 +345,7 @@ if ($rType == "users") {
                 // mag to user conversion code stop here also
                 $rButtons .= '</div>';
                 
-                  $rReturn["data"][] = Array($rRow["id"], $rRow["username"], base64_decode($rRow["mac"]), $rRow["owner_name"], $rStatus, $rActiveConnections, $rTrial, $rExpDate, $rButtons);
+                  $rReturn["data"][] = Array($rRow["id"], $rRow["username"], base64_decode($rRow["mac"]), $rRow["owner_name"], $rStatus, $rActive, $rTrial, $rExpDate, $rButtons);
             }
         }
     }
