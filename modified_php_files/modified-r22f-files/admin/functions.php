@@ -875,7 +875,7 @@ function hasPermissions($rType, $rID) {
             }
         }
     } else if (($rType == "adv") && ($rPermissions["is_admin"])) {
-		if ((count($rPermissions["advanced"]) > 0) && ($rUserInfo["member_group_id"] <> 1)) {
+		if ((is_array($rPermissions["advanced"]) && count($rPermissions["advanced"]) > 0) && ($rUserInfo["member_group_id"] <> 1)) {
 			return in_array($rID, $rPermissions["advanced"]);
 		} else {
 			return true;
