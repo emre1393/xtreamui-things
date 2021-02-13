@@ -52,6 +52,14 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
         $rAdminSettings["reseller_mag_converion"] = false;
     }
     // previous 6 lines are for reseller mag conversion
+    // next 6 lines are for delete actual vod setting
+    if (isset($_POST["delete_vod"])) {
+        $rAdminSettings["delete_vod"] = true;
+        unset($_POST["delete_vod"]);
+    } else {
+        $rAdminSettings["delete_vod"] = false;
+    }
+    // previous 6 lines for delete actual vod setting
 	if (isset($_POST["ip_logout"])) {
         $rAdminSettings["ip_logout"] = true;
         unset($_POST["ip_logout"]);
@@ -527,6 +535,10 @@ if ($rSettings["sidebar"]) {
                                                             <label class="col-md-4 col-form-label" for="alternate_scandir">Alternate Scandir Method (Cloud) <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Use an alternate method of scanning directories, works with cloud servers. Slower!" class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input name="alternate_scandir" id="alternate_scandir" type="checkbox"<?php if ($rSettings["alternate_scandir"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                            <label class="col-md-4 col-form-label" for="delete_vod">Delete Actual Vod File <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable this if you also want to delete the actual target file of the symlink." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="delete_vod" id="delete_vod" type="checkbox"<?php if ($rAdminSettings["delete_vod"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                     </div>
