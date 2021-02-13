@@ -470,17 +470,18 @@ function getTimeDifference($rServerID) {
     return intval(file_get_contents($rAPI));
 }
 
-function deleteMovieFile($rServerID, $rID) {
-	global $rServers, $rSettings, $rAdminSettings;
+function deleteActualMovieFile($rServerID, $rID) {
+	global $rServers, $rSettings;
     ini_set('default_socket_timeout', 5);
-    // if condition deletes original file. needs updated settings.php file.
-    $movieinfo = getStream($rID);
-    if ( intval($rAdminSettings["delete_vod"]) == 1 && intval($movieinfo["movie_symlink"]) == 1 ) {
-        $rCommand = "realpath ".MAIN_DIR."movies/".$rID.".* | xargs rm";
-        sexec($rServerID, $rCommand);
-    }
-    $rCommand = "rm ".MAIN_DIR."movies/".$rID.".*";
-    return SystemAPIRequest($rServerID, Array('action' => 'BackgroundCLI', 'action' => Array($rCommand)));
+    $rCommand = "realpath ".MAIN_DIR."movies/".$rID.".* | xargs rm";
+    return sexec($rServerID, $rCommand);
+}  
+
+function deleteMovieFile($rServerID, $rID) {
+	global $rServers, $rSettings;
+    ini_set('default_socket_timeout', 3);
+    $rCommand = "rm ".MAIN_DIR."movies/".$rID."*";
+    return sexec($rServerID, $rCommand);
 }
 
 function generateString($strength = 10) {
