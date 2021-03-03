@@ -43,7 +43,6 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     } else {
         $rAdminSettings["reseller_mag_events"] = false;
     }
-    // previous 6 lines are for reseller mag events
     // next 6 lines are for reseller mag conversion
     if (isset($_POST["reseller_mag_converion"])) {
         $rAdminSettings["reseller_mag_converion"] = true;
@@ -51,7 +50,6 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     } else {
         $rAdminSettings["reseller_mag_converion"] = false;
     }
-    // previous 6 lines are for reseller mag conversion
     // next 6 lines are for delete actual vod setting
     if (isset($_POST["delete_vod"])) {
         $rAdminSettings["delete_vod"] = true;
@@ -59,7 +57,13 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     } else {
         $rAdminSettings["delete_vod"] = false;
     }
-    // previous 6 lines for delete actual vod setting
+    // next 6 lines are for sort packages by name for reseller
+    if (isset($_POST["sort_reseller_packages"])) {
+        $rAdminSettings["sort_reseller_packages"] = true;
+        unset($_POST["sort_reseller_packages"]);
+    } else {
+        $rAdminSettings["sort_reseller_packages"] = false;
+    }
 	if (isset($_POST["ip_logout"])) {
         $rAdminSettings["ip_logout"] = true;
         unset($_POST["ip_logout"]);
@@ -195,6 +199,7 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
         $rAdminSettings["dashboard_stats_frequency"] = $_POST["dashboard_stats_frequency"];
         unset($_POST["dashboard_stats_frequency"]);
     }
+
     writeAdminSettings();
     foreach($_POST as $rKey => $rValue) {
         if (isset($rArray[$rKey])) {
@@ -596,6 +601,12 @@ if ($rSettings["sidebar"]) {
                                                             <label class="col-md-4 col-form-label" for="reseller_mag_converion">Mag to User Conversion<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Select this option if you'd like Resellers to be able to convert mag lines to.<br>NOTE: Mag Device to Normal User conversion is one way process, mag device will be deleted from database." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input name="reseller_mag_converion" id="reseller_mag_converion" type="checkbox"<?php if ($rAdminSettings["reseller_mag_converion"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="sort_reseller_packages">Sort Packages by Name <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Select this option if you'd like sort packages by name instead of package id in Reseller's interface." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="sort_reseller_packages" id="sort_reseller_packages" type="checkbox"<?php if ($rAdminSettings["sort_reseller_packages"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                     </div>

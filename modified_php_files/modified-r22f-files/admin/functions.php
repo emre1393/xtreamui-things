@@ -1038,9 +1038,13 @@ function removeFromBouquet($rType, $rBouquetID, $rID) {
 }
 
 function getPackages($rGroup=null) {
-    global $db;
+    global $db, $rAdminSettings;
     $return = Array();
-    $result = $db->query("SELECT * FROM `packages` ORDER BY `id` ASC;");
+    $rPackageOrder="id";
+    if (!intval($rGroup) && (intval($rAdminSettings["sort_reseller_packages"]))) {
+        $rPackageOrder="package_name";
+    }
+    $result = $db->query("SELECT * FROM `packages` ORDER BY `".ESC($rPackageOrder)."` ASC;");
     if (($result) && ($result->num_rows > 0)) {
         while ($row = $result->fetch_assoc()) {
             if ((!isset($rGroup)) OR (in_array(intval($rGroup), json_decode($row["groups"], True)))) {
