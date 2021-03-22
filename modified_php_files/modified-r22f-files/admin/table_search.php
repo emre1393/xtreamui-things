@@ -1271,7 +1271,7 @@ if ($rType == "users") {
                     $rIP = "";
                 }
                 if (strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<img src='./assets/images/".strtolower($rRow["geoip_country_code"]).".png'></img>";
+                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img>";
                 } else {
                     $rGeoCountry = "";
                 }
@@ -1368,7 +1368,7 @@ if ($rType == "users") {
                     $rIP = "";
                 }
                 if (strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<img src='./assets/images/".strtolower($rRow["geoip_country_code"]).".png'></img>";
+                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img>";
                 } else {
                     $rGeoCountry = "";
                 }
