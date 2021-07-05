@@ -1,0 +1,25 @@
+-replaced server_ip/domain thing with $host value of request, it won't reveal your main server ip/domain when you behind a proxy.
+-added content disposition with a file name to solve some problems for some devices.
+find
+goto fdc65aad9ecfcc25242abe625630910a;
+replace
+header('Content-Disposition: attachment; filename="xmltv.xml"');  goto fdc65aad9ecfcc25242abe625630910a;
+
+
+-you can also serve a static file in same server. 
+
+cd  /home/xtreamcodes/iptv_xtream_codes/wwwdir
+
+cp xmltv.php xmltv_original.php
+
+-- you can create static epgfile.xml via sending a valid request to original xmltv_original.php 
+(create a user for epg generation cronjob)
+
+wget "http://127.0.0.1:25461/xmltv_original.php?username=epguser&password=epgpass&prev_days=2&next_days=2" -O  /home/xtreamcodes/iptv_xtream_codes/wwwdir/epgfile.xml && chown xtreamcodes:xtreamcodes /home/xtreamcodes/iptv_xtream_codes/wwwdir/epgfile.xml
+
+--now edit xmltv.php, it will return static file for every valid xmltv.php request, it won't try to generate epg from database for every request.
+
+find
+goto fdc65aad9ecfcc25242abe625630910a;
+replace
+header('Content-Disposition: attachment; filename="xmltv.xml"'); readfile("epgfile.xml"); exit;  goto fdc65aad9ecfcc25242abe625630910a;
