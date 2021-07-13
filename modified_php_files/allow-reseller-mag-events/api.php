@@ -807,11 +807,22 @@ if (isset($_GET["action"])) {
         if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "edit_server"))) { echo json_encode(Array("result" => False)); exit; }
         $rServerID = intval($_GET["server_id"]);
         if (isset($rServers[$rServerID])) {
+            $rJSON = Array("status" => 0, "port" => intval($_GET["ssh_port"]), "host" => $rServer["server_ip"], "password" => $_GET["password"], "time" => intval(time()), "id" => $rServerID, "type" => "restart");
+            file_put_contents("/home/xtreamcodes/iptv_xtream_codes/adtools/balancer/".$rServerID.".json", json_encode($rJSON));
+            echo json_encode(Array("result" => True));exit;
+        }
+        echo json_encode(Array("result" => False));exit;
+
+    } else if ($_GET["action"] == "reboot_server") {
+        if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "edit_server"))) { echo json_encode(Array("result" => False)); exit; }
+        $rServerID = intval($_GET["server_id"]);
+        if (isset($rServers[$rServerID])) {
             $rJSON = Array("status" => 0, "port" => intval($_GET["ssh_port"]), "host" => $rServer["server_ip"], "password" => $_GET["password"], "time" => intval(time()), "id" => $rServerID, "type" => "reboot");
             file_put_contents("/home/xtreamcodes/iptv_xtream_codes/adtools/balancer/".$rServerID.".json", json_encode($rJSON));
             echo json_encode(Array("result" => True));exit;
         }
         echo json_encode(Array("result" => False));exit;
+        
     } else if ($_GET["action"] == "map_stream") {
         if ((!$rPermissions["is_admin"]) OR ((!hasPermissions("adv", "add_stream")) && (!hasPermissions("adv", "edit_stream")))) { echo json_encode(Array("result" => False)); exit; }
         set_time_limit(300);
