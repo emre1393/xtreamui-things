@@ -1116,7 +1116,7 @@ function common_xpcom(){
             return;
         }
 
-        if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']){
+        if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG520', 'MAG520w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']){
             var match = /Player Engine version: (\S+)/.exec(this.version);
             _debug('match', match);
 
@@ -1130,7 +1130,7 @@ function common_xpcom(){
                 stb.loader.stop();
                 this.cut_off(get_word('outdated_firmware'));
 
-                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
+                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG420', 'MAG420w1', 'MAG420w3', 'MAG520', 'MAG520w3', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
                     this.check_image_version();
                 }
 
