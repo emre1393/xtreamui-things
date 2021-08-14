@@ -1,8 +1,7 @@
 <?php
 /*Rev:26.09.18r0*/
-/* source is https://streaming-servers.com/downloads/servers_checker.php and https://github.com/Rubensigner/xtream-codes-decoded/blob/master/crons/servers_checker.php
-i just added geolite2 download command with xtream-ui.com link. also i am not sure about it will work with current xc 2.9.3  or  not.  */
-
+/* source is https://streaming-servers.com/downloads/servers_checker.php */
+//it won't try to download geolite2 file from xc domain anymore.
 if (!@$argc) {
     die(0);
 }
@@ -60,8 +59,8 @@ $b1e6fdf64c397fe6d855488ade08962a = shell_exec('ps ax | grep -v grep | grep ffmp
 $b491382721126ed130f32155d616b806 = array('total_ram' => $E747328102236137f1cbe650c295e4a8, 'total_used' => $ce5ef88878670c9526bfdfab8267f916, 'cores' => $Beead58eb65f6a16b84a5d7f85a2dbd0, 'threads' => $e8e405eb735fdd81a223c0a28cff7f7e, 'kernel' => trim(shell_exec('uname -r')), 'total_running_streams' => $b1e6fdf64c397fe6d855488ade08962a, 'cpu_name' => $c447e2c8da4eb35e33ad00d1171c001d, 'cpu_usage' => (int) $f7d72ebd2d5da7acdd31cff803526ba4 / $e8e405eb735fdd81a223c0a28cff7f7e, 'network_speed' => $b35a2cc5b2ffb4acd1cf6b8b08ee4f43, 'bytes_sent' => $c01d5077f34dc0ef046a6efa9e8e24f4, 'bytes_received' => $B5490c2f61c894c091e04441954a0f09);
 $A752e3fbe7ed63f10be97634c544dc8f = array_values(array_unique(array_map('trim', explode('', shell_exec('ip -4 addr | grep -oP \'(?<=inet\\s)\\d+(\\.\\d+){3}\'')))));
 $f566700a43ee8e1f0412fe10fbdf03df->query('UPDATE `streaming_servers` SET `server_hardware` = \'%s\',`whitelist_ips` = \'%s\' WHERE `id` = \'%d\'', json_encode($b491382721126ed130f32155d616b806), json_encode($A752e3fbe7ed63f10be97634c544dc8f), SERVER_ID);
-define('GEOIP2_FILENAME', IPTV_PANEL_DIR . 'GeoLite2.mmdb');
-/*if (!file_exists(GEOIP2_FILENAME) || 86400 <= time() - filemtime(GEOIP2_FILENAME)) {
+/*define('GEOIP2_FILENAME', IPTV_PANEL_DIR . 'GeoLite2.mmdb');
+if (!file_exists(GEOIP2_FILENAME) || 86400 <= time() - filemtime(GEOIP2_FILENAME)) {
    passthru('wget --no-check-certificate --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36" --timeout=40 "https://xtream-ui.com/GeoLite2/GeoLite2.mmdb" -O "' . GEOIP2_FILENAME . '" -q 2>/dev/null');
    touch(GEOIP2_FILENAME);
 }*/
