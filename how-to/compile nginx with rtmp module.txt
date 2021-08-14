@@ -32,9 +32,9 @@ unzip v1.2.1.zip
 
 cd /root/
 
-wget http://nginx.org/download/nginx-1.21.0.tar.gz
-tar -xzvf nginx-1.21.0.tar.gz
-cd nginx-1.21.0
+wget http://nginx.org/download/nginx-1.21.1.tar.gz
+tar -xzvf nginx-1.21.1.tar.gz
+cd nginx-1.21.1
 
 make clean
 
