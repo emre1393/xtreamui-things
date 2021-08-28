@@ -18,3 +18,22 @@ also use mpegts videos as status video, you can re-encode an mp4 video to mpegts
 /home/xtreamcodes/iptv_xtream_codes/bin/ffmpeg -i /home/examplefolder/input.mp4 \
        -c:v mpeg2video -qscale:v 2 -c:a mp2 -b:a 96k \
        /home/examplefolder/output.ts 
+
+
+
+28-08-2021
+looks like it does include restreamer for isp check, this one should exclude them. however you are suppose to NOT set is_isplock = 1 for restreamer lines.
+
+run this mysql query to turn off isp lock for them. 
+update xtream_iptvpro.users set is_isplock='0' where is_restreamer='1';
+
+--also find,
+
+&& $a8df9f055e91a1e9240230b69af85555["\151\163\x5f\151\x73\160\154\157\x63\x6b"] == 1 &&
+
+--replace with this in streaming.php file,
+
+&& $a8df9f055e91a1e9240230b69af85555["\151\163\x5f\151\x73\160\154\157\x63\x6b"] == 1 && $a8df9f055e91a1e9240230b69af85555["\151\x73\x5f\x72\145\x73\164\162\145\141\x6d\x65\x72"] == 0 &&
+
+
+----decoded code is && $a8df9f055e91a1e9240230b69af85555["is_isplock"] == 1 && $a8df9f055e91a1e9240230b69af85555["is_restreamer"] == 0 &&
