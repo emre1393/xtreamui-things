@@ -35,9 +35,13 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP))) {
             
             //? CREATE JSON STRUCTURE
             $newjson = array(
-                "isp_info" => array(                    
+                "isp_info" => array(   
+                    "as_number" => $rData["demoInfo"]["asNumber"],               
                     "description" => $rData["demoInfo"]["isp"],
                     "type" => $rData["demoInfo"]["usageType"],
+                    "ip" => $rData["demoInfo"]["ipAddress"],
+                    "country_code" => $rData["demoInfo"]["countryCode"],
+                    "country_name" => $rData["demoInfo"]["countryName"],
                     "is_server" => $rData["demoInfo"]["usageType"] != "corporate" ? true : false
                 )
             );
