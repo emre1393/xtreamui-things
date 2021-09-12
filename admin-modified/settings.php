@@ -16,7 +16,7 @@ if (isset($_GET["geolite2"])) {
 
 if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     $rArray = getSettings();
-    foreach (Array("disallow_empty_user_agents", "persistent_connections", "show_all_category_mag", "show_not_on_air_video", "show_banned_video", "show_expired_video", "new_sorting_bouquet", "rtmp_random", "use_buffer", "audio_restart_loss", "save_closed_connection", "client_logs_save", "case_sensitive_line", "county_override_1st", "disallow_2nd_ip_con", "firewall", "use_mdomain_in_lists", "hash_lb", "show_isps", "mag_security", "always_enabled_subtitles", "enable_connection_problem_indication", "show_tv_channel_logo", "show_channel_logo_in_preview", "stb_change_pass", "enable_debug_stalker") as $rSetting) {
+    foreach (Array("disallow_empty_user_agents", "persistent_connections", "show_all_category_mag", "show_not_on_air_video", "show_banned_video", "show_expired_video", "new_sorting_bouquet", "rtmp_random", "use_buffer", "audio_restart_loss", "save_closed_connection", "client_logs_save", "case_sensitive_line", "county_override_1st", "disallow_2nd_ip_con", "firewall", "use_mdomain_in_lists", "hash_lb", "show_isps", "enable_isp_lock", "block_svp", "mag_security", "always_enabled_subtitles", "enable_connection_problem_indication", "show_tv_channel_logo", "show_channel_logo_in_preview", "stb_change_pass", "enable_debug_stalker") as $rSetting) {
         if (isset($_POST[$rSetting])) {
             $rArray[$rSetting] = 1;
             unset($_POST[$rSetting]);
@@ -763,9 +763,19 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="show_isps">Enable ISP's <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Grab ISP information for each client that connections. This requires modifications to your hosts file, please see forum for more information." class="mdi mdi-information"></i></label>
+                                                            <label class="col-md-4 col-form-label" for="show_isps">Show ISP's <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Grab ISP information for each client that connections. This requires modifications to some files Check forums for more info." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input name="show_isps" id="show_isps" type="checkbox"<?php if ($rSettings["show_isps"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                            <label class="col-md-4 col-form-label" for="enable_isp_lock">Enable ISP Lock <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable ISP Lock for stream requests." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="enable_isp_lock" id="enable_isp_lock" type="checkbox"<?php if ($rSettings["enable_isp_lock"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="block_svp">Block Servers<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Block streams requests that comes from servers' ip addresses. It may block your restreamers, make sure isp lock is disabled for restreamer lines." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="block_svp" id="block_svp" type="checkbox"<?php if ($rSettings["block_svp"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
