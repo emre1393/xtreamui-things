@@ -1266,7 +1266,7 @@ if ($rType == "users") {
                     $rServer = "Server #".$rRow["server_id"];
                 }
                 if ($rRow["user_ip"]) {
-                    $rIP = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=".$rRow["user_ip"]."'>".$rRow["user_ip"]."</a>";
+                    $rIP = "<a target='_blank' href='https://db-ip.com/".$rRow["user_ip"]."'>".$rRow["user_ip"]."</a>";
                 } else {
                     $rIP = "";
                 }
@@ -1335,7 +1335,7 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `user_activity_now`.`activity_id`, `user_activity_now`.`divergence`, `user_activity_now`.`user_id`, `user_activity_now`.`stream_id`, `user_activity_now`.`server_id`, `user_activity_now`.`user_agent`, `user_activity_now`.`user_ip`, `user_activity_now`.`container`, `user_activity_now`.`pid`, `user_activity_now`.`date_start`, `user_activity_now`.`geoip_country_code`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity_now` INNER JOIN `users` ON `user_activity_now`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity_now`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity_now`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `user_activity_now`.`activity_id`, `user_activity_now`.`divergence`, `user_activity_now`.`user_id`, `user_activity_now`.`stream_id`, `user_activity_now`.`server_id`, `user_activity_now`.`user_agent`, `user_activity_now`.`user_ip`, `user_activity_now`.`isp`, `user_activity_now`.`container`, `user_activity_now`.`pid`, `user_activity_now`.`date_start`, `user_activity_now`.`geoip_country_code`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity_now` INNER JOIN `users` ON `user_activity_now`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity_now`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity_now`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
@@ -1356,19 +1356,19 @@ if ($rType == "users") {
                 } else {
                     $rUsername = "<a href='./user_reseller.php?id=".$rRow["user_id"]."'>".$rRow["username"]."</a>";
                 }
-				$rChannel = $rRow["stream_display_name"];
+				$rChannel = "<a href='./stream.php?id=".$rRow["stream_id"]."'>".$rRow["stream_display_name"]."</a>";
                 if ($rPermissions["is_admin"]) {
-                    $rServer = $rRow["server_name"];
+                    $rServer = "<a href='./server.php?id=".$rRow["server_id"]."'>".$rRow["server_name"]."</a>";
                 } else {
                     $rServer = "Server #".$rRow["server_id"];
                 }
                 if ($rRow["user_ip"]) {
-                    $rIP = "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=".$rRow["user_ip"]."'>".$rRow["user_ip"]."</a>";
+                    $rIP = "<a target='_blank' href='https://db-ip.com/".$rRow["user_ip"]."'>".$rRow["user_ip"]."</a>";
                 } else {
                     $rIP = "";
                 }
                 if (strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img>";
+                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img> ".$rRow["geoip_country_code"]."/".$rRow["isp"]."";
                 } else {
                     $rGeoCountry = "";
                 }
@@ -1384,6 +1384,7 @@ if ($rType == "users") {
                     $rButtons = '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Kill Connection" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["pid"].', \'kill\');"><i class="fas fa-hammer"></i></button>';
                 }
                 $rReturn["data"][] = Array($rRow["activity_id"], $rDivergence, $rUsername, $rChannel, $rServer, $rRow["user_agent"], $rTime, $rIP, $rGeoCountry, $rButtons);
+            
             }
         }
     }
@@ -1787,7 +1788,7 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `client_logs`.`id`, `client_logs`.`user_id`, `client_logs`.`stream_id`, `streams`.`stream_display_name`, `users`.`username`, `client_logs`.`client_status`, `client_logs`.`query_string`, `client_logs`.`user_agent`, `client_logs`.`ip`, FROM_UNIXTIME(`client_logs`.`date`) AS `date` FROM `client_logs` LEFT JOIN `streams` ON `streams`.`id` = `client_logs`.`stream_id` LEFT JOIN `users` ON `users`.`id` = `client_logs`.`user_id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `client_logs`.`id`, `client_logs`.`user_id`, `client_logs`.`stream_id`, `streams`.`stream_display_name`, `users`.`username`, `client_logs`.`client_status`, `client_logs`.`query_string`, `client_logs`.`user_agent`, `client_logs`.`ip`, `client_logs`.`extra_data`, FROM_UNIXTIME(`client_logs`.`date`) AS `date` FROM `client_logs` LEFT JOIN `streams` ON `streams`.`id` = `client_logs`.`stream_id` LEFT JOIN `users` ON `users`.`id` = `client_logs`.`user_id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
@@ -1796,7 +1797,10 @@ if ($rType == "users") {
 				} else {
 					$rUsername = $rRow["username"];
 				}
-                $rReturn["data"][] = Array($rRow["id"], $rUsername, $rRow["stream_display_name"], $rRow["client_status"], $rRow["user_agent"], "<a target='_blank' href='https://www.ip-tracker.org/locator/ip-lookup.php?ip=".$rRow["ip"]."'>".$rRow["ip"]."</a>", $rRow["date"]);
+                $extrainfo = json_decode($rRow["extra_data"], True);
+                $ipinfo = "<a target='_blank' href='https://db-ip.com/".$rRow["ip"]."'>".$rRow["ip"]."</a>/".$extrainfo["isp"]."/".$extrainfo["type"]."";
+
+                $rReturn["data"][] = Array($rRow["id"], $rUsername, $rRow["stream_display_name"], $rRow["client_status"], $rRow["user_agent"], $ipinfo, $rRow["date"]);
             }
         }
     }
