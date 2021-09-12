@@ -68,7 +68,7 @@ if ($rSettings["sidebar"]) {
                                             <th><?=$_["stream"]?></th>
                                             <th><?=$_["reason"]?></th>
                                             <th><?=$_["user_agent"]?></th>
-                                            <th class="text-center"><?=$_["ip"]?></th>
+                                            <th>IP/ISP/Type</th>
                                             <th class="text-center"><?=$_["date"]?></th>
                                         </tr>
                                     </thead>
