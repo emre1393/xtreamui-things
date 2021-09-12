@@ -64,7 +64,7 @@ if (isset($_POST["submit_user"])) {
             $rArray[$rSelection] = 1;
         }
     }
-    foreach (Array("is_stalker", "is_e2", "is_mag", "is_restreamer", "is_trial") as $rSelection) {
+    foreach (Array("is_stalker", "is_e2", "is_mag", "is_restreamer", "is_trial", "is_isplock") as $rSelection) {
         if (isset($_POST[$rSelection])) {
             $rArray[$rSelection] = 1;
             unset($_POST[$rSelection]);
@@ -417,6 +417,12 @@ if ($rSettings["sidebar"]) {
                                                             <label class="col-md-4 col-form-label" for="lock_device">MAG STB Lock</label>
                                                             <div class="col-md-2">
                                                                 <input name="lock_device" id="lock_device" type="checkbox" <?php if (isset($rUser)) { if ($rUser["lock_device"] == 1) { echo "checked "; } } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="is_isplock">Enable ISP Lock</label>
+                                                            <div class="col-md-2">
+                                                                <input name="is_isplock" id="is_isplock" type="checkbox" <?php if (isset($rUser)) { if ($rUser["is_isplock"] == 1) { echo "checked "; } } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4" style="display:none" id="mac_entry_mag">
