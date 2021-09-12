@@ -1,7 +1,7 @@
 <?php
 include "session.php"; include "functions.php";
 if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "client_request_log"))) { exit; }
-
+$rClientFilters["CON_SVP"] = "Server Related Ip"; 
 if ($rSettings["sidebar"]) {
     include "header_sidebar.php";
 } else {
