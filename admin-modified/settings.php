@@ -396,17 +396,6 @@ if ($rSettings["sidebar"]) {
                                                     </div>
                                                 </div>
                                                 <ul class="list-inline wizard mb-0">
-													<li class="list-inline-item">
-														<a href="https://xtream-ui.com/donate.html">
-															<button type="button" class="btn btn-info waves-effect waves-light btn-xl"><i class="mdi mdi-credit-card"></i> Donate via Card</button></a>
-														</a>
-														<a href="https://commerce.coinbase.com/checkout/55484922-e35e-4efb-b15c-4c1e59fe7734">
-															<button type="button" class="btn btn-primary waves-effect waves-light btn-xl"><i class="mdi mdi-currency-btc"></i> Donate via CoinBase</button></a>
-														</a>
-														<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BB8LWS2VEZX2U&currency_code=GBP&source=url">
-															<button type="button" class="btn btn-success waves-effect waves-light btn-xl"><i class="mdi mdi-paypal"></i> Donate via PayPal</button></a>
-														</a>
-													</li>
                                                     <li class="list-inline-item float-right">
                                                         <input name="submit_settings" type="submit" class="btn btn-primary" value="Save Changes" />
                                                     </li>
