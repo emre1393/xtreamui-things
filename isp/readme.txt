@@ -7,12 +7,12 @@ put it into isp folder
 then add isp api config into nginx.conf like this one https://hastebin.com/udegapoxem.nginx  
 
     server {
-        listen 80;
+        listen 127.0.0.1:80;
         root /home/xtreamcodes/iptv_xtream_codes/isp/;
-        location / {
+#        location / {
             allow 127.0.0.1;
             deny all;
-        }
+#        }
         location ~ \.php$ {
             limit_req zone=one burst=8 nodelay;
             try_files $uri =404;
