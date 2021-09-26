@@ -3,7 +3,7 @@ include "session.php"; include "functions.php";
 if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "add_server"))) { exit; }
 
 if (isset($_POST["submit_server"])) {
-    $rArray = Array("server_name" => "", "domain_name" => "", "server_ip" => "", "vpn_ip" => "", "diff_time_main" => 0, "http_broadcast_port" => 25461, "total_clients" => 1000, "system_os" => "", "network_interface" => "eth0", "status" => 3, "enable_geoip" => 0, "can_delete" => 1, "rtmp_port" => 25462, "enable_isp" => 0, "boost_fpm" => 0, "network_guaranteed_speed" => 1000, "https_broadcast_port" => 25463, "whitelist_ips" => Array(), "timeshift_only" => 0);
+    $rArray = Array("server_name" => "", "domain_name" => "", "server_ip" => "", "vpn_ip" => "", "diff_time_main" => 0, "http_broadcast_port" => 8080, "total_clients" => 1000, "system_os" => "", "network_interface" => "eth0", "status" => 3, "enable_geoip" => 0, "can_delete" => 1, "rtmp_port" => 8880, "enable_isp" => 0, "boost_fpm" => 0, "network_guaranteed_speed" => 1000, "https_broadcast_port" => 8443, "whitelist_ips" => Array(), "timeshift_only" => 0);
     if ((strlen($_POST["server_name"]) == 0) OR (strlen($_POST["server_ip"]) == 0) OR (strlen($_POST["ssh_port"]) == 0) OR (strlen($_POST["http_broadcast_port"]) == 0) OR (strlen($_POST["https_broadcast_port"]) == 0) OR (strlen($_POST["rtmp_port"]) == 0) OR (strlen($_POST["root_password"]) == 0)) {
         $_STATUS = 1;
     }
@@ -121,17 +121,17 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                             <label class="col-md-4 col-form-label" for="http_broadcast_port"><?=$_["http_port"]?></label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="http_broadcast_port" name="http_broadcast_port" value="25461" required data-parsley-trigger="change">
+                                                                <input type="text" class="form-control" id="http_broadcast_port" name="http_broadcast_port" value="8080" required data-parsley-trigger="change">
                                                             </div>
                                                         </div>
 														<div class="form-group row mb-4">
 															<label class="col-md-4 col-form-label" for="https_broadcast_port"><?=$_["https_port"]?></label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="https_broadcast_port" name="https_broadcast_port" value="25463" required data-parsley-trigger="change">
+                                                                <input type="text" class="form-control" id="https_broadcast_port" name="https_broadcast_port" value="8443" required data-parsley-trigger="change">
                                                             </div>
 															<label class="col-md-4 col-form-label" for="rtmp_port"><?=$_["rtmp_port"]?></label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="rtmp_port" name="rtmp_port" value="25462" required data-parsley-trigger="change">
+                                                                <input type="text" class="form-control" id="rtmp_port" name="rtmp_port" value="8880" required data-parsley-trigger="change">
                                                             </div>
                                                         </div>
                                                     </div> <!-- end col -->
