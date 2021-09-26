@@ -9,5 +9,5 @@ if (isset($_SESSION['hash']) && isset($_SESSION['last_activity']) && (time() - $
 }
 $_SESSION["last_activity"] = time();
 
-if (!isset($_SESSION['hash'])) { header("Location: ./login.php?referrer=".$_SERVER['REQUEST_URI']); exit; }
+if (!isset($_SESSION['hash'])) { header("Location: ./login.php?referrer=/".basename($_SERVER['REQUEST_URI'])); exit; }
 ?>
