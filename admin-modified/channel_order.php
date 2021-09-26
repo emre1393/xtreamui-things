@@ -10,7 +10,7 @@ if (isset($_POST["stream_order_array"])) {
     $rOrder = json_decode($_POST["stream_order_array"], True);
     $rSort = 0;
     foreach ($rOrder as $rStream) {
-        $db->query("UPDATE `streams` SET `order` = ".intval($rSort)." WHERE `id` = ".intval($rStream).";");
+        $db->query("UPDATE `streams` SET `order` = ".intval($rSort).", `number` = ".intval($rSort)." WHERE `id` = ".intval($rStream).";");
         $rSort ++;
     }
 }
