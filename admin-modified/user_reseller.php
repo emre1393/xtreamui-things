@@ -5,7 +5,7 @@ if ($rPermissions["is_admin"]) { exit; }
 $rRegisteredUsers = getRegisteredUsers($rUserInfo["id"]);
 
 if ((isset($_GET["trial"])) OR (isset($_POST["trial"]))) {
-    if ($rAdminSettings["disable_trial"]) {
+	if ($rAdminSettings["disable_trial"]) {
         $canGenerateTrials = False;
     } else if (floatval($rUserInfo["credits"]) < floatval($rPermissions["minimum_trial_credits"])) {
         $canGenerateTrials = False;
@@ -15,6 +15,15 @@ if ((isset($_GET["trial"])) OR (isset($_POST["trial"]))) {
 } else {
     $canGenerateTrials = True;
 }
+	
+	
+	
+	
+    //$canGenerateTrials = checkTrials();
+//} else {
+    //$canGenerateTrials = True;
+//}
+
 
 if (isset($_POST["submit_user"])) {
     $_POST["mac_address_mag"] = strtoupper($_POST["mac_address_mag"]);
@@ -63,7 +72,11 @@ if (isset($_POST["submit_user"])) {
                     }
                     $rArray["is_trial"] = 0;
                 }
-                $rArray["bouquet"] = $rPackage["bouquets"];
+				//$rArray["bouquet"] = $rPackage["bouquets"];
+				
+			
+                
+				
                 $rArray["max_connections"] = $rPackage["max_connections"];
                 $rArray["is_restreamer"] = $rPackage["is_restreamer"];
                 $rOwner = $_POST["member_id"];
@@ -172,6 +185,8 @@ if (isset($_POST["submit_user"])) {
             $rArray["allowed_ua"] = "[]";
         }
     }
+	$rArray["bouquet"] = array_values(json_decode($_POST["bouquets_selected"], True));
+    unset($_POST["bouquets_selected"]);
     if (!isset($_STATUS)) {
         $rArray["created_by"] = $rUserInfo["id"];
         $rCols = "`".ESC(implode('`,`', array_keys($rArray)))."`";
@@ -216,7 +231,6 @@ if (isset($_POST["submit_user"])) {
                 if (isset($rCost)) {
                     $rNewCredits = floatval($rUserInfo["credits"]) - floatval($rCost);
                     $db->query("UPDATE `reg_users` SET `credits` = '".floatval($rNewCredits)."' WHERE `id` = ".intval($rUserInfo["id"]).";");
-                    // added ".ESC($_POST["mac_address_mag"])." into line 222 and 230, reseller logs will have mag mac address
                     if (isset($rUser)) {
                         if ($isMag) {
                             $db->query("INSERT INTO `reg_userlog`(`owner`, `username`, `password`, `date`, `type`) VALUES(".intval($rUserInfo["id"]).", '".ESC($rArray["username"])."', '".ESC($rArray["password"])."', ".intval(time()).", '[<b>UserPanel</b> -> <u>Extend MAG</u>] ".ESC($_POST["mac_address_mag"])." with Package [".ESC($rPackage["package_name"])."], Credits: <font color=\"green\">".ESC($rUserInfo["credits"])."</font> -> <font color=\"red\">".$rNewCredits."</font>');");
@@ -259,9 +273,12 @@ if (isset($_POST["submit_user"])) {
                         $db->query("INSERT INTO `enigma2_devices`(`user_id`, `mac`, `lock_device`) VALUES(".intval($rInsertID).", '".ESC(strtoupper($_POST["mac_address_e2"]))."', ".intval($rLockDevice).");");
                     }
                 }
-                header("Location: ./user_reseller.php?id=".$rInsertID); exit;
+                $_STATUS = 0;
             } else {
                 $_STATUS = 2;
+            }
+            if (!isset($_GET["id"])) {
+                $_GET["id"] = $rInsertID;
             }
         }
     }
@@ -296,7 +313,7 @@ if ($rSettings["sidebar"]) {
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <a href="./users.php"><li class="breadcrumb-item"><i class="mdi mdi-backspace"></i> Back to Users</li></a>
+                                <a href="./users.php"><li class="breadcrumb-item"><i class="mdi mdi-backspace"></i> Back to Users</li></a>
                                 </ol>
                             </div>
                             <h4 class="page-title"><?php if (isset($rUser)) { echo "Edit"; } else { echo "Add"; } ?> <?php if (isset($_GET["trial"])) { echo "Trial "; } ?>User</h4>
@@ -397,6 +414,7 @@ if ($rSettings["sidebar"]) {
                                     if (isset($_GET["trial"])) { ?>
                                     <input type="hidden" name="trial" value="1" />
                                     <?php } ?>
+                                    <input type="hidden" name="bouquets_selected" id="bouquets_selected" value="" />
                                     <div id="basicwizard">
                                         <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-4">
                                             <li class="nav-item">
@@ -416,7 +434,7 @@ if ($rSettings["sidebar"]) {
                                             <li class="nav-item">
                                                 <a href="#review-purchase" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                                     <i class="mdi mdi-book-open-variant mr-1"></i>
-                                                    <span class="d-none d-sm-inline">Review Purchase</span>
+                                                    <span class="d-none d-sm-inline">Review Purchase/Bouquet Editor</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -437,7 +455,7 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="member_id">Owner</label>
+                                                            <label class="col-md-4 col-form-label" for="member_id">Reseller</label>
                                                             <div class="col-md-8">
                                                                 <select name="member_id" id="member_id" class="form-control select2" data-toggle="select2">
                                                                     <?php foreach ($rRegisteredUsers as $rRegisteredUser) { ?>
@@ -474,7 +492,7 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="is_mag">MAG Device <i data-toggle="tooltip" data-placement="top" title="" data-original-title="This option will be selected if this device is a MAG set top box. This will be a sub account and should not be modified directly." class="mdi mdi-information"></i></label>
+                                                        <label class="col-md-4 col-form-label" for="is_mag">MAG Device <i data-toggle="tooltip" data-placement="top" title="" data-original-title="This option will be selected if this device is a MAG set top box. This will be a sub account and should not be modified directly." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input<?php if (isset($rUser)) { echo " disabled"; } ?> name="is_mag" id="is_mag" type="checkbox" <?php if (isset($rUser)) { if ($rUser["is_mag"] == 1) { echo "checked "; } } else if (isset($_GET["mag"])) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
@@ -588,17 +606,18 @@ if ($rSettings["sidebar"]) {
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <table id="datatable-review" class="table dt-responsive nowrap" style="margin-top:30px;">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">ID</th>
-                                                                        <th>Bouquet Name</th>
-                                                                        <th class="text-center">Channels</th>
-                                                                        <th class="text-center">Series</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
+                                            <div class="tab-pane dt-responsive nowrap" id="bouquets" style="margin-top:30px;">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row mb-4">
+                                                            <?php foreach (getBouquets() as $rBouquet) { ?>
+                                                            <div class="col-md-6">
+                                                                <div class="custom-control custom-checkbox mt-1">
+                                                                    <input type="checkbox" class="custom-control-input bouquet-checkbox" id="bouquet-<?=$rBouquet["id"]?>" name="bouquet[]" value="<?=$rBouquet["id"]?>"<?php if(isset($rUser)) { if(in_array($rBouquet["id"], json_decode($rUser["bouquet"], True))) { echo " checked"; } } ?>>
+                                                                    <label class="custom-control-label" for="bouquet-<?=$rBouquet["id"]?>"><?=$rBouquet["bouquet_name"]?></label>
+                                                                </div>
+                                                            </div>
+                                                            <?php } ?>
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -607,9 +626,12 @@ if ($rSettings["sidebar"]) {
                                                         <a href="javascript: void(0);" class="btn btn-secondary">Previous</a>
                                                     </li>
                                                     <li class="next list-inline-item float-right">
-                                                        <input name="submit_user" type="submit" class="btn btn-primary purchase" value="Purchase" />
+                                                        <a href="javascript: void(0);" onClick="selectAll()" class="btn btn-secondary">Select All</a>
+                                                        <a href="javascript: void(0);" onClick="selectNone()" class="btn btn-secondary">Deselect ALL</a>
+                                                        <input name="submit_user" type="submit" class="btn btn-primary purchase" value="<?php if (isset($rUser)) { echo "Edit"; } else { echo "Purchase"; } ?>" />
                                                     </li>
                                                 </ul>
+                                            </div>
                                             </div>
                                         </div> <!-- tab-content -->
                                     </div> <!-- end #basicwizard-->
@@ -635,14 +657,13 @@ if ($rSettings["sidebar"]) {
 
         <script src="assets/js/vendor.min.js"></script>
         <script src="assets/libs/jquery-toast/jquery.toast.min.js"></script>
+		<script src="assets/libs/jquery-ui/jquery-ui.min.js"></script>
         <script src="assets/libs/jquery-nice-select/jquery.nice-select.min.js"></script>
         <script src="assets/libs/switchery/switchery.min.js"></script>
         <script src="assets/libs/select2/select2.min.js"></script>
         <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
         <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
         <script src="assets/libs/clockpicker/bootstrap-clockpicker.min.js"></script>
-        <script src="assets/libs/moment/moment.min.js"></script>
-        <script src="assets/libs/daterangepicker/daterangepicker.js"></script>
         <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
         <script src="assets/libs/datatables/dataTables.bootstrap4.js"></script>
         <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
@@ -654,9 +675,14 @@ if ($rSettings["sidebar"]) {
         <script src="assets/libs/datatables/buttons.print.min.js"></script>
         <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
         <script src="assets/libs/datatables/dataTables.select.min.js"></script>
+		<script src="assets/libs/moment/moment.min.js"></script>
+		<script src="assets/libs/daterangepicker/daterangepicker.js"></script>
         <script src="assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+		<script src="assets/libs/treeview/jstree.min.js"></script>
+        <script src="assets/js/pages/treeview.init.js"></script>
         <script src="assets/js/pages/form-wizard.init.js"></script>
         <script src="assets/js/pages/jquery.number.min.js"></script>
+		<script src="assets/libs/parsleyjs/parsley.min.js"></script>
         <script src="assets/js/app.min.js"></script>
         
         <style>
@@ -668,7 +694,7 @@ if ($rSettings["sidebar"]) {
         </style>
         <script>
         var swObjs = {};
-        
+       
         (function($) {
           $.fn.inputFilter = function(inputFilter) {
             return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
@@ -684,6 +710,17 @@ if ($rSettings["sidebar"]) {
           };
         }(jQuery));
         
+		function selectAll() {
+            $(".bouquet-checkbox").each(function() {
+                $(this).prop('checked', true);
+            });
+        }
+
+        function selectNone() {
+            $(".bouquet-checkbox").each(function() {
+                $(this).prop('checked', false);
+            });
+        }
         function isValidDate(dateString) {
               var regEx = /^\d{4}-\d{2}-\d{2}$/;
               if(!dateString.match(regEx)) return false;  // Invalid format
@@ -699,6 +736,26 @@ if ($rSettings["sidebar"]) {
                 return false;
             }
         }
+		function isValidMac_address(address) {
+            var regex = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
+            if(regex.test(address)){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function isValidLink(link){
+            regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+            if (regexp.test(link)){
+                return true;
+            }
+            else {
+                return false;
+            }
+			
+			
+		}
         function evaluateForm() {
             if (($("#is_mag").is(":checked")) || ($("#is_e2").is(":checked"))) {
                 if ($("#is_mag").is(":checked")) {
@@ -726,15 +783,12 @@ if ($rSettings["sidebar"]) {
                 <?php } ?>
             }
         }
-        
+		
         $("#package").change(function() {
             getPackage();
         });
         
         function getPackage() {
-            var rTable = $('#datatable-review').DataTable();
-            rTable.clear();
-            rTable.draw();
             if ($("#package").val().length > 0) {
                 $.getJSON("./api.php?action=get_package<?php if (isset($_GET["trial"])) { echo "_trial"; } ?>&package_id=" + $("#package").val()<?php if (isset($rUser)) { echo " + \"&user_id=".$rUser["id"]."\""; } ?>, function(rData) {
                     if (rData.result === true) {
@@ -765,27 +819,18 @@ if ($rSettings["sidebar"]) {
                             $("#mac_entry_e2").hide();
                         }
                         <?php } ?>
-                        $(rData.bouquets).each(function(rIndex) {
-							rTable.row.add([rData.bouquets[rIndex].id, rData.bouquets[rIndex].bouquet_name, rData.bouquets[rIndex].bouquet_channels.length, rData.bouquets[rIndex].bouquet_series.length]);
-                        });
+
                     }
-                    rTable.draw();
                 });
             } else {
                 $("#max_connections").val(<?=$rUser["max_connections"]?>);
                 $("#cost_credits").html(0);
                 $("#remaining_credits").html($.number(<?=$rUserInfo["credits"]?>, 2));
-                $("#exp_date").val('<?=date("Y-m-d H:m", $rUser["exp_date"])?>');
+                $("#exp_date").val('<?=date("Y-m-d", $rUser["exp_date"])?>');
                 <?php if (!$canGenerateTrials) { ?>
                 $(".purchase").prop('disabled', true);
-                <?php }
-                foreach (json_decode($rUser["bouquet"], True) as $rBouquetID) {
-                    $rBouquetData = getBouquet($rBouquetID);
-					if (strlen($rBouquetID) > 0) { ?>
-					rTable.row.add([<?=$rBouquetID?>, '<?=$rBouquetData["bouquet_name"]?>', <?=count(json_decode($rBouquetData["bouquet_channels"], True))?>, <?=count(json_decode($rBouquetData["bouquet_series"], True))?>]);
-					<?php }
-                } ?>
-                rTable.draw();
+				<?php }?>
+
             }
         }
         
@@ -817,32 +862,29 @@ if ($rSettings["sidebar"]) {
             $(".js-switch").on("change" , function() {
                 evaluateForm();
             });
-            
-            $("#datatable-review").DataTable({
-                language: {
-                    paginate: {
-                        previous: "<i class='mdi mdi-chevron-left'>",
-                        next: "<i class='mdi mdi-chevron-right'>"
-                    }
-                },
-                drawCallback: function() {
-                    $(".dataTables_paginate > .pagination").addClass("pagination-rounded");
-                },
-                columnDefs: [
-                    {"className": "dt-center", "targets": [0,2,3]}
-                ],
-                responsive: false,
-                bInfo: false,
-                searching: false,
-                paging: false
-            });
+			
 			$("#user_form").submit(function(e){
+				var rBouquets = [];
+                $("#bouquets").find(".custom-control-input:checked").each(function(){
+                    rBouquets.push(parseInt($(this).val()));
+                });
+				if(rBouquets.length < 1){
+                    $("#bouquets").find(".custom-control-input").each(function(){
+                        rBouquets.push(parseInt($(this).val()));
+                    });
+                }
+				
+                $("#bouquets_selected").val(JSON.stringify(rBouquets));
                 $("#allowed_ua option").prop('selected', true);
                 $("#allowed_ips option").prop('selected', true);
             });
             
-            $(window).keypress(function(event){
-                if(event.which == 13 && event.target.nodeName != "TEXTAREA") return false;
+			
+            
+            $(document).keypress(function(event){
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
             });
             $("#add_ip").click(function() {
                 if (($("#ip_field").val().length > 0) && (isValidIP($("#ip_field").val()))) {

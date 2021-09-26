@@ -957,9 +957,14 @@ function getUserBouquets() {
 }
 
 function getBouquets() {
-    global $db;
+    global $db, $rPermissions;
     $return = Array();
-    $result = $db->query("SELECT * FROM `bouquets` ORDER BY `bouquet_order` ASC;");
+    if ($rPermissions["is_admin"]) {
+        $result = $db->query("SELECT * FROM `bouquets` ORDER BY `bouquet_order` ASC;");
+    } else if ($rPermissions["is_reseller"]) {
+        $result = $db->query("SELECT * FROM `bouquets` WHERE `bouquet_name` NOT LIKE '%admin%' ORDER BY `bouquet_order` ASC;");
+    }
+    //$result = $db->query("SELECT * FROM `bouquets` ORDER BY `bouquet_order` ASC;");
     if (($result) && ($result->num_rows > 0)) {
         while ($row = $result->fetch_assoc()) {
             $return[intval($row["id"])] = $row;
