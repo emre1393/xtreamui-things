@@ -18,10 +18,32 @@ $c3a18c26bfa971a25d2e6ada870ff735["\151\144"] means $movie["id"], so it is from 
 
 $movie_properties = a78bF8D35765bE2408C50712CE7a43AD::cAdeb9125b2E81B183688842C5AC3ad7($b7c504f559ac034e87cb43d0e37e3a75["\x69\144"]);
 
-decoded code is, $movie_properties = ipTV_lib::movieProperties($movie['id']);
+decoded code is, $movie_properties = ipTV_lib::movieProperties($movie["id"]);
 
 so, you can add tmdb_id value into both array via this one.
 i heard some apps/stbs can use tmdb id, but i don't know where to put in the array, so it is up to you to find the place in the array.
 
-'tmdb_id' => empty($movie_properties['tmdb_id']) ? 'N/A' : $movie_properties['tmdb_id']
+"tmdb_id" => empty($movie_properties["tmdb_id"]) ? 'N/A' : $movie_properties["tmdb_id"]
 
+"tmdb_id" => empty($d66f371f212188b56889e732be18574e["tmdb_id"]) ? 'N/A' : $d66f371f212188b56889e732be18574e["tmdb_id"],
+
+
+
+--27-09-2021
+ok, i found where to put tmdb_id item in json response, i guess. i saw the array from xuione portal.php. basically you need to put "tmdb_id" after "name".
+
+--for movies find this,
+
+c115f2f10c7f471acbc7a13e29e78026: $D0b48d0a5773acd261b061496a380231[] = array("\151\x64" => $b7c504f559ac034e87cb43d0e37e3a75["\151\144"], "\x6f\167\156\145\x72" => '', "\156\x61\x6d\145" => $b7c504f559ac034e87cb43d0e37e3a75["\x73\x74\x72\x65\x61\155\x5f\144\x69\x73\x70\154\x61\x79\137\156\x61\x6d\145"],
+--replace with,
+
+c115f2f10c7f471acbc7a13e29e78026: $D0b48d0a5773acd261b061496a380231[] = array("\151\x64" => $b7c504f559ac034e87cb43d0e37e3a75["\151\144"], "\x6f\167\156\145\x72" => '', "\156\x61\x6d\145" => $b7c504f559ac034e87cb43d0e37e3a75["\x73\x74\x72\x65\x61\155\x5f\144\x69\x73\x70\154\x61\x79\137\156\x61\x6d\145"], "tmdb_id" => empty($movie_properties["tmdb_id"]) ? 'N/A' : $movie_properties["tmdb_id"],
+
+
+--for episodes find this,
+
+cbbc8883818e690ef3d25d988d16086b: $D0b48d0a5773acd261b061496a380231[] = array("\x69\144" => empty($F7a698ce7b4f23bcbf193a6ae14b046e) ? $d66f371f212188b56889e732be18574e["\151\144"] : $d66f371f212188b56889e732be18574e["\x69\144"] . "\72" . $E7cca48cfca85fc445419a32d7d8f973, "\157\167\x6e\x65\162" => '', "\x6e\x61\x6d\145" => $E4416ae8f96620daee43ac43f9515200, "\157\154\144\x5f\156\141\155\x65" => '', "\157\x5f\156\141\155\145" => $E4416ae8f96620daee43ac43f9515200,
+
+--replace with this,
+
+cbbc8883818e690ef3d25d988d16086b: $D0b48d0a5773acd261b061496a380231[] = array("\x69\144" => empty($F7a698ce7b4f23bcbf193a6ae14b046e) ? $d66f371f212188b56889e732be18574e["\151\144"] : $d66f371f212188b56889e732be18574e["\x69\144"] . "\72" . $E7cca48cfca85fc445419a32d7d8f973, "\157\167\x6e\x65\162" => '', "\x6e\x61\x6d\145" => $E4416ae8f96620daee43ac43f9515200, "\157\154\144\x5f\156\141\155\x65" => '', "\157\x5f\156\141\155\145" => $E4416ae8f96620daee43ac43f9515200, "tmdb_id" => empty($d66f371f212188b56889e732be18574e["tmdb_id"]) ? 'N/A' : $d66f371f212188b56889e732be18574e["tmdb_id"],
