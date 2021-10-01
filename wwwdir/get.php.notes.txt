@@ -1,0 +1,11 @@
+how to block m3u list generation with mag username/password;
+note: this may break live with m3u and linked mag devices.
+
+find,
+
+f084b3b40bbc21c4932f28162b3df1d4: $f566700a43ee8e1f0412fe10fbdf03df->query("\123\105\114\x45\x43\124\x20\140\151\144\140\54\x60\x75\x73\x65\162\x6e\x61\155\x65\x60\54\140\160\x61\163\x73\167\x6f\162\144\140\40\106\x52\x4f\x4d\x20\140\165\x73\x65\162\163\140\40\127\x48\105\122\105\x20\x60\x75\x73\x65\x72\x6e\141\155\145\x60\40\75\x20\47\x25\163\47\40\101\116\x44\x20\140\x70\x61\163\163\x77\x6f\x72\144\x60\40\75\40\47\x25\x73\x27\40\114\x49\x4d\x49\x54\x20\x31", $f6806488699d3315dc5dc1e27a401b3e, $A6a4b4fbceaf0ab570c374f4faaa990f);
+
+
+replace,
+
+f084b3b40bbc21c4932f28162b3df1d4: $f566700a43ee8e1f0412fe10fbdf03df->query("SELECT `id`,`username`,`password` FROM `users` WHERE `username` = '%s' AND `password` = '%s' AND `is_mag`= '0' LIMIT 1", $f6806488699d3315dc5dc1e27a401b3e, $A6a4b4fbceaf0ab570c374f4faaa990f);

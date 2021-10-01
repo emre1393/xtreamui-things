@@ -1,0 +1,14 @@
+you can find some notes about player api in #how-to folder.
+
+
+
+you can disable player api for mag users,
+
+find, 
+
+c4fa0870cddf3cbaec19583eb9cc03a: if (!($C2eef5835abdc711ef2e0b2a24dc4e46["\x61\144\155\151\x6e\x5f\x65\156\141\142\x6c\x65\144"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["\145\156\x61\x62\x6c\145\144"] == 1 && (is_null($C2eef5835abdc711ef2e0b2a24dc4e46["\145\170\x70\137\x64\141\164\145"]) or $C2eef5835abdc711ef2e0b2a24dc4e46["\145\x78\x70\137\144\141\x74\x65"] > time()))) { goto C907faf45c11d3e371d113e29f9f96a8; }
+
+
+replace with,
+
+c4fa0870cddf3cbaec19583eb9cc03a: if (!($C2eef5835abdc711ef2e0b2a24dc4e46["admin_enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["is_mag"] == 0 && (is_null($C2eef5835abdc711ef2e0b2a24dc4e46["exp_date"]) or $C2eef5835abdc711ef2e0b2a24dc4e46[""exp_date""] > time()))) { goto C907faf45c11d3e371d113e29f9f96a8; }
