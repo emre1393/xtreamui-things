@@ -11,4 +11,4 @@ c4fa0870cddf3cbaec19583eb9cc03a: if (!($C2eef5835abdc711ef2e0b2a24dc4e46["\x61\1
 
 replace with,
 
-c4fa0870cddf3cbaec19583eb9cc03a: if (!($C2eef5835abdc711ef2e0b2a24dc4e46["admin_enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["is_mag"] == 0 && (is_null($C2eef5835abdc711ef2e0b2a24dc4e46["exp_date"]) or $C2eef5835abdc711ef2e0b2a24dc4e46[""exp_date""] > time()))) { goto C907faf45c11d3e371d113e29f9f96a8; }
+c4fa0870cddf3cbaec19583eb9cc03a: if (!($C2eef5835abdc711ef2e0b2a24dc4e46["admin_enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["enabled"] == 1 && $C2eef5835abdc711ef2e0b2a24dc4e46["is_mag"] == 0 && (is_null($C2eef5835abdc711ef2e0b2a24dc4e46["exp_date"]) or $C2eef5835abdc711ef2e0b2a24dc4e46["exp_date"] > time()))) { goto C907faf45c11d3e371d113e29f9f96a8; }
