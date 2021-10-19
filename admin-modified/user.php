@@ -425,6 +425,13 @@ if ($rSettings["sidebar"]) {
                                                                 <input name="is_isplock" id="is_isplock" type="checkbox" <?php if (isset($rUser)) { if ($rUser["is_isplock"] == 1) { echo "checked "; } } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="isp_desc">ISP Description</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" id="isp_desc" name="isp_desc" placeholder="ISP Description" value="<?php if (isset($rUser)) { echo htmlspecialchars($rUser["isp_desc"]); } ?>">
+                                                            </div>
+                                                        </div>
+
                                                         <div class="form-group row mb-4" style="display:none" id="mac_entry_mag">
                                                             <label class="col-md-4 col-form-label" for="mac_address_mag">MAC Address</label>
                                                             <div class="col-md-8">
