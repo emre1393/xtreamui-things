@@ -27,6 +27,9 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     if (!isset($_POST["allowed_stb_types_for_local_recording"])) {
         $rArray["allowed_stb_types_for_local_recording"] = Array();
     }
+    if (!isset($_POST["use_https"])) {
+        $rArray["use_https"] = Array();
+    }
     if (!isset($_POST["allowed_stb_types"])) {
         $rArray["allowed_stb_types"] = Array();
     }
@@ -767,6 +770,17 @@ if ($rSettings["sidebar"]) {
                                                                 <input name="block_svp" id="block_svp" type="checkbox"<?php if ($rSettings["block_svp"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="use_https">Servers with HTTPS<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable streaming over https protocol selected servers. Configure nginx with https on the server first, then select server here. If you enable it for main server, m3u list will come with https stream url." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-8">
+                                                                <select name="use_https[]" id="use_https" class="form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose...">
+                                                                    <?php foreach ($rServers as $rServer) { ?>
+                                                                    <option <?php if (in_array($rServer["id"], json_decode($rSettings["use_https"], True))) { echo "selected "; } ?>value="<?=$rServer["id"]?>">#<?=$rServer["id"]?>-<?=$rServer["server_name"]?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="form-group row mb-4">
                                                             <label class="col-md-4 col-form-label" for="show_not_on_air_video">Stream Down Video <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Show this video when a stream isn't on air." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
