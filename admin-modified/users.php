@@ -128,7 +128,7 @@ if ($rSettings["sidebar"]) {
             </div> <!-- end container -->
             <?php if ((($rPermissions["is_reseller"]) && ($rPermissions["allow_download"])) OR ($rPermissions["is_admin"])) { ?>
             <div class="modal fade downloadModal" role="dialog" aria-labelledby="downloadLabel" aria-hidden="true" style="display: none;" data-username="" data-password="">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="downloadModal">Download Playlist</h4>
