@@ -64,8 +64,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span></h3>
-													<p class="text-muted mb-1 text-truncate"><?=$_["open_connections"]?></p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right"><?=$_["open_connections"]?></p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
@@ -94,8 +98,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span></h3>
-													<p class="text-muted mb-1 text-truncate"><?=$_["online_users"]?></p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right"><?=$_["online_users"]?></p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
@@ -124,8 +132,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span></h3>
-													<p class="text-muted mb-1 text-truncate"><?=$_["online_streams"]?></p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right"><?=$_["online_streams"]?></p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
@@ -154,8 +166,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span></h3>
-													<p class="text-muted mb-1 text-truncate"><?=$_["offline_streams"]?></p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right"><?=$_["offline_streams"]?></p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
@@ -184,8 +200,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span><small>Mbps</small></h3>
-													<p class="text-muted mb-1 text-truncate">Total Input</p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right">Total Input</p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
@@ -214,8 +234,12 @@ if ($rSettings["sidebar"]) {
 											<div class="col-6">
 												<div class="text-right">
 													<h3 class="text-dark my-1"><span data-plugin="counterup" class="entry">0</span><small>Mbps</small></h3>
-													<p class="text-muted mb-1 text-truncate">Total Output</p>
 												</div>
+											</div>
+										</div>
+										<div>
+											<div class="text-right">
+												<p class="text-muted mb-1 text-truncate text-right">Total Output</p>
 											</div>
 										</div>
 									</div> <!-- end card-box-->
