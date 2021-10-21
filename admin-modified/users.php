@@ -252,7 +252,15 @@ if ($rSettings["sidebar"]) {
                     $rDNS = $rServers[$_INFO["server_id"]]["domain_name"] ? $rServers[$_INFO["server_id"]]["domain_name"] : $rServers[$_INFO["server_id"]]["server_ip"];
                 }
                 ?>
-                rText = "http://<?=$rDNS?>:<?=$rServers[$_INFO["server_id"]]["http_broadcast_port"]?>/get.php?username=" + $('.downloadModal').data('username') + "&password=" + $('.downloadModal').data('password') + "&" + decodeURIComponent($('.downloadModal select').val());
+                <?php
+                if (($rAdminSettings["https_m3u_url"] > 0) && ((strlen($rUserInfo["reseller_dns"])> 0) OR (strlen($rServers[$_INFO["server_id"]]["domain_name"]) > 0))) {
+                    $urlwithprotocol = "https://".$rDNS.":".$rServers[$_INFO["server_id"]]["https_broadcast_port"];
+                } else {
+                    $urlwithprotocol = "http://".$rDNS.":".$rServers[$_INFO["server_id"]]["http_broadcast_port"];
+                }
+                ?>
+               
+                rText = "<?=$urlwithprotocol?>/get.php?username=" + $('.downloadModal').data('username') + "&password=" + $('.downloadModal').data('password') + "&" + decodeURIComponent($('.downloadModal select').val());
                 if ($("#download_type").find(':selected').data('text')) {
                     rText = $("#download_type").find(':selected').data('text').replace("{DEVICE_LINK}", '"' + rText + '"');
                     $("#download_button").attr("disabled", true);
