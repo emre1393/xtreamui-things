@@ -67,7 +67,15 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     } else {
         $rAdminSettings["sort_reseller_packages"] = false;
     }
-	if (isset($_POST["ip_logout"])) {
+    // next 6 lines enable/disable https m3u download url
+    if (isset($_POST["https_m3u_url"])) {
+        $rAdminSettings["https_m3u_url"] = true;
+        unset($_POST["https_m3u_url"]);
+    } else {
+        $rAdminSettings["sort_reseller_packages"] = false;
+    }
+
+    if (isset($_POST["ip_logout"])) {
         $rAdminSettings["ip_logout"] = true;
         unset($_POST["ip_logout"]);
     } else {
@@ -745,9 +753,9 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="use_mdomain_in_lists">Use Domain in Lists <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Use domain name in lists." class="mdi mdi-information"></i></label>
+                                                        <label class="col-md-4 col-form-label" for="block_svp">Block Servers<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Block streams requests that comes from server originated ip addresses. It may block your restreamers, make sure isp lock is disabled for restreamer lines." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
-                                                                <input name="use_mdomain_in_lists" id="use_mdomain_in_lists" type="checkbox"<?php if ($rSettings["use_mdomain_in_lists"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                                <input name="block_svp" id="block_svp" type="checkbox"<?php if ($rSettings["block_svp"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                             <label class="col-md-4 col-form-label" for="hash_lb">Hash Load Balancers <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Any client is being redirected to your Load Balancers securely using Hash & crypt functions. However, this type of security can impact some clients that uses different IPs on every request or if your main is hidden behind a DNS such as Cloudflare. If you are streaming inside a type of network like this, you will need to disable this setting." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
@@ -765,9 +773,13 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="block_svp">Block Servers<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Block streams requests that comes from servers' ip addresses. It may block your restreamers, make sure isp lock is disabled for restreamer lines." class="mdi mdi-information"></i></label>
+                                                            <label class="col-md-4 col-form-label" for="https_m3u_url">HTTPS for M3U Download Url <i data-toggle="tooltip" data-placement="top" title="" data-original-title="WARNING! Consider reseller domains and proxies to enable https for m3u list downloads. Also you can select main server at below to get stream links with https in your m3u list files." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
-                                                                <input name="block_svp" id="block_svp" type="checkbox"<?php if ($rSettings["block_svp"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                                <input name="https_m3u_url" id="https_m3u_url" type="checkbox"<?php if ($rAdminSettings["https_m3u_url"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                            <label class="col-md-4 col-form-label" for="use_mdomain_in_lists">Use Main Server Domain in Lists <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Use main server's domain name in lists. If you want to get lists with reseller domains or proxy domain, disable this option." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="use_mdomain_in_lists" id="use_mdomain_in_lists" type="checkbox"<?php if ($rSettings["use_mdomain_in_lists"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
@@ -780,7 +792,6 @@ if ($rSettings["sidebar"]) {
                                                                 </select>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group row mb-4">
                                                             <label class="col-md-4 col-form-label" for="show_not_on_air_video">Stream Down Video <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Show this video when a stream isn't on air." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
