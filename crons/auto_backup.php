@@ -92,14 +92,14 @@ if (isset($rAdminSettings['automatic_backups']) && ! empty($rAdminSettings['auto
 
 // defining variables below
 
-$rDateOfNow =  date("Y-m-d_H:i:s");  // define current time, example: 2020-05-27_18:18:33
+$rDateOfNow =  date("Y-m-d_H_i_s");  // define current time, example: 2020-05-27_18_18_33
 
 $rFilename = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".sql";
 
 $rTheGzipFile = MAIN_DIR . "adtools/backups/backup_" . $rDateOfNow . ".gz";
 
 
-$rCommand0 = "mysqldump -u ".$_INFO["db_user"]." -p".$_INFO["db_pass"]." -P ".$_INFO["db_port"]." ".$_INFO["db_name"]." --ignore-table=xtream_iptvpro.user_activity --ignore-table=xtream_iptvpro.stream_logs --ignore-table=xtream_iptvpro.panel_logs --ignore-table=xtream_iptvpro.client_logs --ignore-table=xtream_iptvpro.epg_data --ignore-table=xtream_iptvpro.mag_logs > \"".$rFilename."\" && sleep ".$rSleepTimeForBackup."; gzip < ".$rFilename." > ".$rTheGzipFile.";";
+$rCommand0 = "mysqldump -u ".$_INFO["db_user"]." -p".$_INFO["db_pass"]." -P ".$_INFO["db_port"]." ".$_INFO["db_name"]." --ignore-table=xtream_iptvpro.user_activity --ignore-table=xtream_iptvpro.user_activity_now --ignore-table=xtream_iptvpro.stream_logs --ignore-table=xtream_iptvpro.panel_logs --ignore-table=xtream_iptvpro.client_logs --ignore-table=xtream_iptvpro.epg_data --ignore-table=xtream_iptvpro.mag_logs --ignore-table=xtream_iptvpro.watch_output > \"".$rFilename."\" && sleep ".$rSleepTimeForBackup."; gzip < ".$rFilename." > ".$rTheGzipFile.";";
 
 $rCommand1 = "export EMAIL=".$rSenderMail." && echo \"Database Backup ".$rDateOfNow."\" | mutt -e 'my_hdr From: Admin <".$rSenderMail.">' -s \"Database Backup ".$rDateOfNow."\" -a ".$rTheGzipFile." -- \"".$rRecepeintMail."\"";
 
