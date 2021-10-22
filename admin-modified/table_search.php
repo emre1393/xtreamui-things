@@ -1867,6 +1867,61 @@ if ($rType == "users") {
         }
     }
     echo json_encode($rReturn);exit;
+} else if ($rType == "panel_logs") {
+	if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "database"))) { exit; }
+    $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
+    $rOrder = Array("`panel_logs`.`id`", "`panel_logs`.`date`");
+    if (strlen($_GET["order"][0]["column"]) > 0) {
+        $rOrderRow = intval($_GET["order"][0]["column"]);
+    } else {
+        $rOrderRow = 0;
+    }
+    $rWhere = Array();
+    if (strlen($_GET["search"]["value"]) > 0) {
+        $rSearch = $_GET["search"]["value"];
+        $rWhere[] = "(`panel_logs`.`log_message` LIKE '%{$rSearch}%')";
+    }
+    if (strlen($_GET["range"]) > 0) {
+        $rStartTime = substr($_GET["range"], 0, 10);
+        $rEndTime = substr($_GET["range"], strlen($_GET["range"])-10, 10);
+        if (!$rStartTime = strtotime($rStartTime. " 00:00:00")) {
+            $rStartTime = null;
+        }
+        if (!$rEndTime = strtotime($rEndTime." 23:59:59")) {
+            $rEndTime = null;
+        }
+        if (($rStartTime) && ($rEndTime)) {
+            $rWhere[] = "(`panel_logs`.`date` >= ".$rStartTime." AND `panel_logs`.`date` <= ".$rEndTime.")";
+        }
+    }
+    if (count($rWhere) > 0) {
+        $rWhereString = "WHERE ".join(" AND ", $rWhere);
+    } else {
+        $rWhereString = "";
+    }
+    if ($rOrder[$rOrderRow]) {
+        $rOrderDirection = strtolower($_GET["order"][0]["dir"]) === 'desc' ? 'desc' : 'asc';
+        $rOrderBy = "ORDER BY ".$rOrder[$rOrderRow]." ".$rOrderDirection;
+    }
+    $rCountQuery = "SELECT COUNT(*) AS `count` FROM `panel_logs` {$rWhereString};";
+    $rResult = $db->query($rCountQuery);
+    if (($rResult) && ($rResult->num_rows == 1)) {
+        $rReturn["recordsTotal"] = $rResult->fetch_assoc()["count"];
+    } else {
+        $rReturn["recordsTotal"] = 0;
+    }
+    $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
+    if ($rReturn["recordsTotal"] > 0) {
+        $rQuery = "SELECT `panel_logs`.`id`, `panel_logs`.`log_message`, `panel_logs`.`date` FROM `panel_logs` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rResult = $db->query($rQuery);
+        if (($rResult) && ($rResult->num_rows > 0)) {
+            while ($rRow = $rResult->fetch_assoc()) {
+                $rLogTime = date("Y-m-d H:i:s", $rRow["date"]);
+                $rReturn["data"][] = Array($rRow["id"], $rRow["log_message"], $rLogTime);
+            }
+        }
+    }
+    echo json_encode($rReturn);exit;
 } else if ($rType == "stream_logs") {
 	if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "stream_errors"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
