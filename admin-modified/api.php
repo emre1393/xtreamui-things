@@ -859,7 +859,7 @@ if (isset($_GET["action"])) {
         } else if (!$rEndTime = strtotime($_GET["to"]." 23:59:59")) {
             echo json_encode(Array("result" => False));exit;
         }
-        if (in_array($_GET["type"], Array("client_logs", "stream_logs", "user_activity", "credits_log", "reg_userlog"))) {
+        if (in_array($_GET["type"], Array("client_logs", "stream_logs", "user_activity", "credits_log", "reg_userlog", "panel_logs"))) {
             if ($_GET["type"] == "user_activity") {
                 $rColumn = "date_start";
             } else {
