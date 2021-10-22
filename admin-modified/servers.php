@@ -58,6 +58,7 @@ if ($rSettings["sidebar"]) {
                                             <th class="text-center">Latency</th>
                                             <th>Domain Name</th>
                                             <th>Server IP</th>
+                                            <th>Stream Ports</th>
                                             <th class="text-center">Client Slots</th>
                                             <th class="text-center">CPU %</th>
                                             <th class="text-center">MEM %</th>
@@ -96,6 +97,7 @@ if ($rSettings["sidebar"]) {
                                             <td class="text-center"><?=$rLatency?></td>
                                             <td><?=$rServer["domain_name"]?></td>
                                             <td><?=$rServer["server_ip"]?></td>
+                                            <td><?=$rServer["http_broadcast_port"]?>/<?=$rServer["https_broadcast_port"]?></td>
 											<?php if (hasPermissions("adv", "live_connections")) { ?>
                                             <td class="text-center"><a href="./live_connections.php?server_id=<?=$rServer["id"]?>"><?=count(getConnections($rServer["id"]))?> / <?=$rServer["total_clients"]?></a></td>
 											<?php } else { ?>
@@ -106,7 +108,7 @@ if ($rSettings["sidebar"]) {
                                             <td class="text-center">
 												<?php if (hasPermissions("adv", "edit_server")) { ?>
                                                 <div class="btn-group">
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Restart Services" class="btn btn-light waves-effect waves-light btn-xs btn-reboot-server" data-id="<?=$rServer["id"]?>"><i class="mdi mdi-restart"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php if ($rServer["id"] == 1) { echo "Restart Services"; } else if ($rServer["id"] > 1) { echo "Restart/Reinstall Services"; } ?>" class="btn btn-light waves-effect waves-light btn-xs btn-reboot-server" data-id="<?=$rServer["id"]?>"><i class="mdi mdi-restart"></i></button>
                                                     <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Start All Streams" class="btn btn-light waves-effect waves-light btn-xs" onClick="api(<?=$rServer["id"]?>, 'start');"><i class="mdi mdi-play"></i></button>
                                                     <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Stop All Streams" class="btn btn-light waves-effect waves-light btn-xs" onClick="api(<?=$rServer["id"]?>, 'stop');"><i class="mdi mdi-stop"></i></button>
                                                     <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Kill All Connections" class="btn btn-light waves-effect waves-light btn-xs" onClick="api(<?=$rServer["id"]?>, 'kill');"><i class="fas fa-hammer"></i></button>
@@ -134,7 +136,7 @@ if ($rSettings["sidebar"]) {
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="restartServicesLabel">Restart Services</h4>
+                        <h4 class="modal-title" id="restartServicesLabel">Restart Services or Reinstall LB Server</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
@@ -149,12 +151,20 @@ if ($rSettings["sidebar"]) {
                             </div>
                         </div>
                         <div class="form-group row mb-4">
-							<div class="col-md-6">
+                                <div class="col-md-4">
 								<input id="restart_services_ssh" type="submit" class="btn btn-primary" value="Restart Services" style="width:100%" />
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<input id="reboot_server_ssh" type="submit" class="btn btn-primary" value="Reboot Server" style="width:100%" />
 							</div>
+							<div class="col-md-4">
+								<input id="reinstall_server_ssh" type="submit" class="btn btn-primary" value="Reinstall LB Server" style="width:100%" />
+							</div>
+                        </div>
+                        <div>
+                            <div class="text-left">
+                                <p class="text-muted mb-1 text-truncate">Warning!! DO NOT use reinstall button for MAIN Server</p>
+                            </div>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -253,6 +263,28 @@ if ($rSettings["sidebar"]) {
                 $(".bs-server-modal-center").data("id", "");
             });
         });
+		$("#reinstall_server_ssh").click(function() {
+            $(".bs-server-modal-center").modal("hide");
+            if (confirm('Are you sure you want to reinstall this lb server?') == false) {
+                return;
+            }
+            if ($(".bs-server-modal-center").data("id") == 1) {
+                $.toast("Please do not try to install Main server with this way.");
+            } else {
+                $.getJSON("./api.php?action=reinstall_lbserver&ssh_port=" + $("#ssh_port").val() + "&server_id=" + $(".bs-server-modal-center").data("id") + "&password=" + $("#root_password").val(), function(data) {
+                    if (data.result === true) {
+                        $.toast("Server will be reinstalled shortly.");
+                    } else {
+                        $.toast("An error occured while processing your request.");
+                    }
+                    $("#root_password").val("");
+                    $("#ssh_port").val("22");
+                    $(".bs-server-modal-center").data("id", "");
+                });
+
+            }
+        });
+
         $(".btn-reboot-server").click(function() {
             $(".bs-server-modal-center").data("id", $(this).data("id"));
             $(".bs-server-modal-center").modal("show");
