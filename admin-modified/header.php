@@ -115,7 +115,10 @@
 								if (hasPermissions("adv", "mng_packages")) { ?>
                                 <a href="./packages.php" class="dropdown-item notify-item"><span><?=$_["packages"]?></span></a>
 								<?php }
-								if (hasPermissions("adv", "process_monitor")) { ?>
+								if (hasPermissions("adv", "database")) { ?>
+                                <a href="./panel_logs.php" class="dropdown-item notify-item"><span>Panel Logs</span></a>
+                                <?php }
+                                if (hasPermissions("adv", "process_monitor")) { ?>
                                 <a href="./process_monitor.php?server=<?=$_INFO["server_id"]?>" class="dropdown-item notify-item"><span><?=$_["process_monitor"]?></span></a>
 								<?php }
 								if (hasPermissions("adv", "rtmp")) { ?>
