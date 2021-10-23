@@ -16,7 +16,7 @@ if (isset($_GET["geolite2"])) {
 
 if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     $rArray = getSettings();
-    foreach (Array("disallow_empty_user_agents", "persistent_connections", "show_all_category_mag", "show_not_on_air_video", "show_banned_video", "show_expired_video", "new_sorting_bouquet", "rtmp_random", "use_buffer", "audio_restart_loss", "save_closed_connection", "client_logs_save", "case_sensitive_line", "county_override_1st", "disallow_2nd_ip_con", "firewall", "use_mdomain_in_lists", "hash_lb", "show_isps", "enable_isp_lock", "block_svp", "mag_security", "always_enabled_subtitles", "enable_connection_problem_indication", "show_tv_channel_logo", "show_channel_logo_in_preview", "stb_change_pass", "enable_debug_stalker") as $rSetting) {
+    foreach (Array("disallow_empty_user_agents", "persistent_connections", "show_all_category_mag", "show_not_on_air_video", "show_banned_video", "show_expired_video", "new_sorting_bouquet", "rtmp_random", "use_buffer", "audio_restart_loss", "save_closed_connection", "client_logs_save", "case_sensitive_line", "county_override_1st", "disallow_2nd_ip_con", "firewall", "use_mdomain_in_lists", "hash_lb", "show_isps", "enable_isp_lock", "block_svp", "mag_security", "always_enabled_subtitles", "enable_connection_problem_indication", "show_tv_channel_logo", "show_channel_logo_in_preview", "stb_change_pass", "enable_debug_stalker", "priority_backup") as $rSetting) {
         if (isset($_POST[$rSetting])) {
             $rArray[$rSetting] = 1;
             unset($_POST[$rSetting]);
@@ -72,7 +72,7 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
         $rAdminSettings["https_m3u_url"] = true;
         unset($_POST["https_m3u_url"]);
     } else {
-        $rAdminSettings["sort_reseller_packages"] = false;
+        $rAdminSettings["https_m3u_url"] = false;
     }
 
     if (isset($_POST["ip_logout"])) {
@@ -713,13 +713,19 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="use_buffer">Use Nginx Buffer <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Sets the proxy buffering for this connection. Setting this to “no” will allow unbuffered responses suitable for Comet and HTTP streaming applications. Setting this to “yes” will allow the response to be cached." class="mdi mdi-information"></i></label>
+                                                            <label class="col-md-4 col-form-label" for="priority_backup">Priority Backup<i data-toggle="tooltip" data-placement="top" title="" data-original-title="Checks the first stream source and restarts stream if it is alive." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
-                                                                <input name="use_buffer" id="use_buffer" type="checkbox"<?php if ($rSettings["use_buffer"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                                <input name="priority_backup" id="priority_backup" type="checkbox"<?php if ($rSettings["priority_backup"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                             <label class="col-md-4 col-form-label" for="audio_restart_loss">Restart on Audio Loss <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Restart stream periodically if no audio is detected." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input name="audio_restart_loss" id="audio_restart_loss" type="checkbox"<?php if ($rSettings["audio_restart_loss"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="use_buffer">Use Nginx Buffer <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Sets the proxy buffering for this connection. Setting this to “no” will allow unbuffered responses suitable for Comet and HTTP streaming applications. Setting this to “yes” will allow the response to be cached." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="use_buffer" id="use_buffer" type="checkbox"<?php if ($rSettings["use_buffer"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
