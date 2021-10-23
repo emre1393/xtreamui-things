@@ -848,7 +848,7 @@ if (isset($_GET["action"])) {
         if (isset($rServers[$rServerID]) && $rServerID <> "1") {
             $rJSON = Array("status" => 0, "port" => intval($_GET["ssh_port"]), "host" => $rServers[$rServerID]["server_ip"], "password" => $_GET["password"], "http_broadcast_port" => $rServers[$rServerID]["http_broadcast_port"], "https_broadcast_port" => $rServers[$rServerID]["https_broadcast_port"], "rtmp_port" => $rServers[$rServerID]["rtmp_port"], "time" => intval(time()), "id" => $rServerID, "type" => "install");
             file_put_contents("/home/xtreamcodes/iptv_xtream_codes/adtools/balancer/".$rServerID.".json", json_encode($rJSON));
-            $db->query("UPDATE `streaming_servers`SET `status` =  '3' WHERE `id` = ".intval($rServerID).";");
+            $db->query("UPDATE `streaming_servers` SET `status` = '3' WHERE `id` = ".intval($rServerID).";");
             echo json_encode(Array("result" => True));exit;
         }
         echo json_encode(Array("result" => False));exit;
