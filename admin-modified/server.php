@@ -9,7 +9,7 @@ if (isset($_POST["submit_server"])) {
         unset($rArray["id"]);
     } else {
 		if (!hasPermissions("adv", "add_server")) { exit; }
-        $rArray = Array("server_name" => "", "domain_name" => "", "server_ip" => "", "vpn_ip" => "", "diff_time_main" => 0, "http_broadcast_port" => 25461, "total_clients" => 1000, "system_os" => "", "network_interface" => "eth0", "status" => 2, "enable_geoip" => 0, "geoip_countries" => "[]", "geoip_type" => "low_priority", "can_delete" => 1, "rtmp_port" => 25462, "enable_isp" => 0, "boost_fpm" => 0, "network_guaranteed_speed" => 1000, "https_broadcast_port" => 25463, "whitelist_ips" => Array(), "timeshift_only" => 0, "isp_names" => Array());
+        $rArray = Array("server_name" => "", "domain_name" => "", "server_ip" => "", "vpn_ip" => "", "diff_time_main" => 0, "http_broadcast_port" => 25461, "total_clients" => 1000, "system_os" => "", "network_interface" => "eth0", "status" => 2, "enable_geoip" => 0, "geoip_countries" => "[]", "geoip_type" => "low_priority", "can_delete" => 1, "rtmp_port" => 25462, "boost_fpm" => 0, "network_guaranteed_speed" => 1000, "https_broadcast_port" => 25463, "whitelist_ips" => Array(), "timeshift_only" => 0, "enable_isp" => 0, "isp_type" => "low_priority", "isp_names" => Array());
     }
     if (strlen($_POST["server_ip"]) == 0) {
         $_STATUS = 1;
@@ -67,6 +67,22 @@ if (isset($_POST["submit_server"])) {
     } else {
         $rArray["geoip_countries"] = Array();
     }
+    if (isset($_POST["enable_isp"])) {
+        $rArray["enable_isp"] = true;
+        unset($_POST["enable_isp"]);
+    } else {
+        $rArray["enable_isp"] = false;
+    }
+    if (isset($_POST["isp_names"])) {
+		if (!is_array($_POST["isp_names"])) {
+			$_POST["isp_names"] = Array($_POST["isp_names"]);
+		}
+        $_POST["isp_names"] = array_unique( $_POST["isp_names"], SORT_REGULAR ); // removes duplicates
+		$rArray["isp_names"] = json_encode($_POST["isp_names"]);
+	} else {
+		$rArray["isp_names"] = "[]";
+	}
+
     if (!isset($_STATUS)) {
         foreach($_POST as $rKey => $rValue) {
             if (isset($rArray[$rKey])) {
@@ -187,6 +203,12 @@ if ($rSettings["sidebar"]) {
                                                     <span class="d-none d-sm-inline">Advanced</span>
                                                 </a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a href="#geoisp-balancing" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <i class="mdi mdi-dns-outline mr-1"></i>
+                                                    <span class="d-none d-sm-inline">GeoIP/ISP Balancing</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content b-0 mb-0 pt-0">
                                             <div class="tab-pane" id="server-details">
@@ -273,6 +295,17 @@ if ($rSettings["sidebar"]) {
                                                                 <input type="text" class="form-control" id="system_os" name="system_os" value="<?php if (isset($rServerArr)) { echo htmlspecialchars($rServerArr["system_os"]); } else { echo "Ubuntu 14.04.5 LTS"; } ?>">
                                                             </div>
                                                         </div>
+                                                        </div> <!-- end col -->
+                                                </div> <!-- end row -->
+                                                <ul class="list-inline wizard mb-0">
+                                                    <li class="next list-inline-item float-right">
+                                                        <a href="javascript: void(0);" class="btn btn-secondary">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane" id="geoisp-balancing">
+                                                <div class="row">
+                                                    <div class="col-12">
                                                         <div class="form-group row mb-4">
                                                             <label class="col-md-4 col-form-label" for="enable_geoip">GeoIP Load Balancing</label>
                                                             <div class="col-md-2">
@@ -280,7 +313,7 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <select name="geoip_type" id="geoip_type" class="form-control select2" data-toggle="select2">
-                                                                    <?php foreach (Array("high_priority" => "High Priority", "low_priority" => "Low Priority", "strict" => "Strict") as $rType => $rText) { ?>
+                                                                    <?php foreach (Array("low_priority" => "Low Priority", "high_priority" => "High Priority", "strict" => "Strict") as $rType => $rText) { ?>
                                                                     <option <?php if (isset($rServerArr)) { if ($rServerArr["geoip_type"] == $rType) { echo "selected "; } } ?>value="<?=$rType?>"><?=$rText?></option>
                                                                     <?php } ?>
                                                                 </select>
@@ -296,6 +329,50 @@ if ($rSettings["sidebar"]) {
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="enable_isp">ISP Load Balancing</label>
+                                                            <div class="col-md-2">
+                                                                <input name="enable_isp" id="enable_isp" type="checkbox" <?php if (isset($rServerArr)) { if ($rServerArr["enable_isp"] == 1) { echo "checked "; } } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select name="isp_type" id="isp_type" class="form-control select2" data-toggle="select2">
+                                                                    <?php foreach (Array("low_priority" => "Low Priority", "high_priority" => "High Priority", "strict" => "Strict") as $rType => $rText) { ?>
+                                                                    <option <?php if (isset($rServerArr)) { if ($rServerArr["isp_type"] == $rType) { echo "selected "; } } ?>value="<?=$rType?>"><?=$rText?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-2">
+                                                            <label class="col-md-4 col-form-label" for="isp_field">ISP Names to prioritize users</label>
+                                                            <div class="col-md-8 input-group">
+                                                                <input type="text" id="isp_field" class="form-control" placeholder="Add an ISP Name with add button" value="">
+                                                                <div class="input-group-append">
+                                                                    <a href="javascript:void(0)" id="add_isp" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus"></i></a>
+                                                                   <a href="javascript:void(0)" id="remove_isp" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="isp_names">&nbsp;</label>
+                                                            <div class="col-md-8">
+                                                                <label>Tip: Select ISP Names from below and press to delete button</label>
+                                                                <select id="isp_names" name="isp_names[]" size=6 class="form-control select2-multiple" multiple="multiple" data-placeholder="">
+                                                                <?php if (isset($rServerArr)) { foreach(json_decode($rServerArr["isp_names"], True) as $rISP) { ?>
+                                                                <option value="<?=$rISP?>"><?=$rISP?></option>
+                                                                <?php } } ?>
+                                                                </select>
+                                                            <!--    <label>ISP Names List is somehow comes hidden, click to bar above, you will see the list. </br>If you know how to fix it, please let me now on github.</label>
+                                                            --></div>
+                                                            <!-- why i added next div with style="display:none", because isp name list wasn't working like it did in allowed ua list in user.php, i added the div below, the above one worked as expected, weird.-->
+                                                            <div class="col-md-8" style="display: none;" >
+                                                                <select name="isp_names[]" id="isp_names" class="form-control select2-multiple" style="display: none;" data-toggle="select2" multiple="multiple" data-placeholder="">
+                                                                    <?php $rSelected = json_decode($rServerArr["isp_names"], True);
+                                                                    foreach ($rSelected as $rispname) { ?>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -347,6 +424,7 @@ if ($rSettings["sidebar"]) {
         <script src="assets/libs/parsleyjs/parsley.min.js"></script>
         <script src="assets/js/app.min.js"></script>
         
+
         <script>
         (function($) {
           $.fn.inputFilter = function(inputFilter) {
@@ -362,35 +440,31 @@ if ($rSettings["sidebar"]) {
             });
           };
         }(jQuery));
-        
+
         $(document).ready(function() {
             $('select').select2({width: '100%'})
             var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
             elems.forEach(function(html) {
               var switchery = new Switchery(html);
             });
+
             
-            $('#exp_date').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minDate: new Date(),
-                locale: {
-                    format: 'YYYY-MM-DD'
-                }
+            $("#server_form").submit(function(e){
+                $("#isp_names option").prop('selected', true);
             });
-            
-            $("#no_expire").change(function() {
-                if ($(this).prop("checked")) {
-                    $("#exp_date").prop("disabled", true);
+            $("#add_isp").click(function() {
+                if ($("#isp_field").val().length > 0) {
+                    var o = new Option($("#isp_field").val(), $("#isp_field").val());
+                    $("#isp_names").append(o);
+                    $("#isp_field").val("");
                 } else {
-                    $("#exp_date").removeAttr("disabled");
+                    $.toast("Please enter an ISP Name.");
                 }
             });
-            
-            $(window).keypress(function(event){
-                if(event.which == 13 && event.target.nodeName != "TEXTAREA") return false;
+            $("#remove_isp").click(function() {
+                $('#isp_names option:selected').remove();
             });
-            
+
             $("#total_clients").inputFilter(function(value) { return /^\d*$/.test(value); });
             $("#http_broadcast_port").inputFilter(function(value) { return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 65535); });
             $("#https_broadcast_port").inputFilter(function(value) { return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 65535); });
@@ -398,6 +472,7 @@ if ($rSettings["sidebar"]) {
             $("#diff_time_main").inputFilter(function(value) { return /^\d*$/.test(value); });
             $("#network_guaranteed_speed").inputFilter(function(value) { return /^\d*$/.test(value); });
             $("form").attr('autocomplete', 'off');
+
         });
         </script>
     </body>
