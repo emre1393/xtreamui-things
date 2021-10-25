@@ -467,7 +467,7 @@ function getTimeDifference($rServerID) {
 	global $rServers, $rSettings;
     ini_set('default_socket_timeout', 3);
     $rAPI = SystemAPIRequest($rServerID, Array('action' => 'getDiff', 'main_time' => intval(time())));
-    return intval(file_get_contents($rAPI));
+    return intval($rAPI);
 }
 
 function deleteActualMovieFile($rServerID, $rID) {
