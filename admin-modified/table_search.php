@@ -1743,7 +1743,7 @@ if ($rType == "users") {
 } else if ($rType == "client_logs") {
 	if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "client_request_log"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`client_logs`.`id`", "`users`.`username`", "`streams`.`stream_display_name`", "`client_logs`,`client_status`", "`client_logs`.`user_agent`", "`client_logs`.`ip`", "`client_logs`.`date`");
+    $rOrder = Array("`client_logs`.`id`", "`users`.`username`", "`streams`.`stream_display_name`", "`client_logs`.`client_status`", "`client_logs`.`ip`", "`client_logs`.`extra_data`","`client_logs`.`date`", "`client_logs`.`user_agent`");
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
