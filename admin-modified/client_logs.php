@@ -67,9 +67,11 @@ if ($rSettings["sidebar"]) {
                                             <th><?=$_["username"]?></th>
                                             <th><?=$_["stream"]?></th>
                                             <th><?=$_["reason"]?></th>
+                                            <th>IP</th>
+                                            <th>Extra Info</th>
+                                            <th class="text-center"><?=$_["date"]?>
                                             <th><?=$_["user_agent"]?></th>
-                                            <th>IP/ISP/Type</th>
-                                            <th class="text-center"><?=$_["date"]?></th>
+                                        </th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -230,7 +232,8 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,5,6]}
+                    {"className": "dt-center", "targets": [0,4,6]}
+                    //{"orderable": false, "targets": [5]}
                 ],
                 "order": [[ 0, "desc" ]],
                 pageLength: <?=$rAdminSettings["default_entries"] ?: 10?>
