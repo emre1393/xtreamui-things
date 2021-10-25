@@ -1797,10 +1797,19 @@ if ($rType == "users") {
 				} else {
 					$rUsername = $rRow["username"];
 				}
-                $extrainfo = json_decode($rRow["extra_data"], True);
-                $ipinfo = "<a target='_blank' href='https://db-ip.com/".$rRow["ip"]."'>".$rRow["ip"]."</a>/".$extrainfo["isp"]."/".$extrainfo["type"]."";
+                $ipinfo = "<a target='_blank' href='https://db-ip.com/".$rRow["ip"]."'>".$rRow["ip"]."</a>";
 
-                $rReturn["data"][] = Array($rRow["id"], $rUsername, $rRow["stream_display_name"], $rRow["client_status"], $rRow["user_agent"], $ipinfo, $rRow["date"]);
+                $extrainfo = json_decode($rRow["extra_data"], True);
+
+                if ($rRow["client_status"] == "CON_SVP") {
+                    $rExtradata = "".$extrainfo["isp"]."/".$extrainfo["type"]."";
+                } else if ($rRow["client_status"] == "ISP_LOCK_FAILED") {
+                    $extradata = "ISP: ".$extrainfo["new"]."";
+                }else {
+                  $extradata = "";
+                }
+
+                $rReturn["data"][] = Array($rRow["id"], $rUsername, $rRow["stream_display_name"], $rRow["client_status"], $ipinfo, $extradata, $rRow["date"], $rRow["user_agent"]);
             }
         }
     }
