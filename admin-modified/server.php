@@ -323,7 +323,7 @@ if ($rSettings["sidebar"]) {
                                                             <label class="col-md-4 col-form-label" for="geoip_countries">GeoIP Countries</label>
                                                             <div class="col-md-8">
                                                                 <select name="geoip_countries[]" id="geoip_countries" class="form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose...">
-                                                                    <?php $rSelected = json_decode($rServerArr["geoip_countries"], True);
+                                                                    <?php $rSelected = Array(); $rSelected = json_decode($rServerArr["geoip_countries"], True);
                                                                     foreach ($rCountries as $rCountry) { ?>
                                                                     <option <?php if (isset($rServerArr)) { if (in_array($rCountry["id"], $rSelected)) { echo "selected "; } } ?>value="<?=$rCountry["id"]?>"><?=$rCountry["name"]?></option>
                                                                     <?php } ?>
@@ -367,9 +367,7 @@ if ($rSettings["sidebar"]) {
                                                             <!-- why i added next div with style="display:none", because isp name list wasn't working like it did in allowed ua list in user.php, i added the div below, the above one worked as expected, weird.-->
                                                             <div class="col-md-8" style="display: none;" >
                                                                 <select name="isp_names[]" id="isp_names" class="form-control select2-multiple" style="display: none;" data-toggle="select2" multiple="multiple" data-placeholder="">
-                                                                    <?php $rSelected = json_decode($rServerArr["isp_names"], True);
-                                                                    foreach ($rSelected as $rispname) { ?>
-                                                                    <?php } ?>
+                                                                    <?php $rSelected = json_decode($rServerArr["isp_names"], True);?>
                                                                 </select>
                                                             </div>
 
