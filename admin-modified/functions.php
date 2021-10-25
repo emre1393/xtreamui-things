@@ -466,7 +466,7 @@ function getEncodeErrors($rID) {
 function getTimeDifference($rServerID) {
 	global $rServers, $rSettings;
     ini_set('default_socket_timeout', 3);
-    $rError = SystemAPIRequest($rServerID, Array('action' => 'getDiff', 'main_time' => intval(time())));
+    $rAPI = SystemAPIRequest($rServerID, Array('action' => 'getDiff', 'main_time' => intval(time())));
     return intval(file_get_contents($rAPI));
 }
 
