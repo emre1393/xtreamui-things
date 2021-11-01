@@ -1512,10 +1512,10 @@ function getFooter() {
     global $rAdminSettings, $rPermissions, $rSettings, $rRelease, $rEarlyAccess, $_;
     if ($rPermissions["is_admin"]) {
 		if ($rEarlyAccess) {
-			return $_["copyright"]." &copy; ".date("Y")." - <a href=\"https://xtream-ui.com\">Xtream UI</a> R".$rRelease.$rEarlyAccess." - ".$_["early_access"];
+			return $_["copyright"]." &copy; 2020 - <a href=\"https://xtream-ui.com\">Xtream UI</a> R".$rRelease.$rEarlyAccess." - ".$_["early_access"];
 		} else {
-			return $_["copyright"]." &copy; ".date("Y")." - <a href=\"https://xtream-ui.com\">Xtream UI</a> R".$rRelease." - ".$_["free_forever"];
-		}
+			return $_["copyright"]." &copy; 2020 - <a href=\"https://xtream-ui.com\">Xtream UI</a> R".$rRelease." - ".$_["free_forever"];
+		} //".date("Y")."
     } else {
         return $rSettings["copyrights_text"];
     }
