@@ -726,10 +726,10 @@ if ($rType == "users") {
                 } else {
                     $rEPG = '<i class="text-danger far fa-circle"></i>';
                 }
-                if (strlen($rRow["stream_icon"]) > 0) {
-					$rIcon = "<img src='./resize.php?max=32&url=".$rRow["stream_icon"]."' />";
+                if (($rAdminSettings["show_live_icon"] == 1) && (strlen($rRow["stream_icon"]) > 0)) {
+					$rIcon = "<img loading='lazy' src='./resize.php?max=32&url=".$rRow["stream_icon"]."' />";
 				} else {
-					$rIcon = "";
+					$rIcon = '<i class="la la-tv la-3x"></i>';
 				}
                 if ($rPermissions["is_admin"]) {
                     $rReturn["data"][] = Array($rRow["id"], $rIcon, $rStreamName, $rServerName, $rClients, $rUptime, $rButtons, $rPlayer, $rEPG, $rStreamInfoText);
