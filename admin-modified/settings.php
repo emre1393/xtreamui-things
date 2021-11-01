@@ -74,6 +74,13 @@ if ((isset($_POST["submit_settings"])) && (hasPermissions("adv", "settings"))) {
     } else {
         $rAdminSettings["https_m3u_url"] = false;
     }
+    // next 6 lines enable/disable show stream icon in streams page
+    if (isset($_POST["show_live_icon"])) {
+        $rAdminSettings["show_live_icon"] = true;
+        unset($_POST["show_live_icon"]);
+    } else {
+        $rAdminSettings["show_live_icon"] = false;
+    }
 
     if (isset($_POST["ip_logout"])) {
         $rAdminSettings["ip_logout"] = true;
@@ -546,7 +553,12 @@ if ($rSettings["sidebar"]) {
                                                                 <input name="delete_vod" id="delete_vod" type="checkbox"<?php if ($rAdminSettings["delete_vod"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-md-4 col-form-label" for="show_live_icon">Show Logos in Streams Page <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable this if you want to show stream logos in streams page. Disable it if you want to make streams page faster to open." class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-2">
+                                                                <input name="show_live_icon" id="show_live_icon" type="checkbox"<?php if ($rAdminSettings["show_live_icon"] == 1) { echo "checked "; } ?>data-plugin="switchery" class="js-switch" data-color="#039cfd"/>
+                                                            </div>
+                                                        </div>                                                    </div>
                                                 </div>
                                                 <ul class="list-inline wizard mb-0">
                                                     <li class="list-inline-item float-right">
