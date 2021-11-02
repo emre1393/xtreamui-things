@@ -16,7 +16,7 @@ if ($rSettings["sidebar"]) {
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <h4 class="page-title">Line IP Usage</h4>
+                            <h4 class="page-title">Line IP/ISP/Country Usage</h4>
                         </div>
                     </div>
                 </div>     
@@ -50,6 +50,10 @@ if ($rSettings["sidebar"]) {
                                             <th>User ID</th>
                                             <th>Username</th>
                                             <th>IP Count</th>
+                                            <th>ISP Count</th>
+                                            <th>Country Count</th>
+                                            <th>Status</th>
+                                            <th>Online</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -91,11 +95,33 @@ if ($rSettings["sidebar"]) {
         <script src="assets/libs/datatables/dataTables.select.min.js"></script>
         <script src="assets/libs/moment/moment.min.js"></script>
         <script src="assets/libs/daterangepicker/daterangepicker.js"></script>
+        <script src="assets/js/pages/form-remember.js"></script>
 
         <!-- Datatables init -->
         <script>
         function getRange() {
             return $("#range").val();
+        }
+
+        function api(rID, rType) {
+            $.getJSON("./api.php?action=user&sub=" + rType + "&user_id=" + rID, function(data) {
+                if (data.result === true) {
+                    if (rType == "kill") {
+                        $.toast("All connections for this user have been killed.");
+                    } else if (rType == "unban") {
+                        $.toast("User has been unbanned.");
+                    } else if (rType == "ban") {
+                        $.toast("User has been banned.");
+                    } 
+                    $.each($('.tooltip'), function (index, element) {
+                        $(this).remove();
+                    });
+                    $('[data-toggle="tooltip"]').tooltip("hide");
+                    $("#datatable-activity").DataTable().ajax.reload(null, false);
+                } else {
+                    $.toast("An error occured while processing your request.");
+                }
+            });
         }
 
         $(document).ready(function() {
@@ -129,7 +155,8 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,2,3]}
+                    {"className": "dt-center", "targets": [0,2,3,4,5,6,7]},
+                    {"orderable": false, "targets": [5,6,7]}
                 ],
                 "order": [[ 2, "desc" ]],
                 pageLength: <?=$rAdminSettings["default_entries"] ?: 10?>
