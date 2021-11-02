@@ -1704,7 +1704,7 @@ if ($rType == "users") {
 } else if ($rType == "user_ips") {
 	if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "connection_logs"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`user_activity`.`user_id`", "`users`.`username`", "`ip_count`", false);
+    $rOrder = Array("`user_activity`.`user_id`", "`users`.`username`", "`ip_count`", "`isp_count`", "`country_count`", false);
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
@@ -1713,7 +1713,7 @@ if ($rType == "users") {
     $rWhere = Array("`date_start` >= (UNIX_TIMESTAMP()-".intval($_GET["range"]).")");
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`users`.`username` LIKE '%{$rSearch}%' OR `user_activity`.`user_id` LIKE '%{$rSearch}%' OR `user_activity`.`user_ip` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`users`.`username` LIKE '%{$rSearch}%' OR `user_activity`.`user_id` LIKE '%{$rSearch}%' OR `user_activity`.`user_ip` LIKE '%{$rSearch}%' OR `user_activity`.`isp` LIKE '%{$rSearch}%')";
     }
     $rWhereString = "WHERE ".join(" AND ", $rWhere);
     if ($rOrder[$rOrderRow]) {
@@ -1729,13 +1729,32 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `user_activity`.`user_id`, COUNT(DISTINCT(`user_activity`.`user_ip`)) AS `ip_count`, `users`.`username` FROM `user_activity` LEFT JOIN `users` ON `users`.`id` = `user_activity`.`user_id` {$rWhereString} GROUP BY `user_activity`.`user_id` {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `user_activity`.`user_id`, COUNT(DISTINCT(`user_activity`.`user_ip`)) AS `ip_count`, COUNT(DISTINCT(`user_activity`.`isp`)) AS `isp_count`, COUNT(DISTINCT(user_activity.geoip_country_code )) as `country_count`, `users`.`username`, `users`.`admin_enabled`, (SELECT count(*) FROM `user_activity_now` WHERE `user_activity_now`.`user_id` = `user_activity`.`user_id`) AS `active_connections` FROM `user_activity` LEFT JOIN `users` ON `users`.`id` = `user_activity`.`user_id` {$rWhereString} GROUP BY `user_activity`.`user_id` {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
+                if (!$rRow["admin_enabled"]) {
+                    $rStatus = '<i class="text-danger fas fa-circle"></i>';
+                } else {
+                    $rStatus = '<i class="text-success fas fa-circle"></i>';
+                }
+                if ($rRow["active_connections"] > 0) {
+                    $rActive = "<a href=\"./live_connections.php?user_id=".$rRow["user_id"]."\"><i class=\"text-success fas fa-circle\"></i> Live: ".$rRow["active_connections"]."</a>";
+                } else {
+                    $rActive = '<i class="text-warning far fa-circle"></i>';
+                }
+
                 $rDates = date("Y-m-d", time()-intval($_GET["range"]))." - ".date("Y-m-d", time());
-                $rButtons = '<a href="./user_activity.php?search='.$rRow["username"].'&dates='.$rDates.'"><button type="button" class="btn btn-light waves-effect waves-light btn-xs">View Logs</button></a>';
-                $rReturn["data"][] = Array("<a href='./user.php?id=".$rRow["user_id"]."'>".$rRow["user_id"]."</a>", $rRow["username"], $rRow["ip_count"], $rButtons);
+                $rButtons = '<div class="btn-group">';
+					$rButtons .= '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Kill Connections" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["user_id"].', \'kill\');"><i class="fas fa-hammer"></i></button>';
+                if ($rRow["admin_enabled"]) {
+                    $rButtons .= '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Ban" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["user_id"].', \'ban\');"><i class="mdi mdi-power"></i></button>';
+                } else {
+                    $rButtons .= '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Unban" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["user_id"].', \'unban\');"><i class="mdi mdi-power"></i></button>';
+                }
+                $rButtons .= '<a href="./user_activity.php?search='.$rRow["username"].'&dates='.$rDates.'"><button type="button" class="btn btn-light waves-effect waves-light btn-xs">View Logs</button></a>';
+                $rButtons .= '</div>';
+                $rReturn["data"][] = Array("<a href='./user.php?id=".$rRow["user_id"]."'>".$rRow["user_id"]."</a>", $rRow["username"], $rRow["ip_count"], $rRow["isp_count"], $rRow["country_count"], $rStatus, $rActive, $rButtons);
             }
         }
     }
