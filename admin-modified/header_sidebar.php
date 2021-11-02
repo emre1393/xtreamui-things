@@ -189,7 +189,7 @@
 									<?php }
 									if (hasPermissions("adv", "connection_logs")) { ?>
                                     <li><a href="./user_activity.php"><?=$_["activity_logs"]?></a></li>
-                                    <li><a href="./user_ips.php">Line IP Usage</a></li>
+                                    <li><a href="./user_ips.php">Line IP/ISP/Country Usage</a></li>
 									<?php } ?>
                                 </ul>
                             </li>
