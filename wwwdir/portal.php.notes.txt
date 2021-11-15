@@ -47,3 +47,21 @@ cbbc8883818e690ef3d25d988d16086b: $D0b48d0a5773acd261b061496a380231[] = array("\
 --replace with this,
 
 cbbc8883818e690ef3d25d988d16086b: $D0b48d0a5773acd261b061496a380231[] = array("\x69\144" => empty($F7a698ce7b4f23bcbf193a6ae14b046e) ? $d66f371f212188b56889e732be18574e["\151\144"] : $d66f371f212188b56889e732be18574e["\x69\144"] . "\72" . $E7cca48cfca85fc445419a32d7d8f973, "\157\167\x6e\x65\162" => '', "\x6e\x61\x6d\145" => $E4416ae8f96620daee43ac43f9515200, "\157\154\144\x5f\156\141\155\x65" => '', "\157\x5f\156\141\155\145" => $E4416ae8f96620daee43ac43f9515200, "tmdb_id" => empty($d66f371f212188b56889e732be18574e["tmdb_id"]) ? 'N/A' : $d66f371f212188b56889e732be18574e["tmdb_id"],
+
+
+--15-11-2021
+
+lets disable "allowed_stb_types" check when the column (array) is empty. 
+
+- replace xpcom.common.js file in wwwdir/c with updated one.
+
+- portal.php returns same allowed stb types list for allowed stb types for local recording, but there is another column in settings table. let it use it.
+
+- find,
+
+B3a77a2b667909edfc8ee9aa3837d657: $A6f4ecc798bcb285eee6efb4467c6708["\x61\154\x6c\x6f\167\x65\144\137\163\164\x62\x5f\x74\x79\160\145\163\x5f\146\157\x72\x5f\x6c\157\143\141\x6c\x5f\x72\145\143\x6f\x72\144\151\x6e\x67"] = a78BF8D35765bE2408c50712ce7A43ad::$settings["\x61\x6c\154\157\167\x65\144\137\x73\164\x62\137\164\x79\160\145\163"];
+
+- replace with,
+
+B3a77a2b667909edfc8ee9aa3837d657: $A6f4ecc798bcb285eee6efb4467c6708["allowed_stb_types_for_local_recording"] = a78BF8D35765bE2408c50712ce7A43ad::$settings["allowed_stb_types_for_local_recording"];
+
