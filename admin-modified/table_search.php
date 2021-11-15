@@ -1197,7 +1197,7 @@ if ($rType == "users") {
 	if (($rPermissions["is_reseller"]) && (!$rPermissions["reseller_client_connection_logs"])) { exit; }
 	if (($rPermissions["is_admin"]) && (!hasPermissions("adv", "connection_logs"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`user_activity`.`activity_id`", "`users`.`username`", "`streams`.`stream_display_name`", "`streaming_servers`.`server_name`", "`user_activity`.`date_start`", "`user_activity`.`date_end`", "`user_activity`.`user_ip`", "`user_activity`.`geoip_country_code`");
+    $rOrder = Array("`user_activity`.`activity_id`", "`users`.`username`", "`streams`.`stream_display_name`", "`streaming_servers`.`server_name`", "`user_activity`.`container`", "`user_activity`.`date_start`", "`user_activity`.`date_end`", "`user_activity`.`user_ip`", "`user_activity`.`geoip_country_code`", "`user_activity`.`isp`", "`user_activity`.`user_agent`");
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
@@ -1209,7 +1209,7 @@ if ($rType == "users") {
     }
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`user_activity`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity`.`user_ip` LIKE '%{$rSearch}%' OR `user_activity`.`container` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity`.`date_start`) LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity`.`date_end`) LIKE '%{$rSearch}%' OR `user_activity`.`geoip_country_code` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`user_activity`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity`.`user_ip` LIKE '%{$rSearch}%' OR `user_activity`.`isp` LIKE '%{$rSearch}%' OR `user_activity`.`container` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity`.`date_start`) LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity`.`date_end`) LIKE '%{$rSearch}%' OR `user_activity`.`geoip_country_code` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
     }
     if (strlen($_GET["range"]) > 0) {
         $rStartTime = substr($_GET["range"], 0, 10);
@@ -1245,7 +1245,7 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `user_activity`.`activity_id`, `user_activity`.`isp`, `user_activity`.`user_id`, `user_activity`.`stream_id`, `user_activity`.`server_id`, `user_activity`.`user_agent`, `user_activity`.`user_ip`, `user_activity`.`container`, `user_activity`.`date_start`, `user_activity`.`date_end`, `user_activity`.`geoip_country_code`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity` INNER JOIN `users` ON `user_activity`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `user_activity`.`activity_id`,  `user_activity`.`user_id`, `user_activity`.`stream_id`, `user_activity`.`server_id`, `user_activity`.`container`, `user_activity`.`user_agent`, `user_activity`.`user_ip`, `user_activity`.`date_start`, `user_activity`.`date_end`, `user_activity`.`geoip_country_code`, `user_activity`.`isp`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity` INNER JOIN `users` ON `user_activity`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
@@ -1285,7 +1285,7 @@ if ($rType == "users") {
                 } else {
                     $rStop = "";
                 }
-                $rReturn["data"][] = Array($rRow["activity_id"], $rUsername, $rChannel, $rServer, $rRow["isp"], $rStart, $rStop, $rIP, $rGeoCountry);
+                $rReturn["data"][] = Array($rRow["activity_id"], $rUsername, $rChannel, $rServer, $rRow["container"], $rStart, $rStop, $rIP, $rGeoCountry, $rRow["isp"], $rRow["user_agent"]);
             }
         }
     }
@@ -1294,7 +1294,7 @@ if ($rType == "users") {
 	if (($rPermissions["is_reseller"]) && (!$rPermissions["reseller_client_connection_logs"])) { exit; }
 	if (($rPermissions["is_admin"]) && (!hasPermissions("adv", "live_connections"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`user_activity_now`.`activity_id`", "`user_activity_now`.`divergence`", "`users`.`username`", "`streams`.`stream_display_name`", "`streaming_servers`.`server_name`", "`user_activity_now`.`date_start`", "`user_activity_now`.`user_ip`", "`user_activity_now`.`geoip_country_code`", false);
+    $rOrder = Array("`user_activity_now`.`activity_id`", "`user_activity_now`.`divergence`", "`users`.`username`", "`streams`.`stream_display_name`", "`streaming_servers`.`server_name`",  "`user_activity_now`.`container`", "`user_activity_now`.`user_agent`", "`user_activity_now`.`date_start`", "`user_activity_now`.`user_ip`", "`user_activity_now`.`geoip_country_code`", "`user_activity_now`.`isp`", false);
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
@@ -1306,7 +1306,7 @@ if ($rType == "users") {
     }
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`user_activity_now`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity_now`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity_now`.`user_ip` LIKE '%{$rSearch}%' OR `user_activity_now`.`container` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity_now`.`date_start`) LIKE '%{$rSearch}%' OR `user_activity_now`.`geoip_country_code` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`user_activity_now`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity_now`.`user_agent` LIKE '%{$rSearch}%' OR `user_activity_now`.`user_ip` LIKE '%{$rSearch}%' OR `user_activity_now`.`isp` LIKE '%{$rSearch}%' OR `user_activity_now`.`container` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`user_activity_now`.`date_start`) LIKE '%{$rSearch}%' OR `user_activity_now`.`geoip_country_code` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
     }
     if (strlen($_GET["server_id"]) > 0) {
         $rWhere[] = "`user_activity_now`.`server_id` = ".intval($_GET["server_id"]);
@@ -1335,7 +1335,7 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `user_activity_now`.`activity_id`, `user_activity_now`.`divergence`, `user_activity_now`.`user_id`, `user_activity_now`.`stream_id`, `user_activity_now`.`server_id`, `user_activity_now`.`user_agent`, `user_activity_now`.`user_ip`, `user_activity_now`.`isp`, `user_activity_now`.`container`, `user_activity_now`.`pid`, `user_activity_now`.`date_start`, `user_activity_now`.`geoip_country_code`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity_now` INNER JOIN `users` ON `user_activity_now`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity_now`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity_now`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `user_activity_now`.`activity_id`, `user_activity_now`.`divergence`, `user_activity_now`.`user_id`, `user_activity_now`.`stream_id`, `user_activity_now`.`server_id`, `user_activity_now`.`user_agent`, `user_activity_now`.`user_ip`, `user_activity_now`.`container`, `user_activity_now`.`isp`, `user_activity_now`.`pid`, `user_activity_now`.`date_start`, `user_activity_now`.`geoip_country_code`, `users`.`username`, `streams`.`stream_display_name`, `streams`.`type`, `streaming_servers`.`server_name` FROM `user_activity_now` INNER JOIN `users` ON `user_activity_now`.`user_id` = `users`.`id` LEFT JOIN `streams` ON `user_activity_now`.`stream_id` = `streams`.`id` LEFT JOIN `streaming_servers` ON `user_activity_now`.`server_id` = `streaming_servers`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
@@ -1368,7 +1368,7 @@ if ($rType == "users") {
                     $rIP = "";
                 }
                 if (strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img> ".$rRow["geoip_country_code"]."/".$rRow["isp"]."";
+                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img> ".$rRow["geoip_country_code"];
                 } else {
                     $rGeoCountry = "";
                 }
@@ -1383,7 +1383,7 @@ if ($rType == "users") {
                 } else {
                     $rButtons = '<button data-toggle="tooltip" data-placement="top" title="" data-original-title="Kill Connection" type="button" class="btn btn-light waves-effect waves-light btn-xs" onClick="api('.$rRow["pid"].', \'kill\');"><i class="fas fa-hammer"></i></button>';
                 }
-                $rReturn["data"][] = Array($rRow["activity_id"], $rDivergence, $rUsername, $rChannel, $rServer, $rRow["user_agent"], $rTime, $rIP, $rGeoCountry, $rButtons);
+                $rReturn["data"][] = Array($rRow["activity_id"], $rDivergence, $rUsername, $rChannel, $rServer, $rRow["container"], $rRow["user_agent"], $rTime, $rIP, $rGeoCountry, $rRow["isp"], $rButtons);
             
             }
         }
