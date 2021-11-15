@@ -3,16 +3,16 @@
  * Common XPCOM STB constructor.
  * @constructor
  */
-function common_xpcom(){
+function common_xpcom() {
 
     this.user = {};
     this.mac = '';
-    this.ip  = '';
-    this.hd  = 1;
-    this.type  = '';
-    this.version    = '';
-    this.ajax_loader  = '';
-    this.images   = [];
+    this.ip = '';
+    this.hd = 1;
+    this.type = '';
+    this.version = '';
+    this.ajax_loader = '';
+    this.images = [];
     this.storages = {};
     this.player = {};
     this.key_lock = false;
@@ -37,7 +37,7 @@ function common_xpcom(){
 
     this.cur_place = '';
 
-    this.load_step = Math.ceil(50/3);
+    this.load_step = Math.ceil(50 / 3);
 
     this.recordings = [];
 
@@ -47,190 +47,190 @@ function common_xpcom(){
 
     // iso639
     this.lang_map = {
-        "aa" : "aar", //Afar
-        "ab" : "abk", //Abkhazian
-        "af" : "afr", //Afrikaans
-        "ak" : "aka", //Akan
-        "sq" : "alb", //Albanian
-        "am" : "amh", //Amharic
-        "ar" : "ara", //Arabic
-        "an" : "arg", //Aragonese
-        "hy" : "arm", //Armenian
-        "as" : "asm", //Assamese
-        "av" : "ava", //Avaric
-        "ae" : "ave", //Avestan
-        "ay" : "aym", //Aymara
-        "az" : "aze", //Azerbaijani
-        "ba" : "bak", //Bashkir
-        "bm" : "bam", //Bambara
-        "eu" : "baq", //Basque
-        "be" : "bel", //Belarusian
-        "bn" : "ben", //Bengali
-        "bh" : "bih", //Bihari languages
-        "bi" : "bis", //Bislama
-        "bs" : "bos", //Bosnian
-        "br" : "bre", //Breton
-        "bg" : "bul", //Bulgarian
-        "my" : "bur", //Burmese
-        "ca" : "cat", //Catalan; Valencian
-        "ch" : "cha", //Chamorro
-        "ce" : "che", //Chechen
-        "zh" : "chi", //Chinese
-        "cu" : "chu", //Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
-        "cv" : "chv", //Chuvash
-        "kw" : "cor", //Cornish
-        "co" : "cos", //Corsican
-        "cr" : "cre", //Cree
-        "cs" : "ces", //Czech
-        "da" : "dan", //Danish
-        "dv" : "div", //Divehi; Dhivehi; Maldivian
-        "nl" : "dut", //Dutch; Flemish
-        "dz" : "dzo", //Dzongkha
-        "en" : "eng", //English
-        "eo" : "epo", //Esperanto
-        "et" : "est", //Estonian
-        "ee" : "ewe", //Ewe
-        "fo" : "fao", //Faroese
-        "fj" : "fij", //Fijian
-        "fi" : "fin", //Finnish
-        "fr" : "fra", //French
-        "fy" : "fry", //Western Frisian
-        "ff" : "ful", //Fulah
-        "ka" : "geo", //Georgian
-        "de" : "deu", //German
-        "gd" : "gla", //Gaelic; Scottish Gaelic
-        "ga" : "gai", //Irish
-        "gl" : "glg", //Galician
-        "gv" : "glv", //Manx
-        "el" : "ell", //Greek, Modern (1453-)
-        "gn" : "grn", //Guarani
-        "gu" : "guj", //Gujarati
-        "ht" : "hat", //Haitian; Haitian Creole
-        "ha" : "hau", //Hausa
-        "he" : "heb", //Hebrew
-        "hz" : "her", //Herero
-        "hi" : "hin", //Hindi
-        "ho" : "hmo", //Hiri Motu
-        "hr" : "hrv", //Croatian
-        "hu" : "hun", //Hungarian
-        "ig" : "ibo", //Igbo
-        "is" : "ice", //Icelandic
-        "io" : "ido", //Ido
-        "ii" : "iii", //Sichuan Yi; Nuosu
-        "iu" : "iku", //Inuktitut
-        "ie" : "ile", //Interlingue; Occidental
-        "ia" : "ina", //Interlingua (International Auxiliary Language Association)
-        "id" : "ind", //Indonesian
-        "ik" : "ipk", //Inupiaq
-        "it" : "ita", //Italian
-        "jv" : "jav", //Javanese
-        "ja" : "jpn", //Japanese
-        "kl" : "kal", //Kalaallisut; Greenlandic
-        "kn" : "kan", //Kannada
-        "ks" : "kas", //Kashmiri
-        "kr" : "kau", //Kanuri
-        "kk" : "kaz", //Kazakh
-        "km" : "khm", //Central Khmer
-        "ki" : "kik", //Kikuyu; Gikuyu
-        "rw" : "kin", //Kinyarwanda
-        "ky" : "kir", //Kirghiz; Kyrgyz
-        "kv" : "kom", //Komi
-        "kg" : "kon", //Kongo
-        "ko" : "kor", //Korean
-        "kj" : "kua", //Kuanyama; Kwanyama
-        "ku" : "kur", //Kurdish
-        "lo" : "lao", //Lao
-        "la" : "lat", //Latin
-        "lv" : "lav", //Latvian
-        "li" : "lim", //Limburgan; Limburger; Limburgish
-        "ln" : "lin", //Lingala
-        "lt" : "lit", //Lithuanian
-        "lb" : "ltz", //Luxembourgish; Letzeburgesch
-        "lu" : "lub", //Luba-Katanga
-        "lg" : "lug", //Ganda
-        "mk" : "mac", //Macedonian
-        "mh" : "mah", //Marshallese
-        "ml" : "mal", //Malayalam
-        "mi" : "mao", //Maori
-        "mr" : "mar", //Marathi
-        "ms" : "may", //Malay
-        "mg" : "mlg", //Malagasy
-        "mt" : "mlt", //Maltese
-        "mn" : "mon", //Mongolian
-        "na" : "nau", //Nauru
-        "nv" : "nav", //Navajo; Navaho
-        "nr" : "nbl", //Ndebele, South; South Ndebele
-        "nd" : "nde", //Ndebele, North; North Ndebele
-        "ng" : "ndo", //Ndonga
-        "ne" : "nep", //Nepali
-        "nn" : "nno", //Norwegian Nynorsk; Nynorsk, Norwegian
-        "nb" : "nob", //Bokmål, Norwegian; Norwegian Bokmål
-        "no" : "nor", //Norwegian
-        "ny" : "nya", //Chichewa; Chewa; Nyanja
-        "oc" : "oci", //Occitan (post 1500); Provençal
-        "oj" : "oji", //Ojibwa
-        "or" : "ori", //Oriya
-        "om" : "orm", //Oromo
-        "os" : "oss", //Ossetian; Ossetic
-        "pa" : "pan", //Panjabi; Punjabi
-        "fa" : "fas", //Persian
-        "pi" : "pli", //Pali
-        "pl" : "pol", //Polish
-        "pt" : "por", //Portuguese
-        "ps" : "pus", //Pushto; Pashto
-        "qu" : "que", //Quechua
-        "rm" : "roh", //Romansh
-        "ro" : "ron", //Romanian; Moldavian; Moldovan
-        "rn" : "run", //Rundi
-        "ru" : "rus", //Russian
-        "sg" : "sag", //Sango
-        "sa" : "san", //Sanskrit
-        "si" : "sin", //Sinhala; Sinhalese
-        "sk" : "slk", //Slovak
-        "sl" : "slv", //Slovenian
-        "se" : "sme", //Northern Sami
-        "sm" : "smo", //Samoan
-        "sn" : "sna", //Shona
-        "sd" : "snd", //Sindhi
-        "so" : "som", //Somali
-        "st" : "sot", //Sotho, Southern
-        "es" : "spa", //Spanish; Castilian
-        "sc" : "srd", //Sardinian
-        "sr" : "srp", //Serbian
-        "ss" : "ssw", //Swati
-        "su" : "sun", //Sundanese
-        "sw" : "swa", //Swahili
-        "sv" : "sve", //Swedish
-        "ty" : "tah", //Tahitian
-        "ta" : "tam", //Tamil
-        "tt" : "tat", //Tatar
-        "te" : "tel", //Telugu
-        "tg" : "tgk", //Tajik
-        "tl" : "tgl", //Tagalog
-        "th" : "tha", //Thai
-        "bo" : "tib", //Tibetan
-        "ti" : "tir", //Tigrinya
-        "to" : "ton", //Tonga (Tonga Islands)
-        "tn" : "tsn", //Tswana
-        "ts" : "tso", //Tsonga
-        "tk" : "tuk", //Turkmen
-        "tr" : "tur", //Turkish
-        "tw" : "twi", //Twi
-        "ug" : "uig", //Uighur; Uyghur
-        "uk" : "ukr", //Ukrainian
-        "ur" : "urd", //Urdu
-        "uz" : "uzb", //Uzbek
-        "ve" : "ven", //Venda
-        "vi" : "vie", //Vietnamese
-        "vo" : "vol", //Volapük
-        "cy" : "wel", //Welsh
-        "wa" : "wln", //Walloon
-        "wo" : "wol", //Wolof
-        "xh" : "xho", //Xhosa
-        "yi" : "yid", //Yiddish
-        "yo" : "yor", //Yoruba
-        "za" : "zha", //Zhuang; Chuang
-        "zu" : "zul" //Zulu
+        "aa": "aar", //Afar
+        "ab": "abk", //Abkhazian
+        "af": "afr", //Afrikaans
+        "ak": "aka", //Akan
+        "sq": "alb", //Albanian
+        "am": "amh", //Amharic
+        "ar": "ara", //Arabic
+        "an": "arg", //Aragonese
+        "hy": "arm", //Armenian
+        "as": "asm", //Assamese
+        "av": "ava", //Avaric
+        "ae": "ave", //Avestan
+        "ay": "aym", //Aymara
+        "az": "aze", //Azerbaijani
+        "ba": "bak", //Bashkir
+        "bm": "bam", //Bambara
+        "eu": "baq", //Basque
+        "be": "bel", //Belarusian
+        "bn": "ben", //Bengali
+        "bh": "bih", //Bihari languages
+        "bi": "bis", //Bislama
+        "bs": "bos", //Bosnian
+        "br": "bre", //Breton
+        "bg": "bul", //Bulgarian
+        "my": "bur", //Burmese
+        "ca": "cat", //Catalan; Valencian
+        "ch": "cha", //Chamorro
+        "ce": "che", //Chechen
+        "zh": "chi", //Chinese
+        "cu": "chu", //Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+        "cv": "chv", //Chuvash
+        "kw": "cor", //Cornish
+        "co": "cos", //Corsican
+        "cr": "cre", //Cree
+        "cs": "ces", //Czech
+        "da": "dan", //Danish
+        "dv": "div", //Divehi; Dhivehi; Maldivian
+        "nl": "dut", //Dutch; Flemish
+        "dz": "dzo", //Dzongkha
+        "en": "eng", //English
+        "eo": "epo", //Esperanto
+        "et": "est", //Estonian
+        "ee": "ewe", //Ewe
+        "fo": "fao", //Faroese
+        "fj": "fij", //Fijian
+        "fi": "fin", //Finnish
+        "fr": "fra", //French
+        "fy": "fry", //Western Frisian
+        "ff": "ful", //Fulah
+        "ka": "geo", //Georgian
+        "de": "deu", //German
+        "gd": "gla", //Gaelic; Scottish Gaelic
+        "ga": "gai", //Irish
+        "gl": "glg", //Galician
+        "gv": "glv", //Manx
+        "el": "ell", //Greek, Modern (1453-)
+        "gn": "grn", //Guarani
+        "gu": "guj", //Gujarati
+        "ht": "hat", //Haitian; Haitian Creole
+        "ha": "hau", //Hausa
+        "he": "heb", //Hebrew
+        "hz": "her", //Herero
+        "hi": "hin", //Hindi
+        "ho": "hmo", //Hiri Motu
+        "hr": "hrv", //Croatian
+        "hu": "hun", //Hungarian
+        "ig": "ibo", //Igbo
+        "is": "ice", //Icelandic
+        "io": "ido", //Ido
+        "ii": "iii", //Sichuan Yi; Nuosu
+        "iu": "iku", //Inuktitut
+        "ie": "ile", //Interlingue; Occidental
+        "ia": "ina", //Interlingua (International Auxiliary Language Association)
+        "id": "ind", //Indonesian
+        "ik": "ipk", //Inupiaq
+        "it": "ita", //Italian
+        "jv": "jav", //Javanese
+        "ja": "jpn", //Japanese
+        "kl": "kal", //Kalaallisut; Greenlandic
+        "kn": "kan", //Kannada
+        "ks": "kas", //Kashmiri
+        "kr": "kau", //Kanuri
+        "kk": "kaz", //Kazakh
+        "km": "khm", //Central Khmer
+        "ki": "kik", //Kikuyu; Gikuyu
+        "rw": "kin", //Kinyarwanda
+        "ky": "kir", //Kirghiz; Kyrgyz
+        "kv": "kom", //Komi
+        "kg": "kon", //Kongo
+        "ko": "kor", //Korean
+        "kj": "kua", //Kuanyama; Kwanyama
+        "ku": "kur", //Kurdish
+        "lo": "lao", //Lao
+        "la": "lat", //Latin
+        "lv": "lav", //Latvian
+        "li": "lim", //Limburgan; Limburger; Limburgish
+        "ln": "lin", //Lingala
+        "lt": "lit", //Lithuanian
+        "lb": "ltz", //Luxembourgish; Letzeburgesch
+        "lu": "lub", //Luba-Katanga
+        "lg": "lug", //Ganda
+        "mk": "mac", //Macedonian
+        "mh": "mah", //Marshallese
+        "ml": "mal", //Malayalam
+        "mi": "mao", //Maori
+        "mr": "mar", //Marathi
+        "ms": "may", //Malay
+        "mg": "mlg", //Malagasy
+        "mt": "mlt", //Maltese
+        "mn": "mon", //Mongolian
+        "na": "nau", //Nauru
+        "nv": "nav", //Navajo; Navaho
+        "nr": "nbl", //Ndebele, South; South Ndebele
+        "nd": "nde", //Ndebele, North; North Ndebele
+        "ng": "ndo", //Ndonga
+        "ne": "nep", //Nepali
+        "nn": "nno", //Norwegian Nynorsk; Nynorsk, Norwegian
+        "nb": "nob", //Bokmål, Norwegian; Norwegian Bokmål
+        "no": "nor", //Norwegian
+        "ny": "nya", //Chichewa; Chewa; Nyanja
+        "oc": "oci", //Occitan (post 1500); Provençal
+        "oj": "oji", //Ojibwa
+        "or": "ori", //Oriya
+        "om": "orm", //Oromo
+        "os": "oss", //Ossetian; Ossetic
+        "pa": "pan", //Panjabi; Punjabi
+        "fa": "fas", //Persian
+        "pi": "pli", //Pali
+        "pl": "pol", //Polish
+        "pt": "por", //Portuguese
+        "ps": "pus", //Pushto; Pashto
+        "qu": "que", //Quechua
+        "rm": "roh", //Romansh
+        "ro": "ron", //Romanian; Moldavian; Moldovan
+        "rn": "run", //Rundi
+        "ru": "rus", //Russian
+        "sg": "sag", //Sango
+        "sa": "san", //Sanskrit
+        "si": "sin", //Sinhala; Sinhalese
+        "sk": "slk", //Slovak
+        "sl": "slv", //Slovenian
+        "se": "sme", //Northern Sami
+        "sm": "smo", //Samoan
+        "sn": "sna", //Shona
+        "sd": "snd", //Sindhi
+        "so": "som", //Somali
+        "st": "sot", //Sotho, Southern
+        "es": "spa", //Spanish; Castilian
+        "sc": "srd", //Sardinian
+        "sr": "srp", //Serbian
+        "ss": "ssw", //Swati
+        "su": "sun", //Sundanese
+        "sw": "swa", //Swahili
+        "sv": "sve", //Swedish
+        "ty": "tah", //Tahitian
+        "ta": "tam", //Tamil
+        "tt": "tat", //Tatar
+        "te": "tel", //Telugu
+        "tg": "tgk", //Tajik
+        "tl": "tgl", //Tagalog
+        "th": "tha", //Thai
+        "bo": "tib", //Tibetan
+        "ti": "tir", //Tigrinya
+        "to": "ton", //Tonga (Tonga Islands)
+        "tn": "tsn", //Tswana
+        "ts": "tso", //Tsonga
+        "tk": "tuk", //Turkmen
+        "tr": "tur", //Turkish
+        "tw": "twi", //Twi
+        "ug": "uig", //Uighur; Uyghur
+        "uk": "ukr", //Ukrainian
+        "ur": "urd", //Urdu
+        "uz": "uzb", //Uzbek
+        "ve": "ven", //Venda
+        "vi": "vie", //Vietnamese
+        "vo": "vol", //Volapük
+        "cy": "wel", //Welsh
+        "wa": "wln", //Walloon
+        "wo": "wol", //Wolof
+        "xh": "xho", //Xhosa
+        "yi": "yid", //Yiddish
+        "yo": "yor", //Yoruba
+        "za": "zha", //Zhuang; Chuang
+        "zu": "zul" //Zulu
     };
 
     this.base_modules = [
@@ -256,7 +256,7 @@ function common_xpcom(){
         "duration_input"
     ];
 
-    this.init = function(){
+    this.init = function () {
         _debug('stb.init');
 
         loader.append("reset");
@@ -279,15 +279,15 @@ function common_xpcom(){
         connection_problem.init();
         authentication_problem.init();
 
-        window.addEventListener('message', function(event){
+        window.addEventListener('message', function (event) {
             _debug('message event');
 
-            if (window.self !== window.top && event.data == 'show' && stb.cur_single_module){
+            if (window.self !== window.top && event.data == 'show' && stb.cur_single_module) {
                 _debug('stb.cur_single_module', stb.cur_single_module);
 
-                if (module[stb.cur_single_module]._show){
+                if (module[stb.cur_single_module]._show) {
                     module[stb.cur_single_module]._show();
-                }else if (module[stb.cur_single_module].show){
+                } else if (module[stb.cur_single_module].show) {
                     module[stb.cur_single_module].show();
                 }
             }
@@ -295,15 +295,15 @@ function common_xpcom(){
         }, false);
     };
 
-    this.init_auth_dialog = function(){
-        this.auth_dialog = new ModalForm({"title" : get_word('auth_title')});
+    this.init_auth_dialog = function () {
+        this.auth_dialog = new ModalForm({"title": get_word('auth_title')});
         this.auth_dialog.addItem(new ModalFormInput({
             "label": get_word('auth_login'),
             "name": "login",
             "onchange": function () {
                 _debug('change');
                 stb.auth_dialog.resetStatus();
-                if (stb.msg && stb.msg.on){
+                if (stb.msg && stb.msg.on) {
                     stb.msg.hide();
                 }
             }
@@ -314,7 +314,7 @@ function common_xpcom(){
             "onchange": function () {
                 _debug('change');
                 stb.auth_dialog.resetStatus();
-                if (stb.msg && stb.msg.on){
+                if (stb.msg && stb.msg.on) {
                     stb.msg.hide();
                 }
             }
@@ -322,10 +322,10 @@ function common_xpcom(){
         var self = this;
         this.auth_dialog.addItem(new ModalFormButton(
             {
-                "value" : "OK",
-                "onclick" : function(){
+                "value": "OK",
+                "onclick": function () {
 
-                    var login    = self.auth_dialog.getItemByName("login").getValue();
+                    var login = self.auth_dialog.getItemByName("login").getValue();
                     var password = self.auth_dialog.getItemByName("password").getValue();
 
                     _debug("login", login);
@@ -333,25 +333,25 @@ function common_xpcom(){
 
                     stb.load(
                         {
-                            "type"       : "stb",
-                            "action"     : "do_auth",
-                            "login"      : login,
-                            "password"   : password,
-                            'device_id'  : stb.GetUID ? stb.GetUID() : '',
-                            'device_id2' : stb.GetUID ? (stb.GetUID(self.access_token) == stb.GetUID(self.access_token, self.access_token) ? '' : stb.GetUID('device_id', self.access_token)) : ''
+                            "type": "stb",
+                            "action": "do_auth",
+                            "login": login,
+                            "password": password,
+                            'device_id': stb.GetUID ? stb.GetUID() : '',
+                            'device_id2': stb.GetUID ? (stb.GetUID(self.access_token) == stb.GetUID(self.access_token, self.access_token) ? '' : stb.GetUID('device_id', self.access_token)) : ''
                         },
-                        function(result){
+                        function (result) {
                             _debug('auth result', result);
 
-                            if (result){
-                                if (stb.user['status'] == 2){
+                            if (result) {
+                                if (stb.user['status'] == 2) {
                                     stb.get_user_profile(true);
-                                }else{
+                                } else {
                                     stb.loader.stop();
                                     main_menu.show();
                                 }
                                 stb.auth_dialog.hide();
-                            }else{
+                            } else {
                                 stb.auth_dialog.setStatus(get_word('auth_error'));
                             }
                         }
@@ -361,10 +361,10 @@ function common_xpcom(){
         ));
     };
 
-    this.init_alerts = function(){
+    this.init_alerts = function () {
         _debug('stb.init_alerts');
 
-        if (this.notice){
+        if (this.notice) {
             return;
         }
 
@@ -376,47 +376,46 @@ function common_xpcom(){
         this.confirm = new _alert('confirm');
         this.confirm.bind();
 
-        if (this.user['info']){
+        if (this.user['info']) {
 
             stb.msg.push(
                 {
-                    msg : this.user['info']
+                    msg: this.user['info']
                 }
             );
         }
     };
 
-    this.get_server_params = function(){
+    this.get_server_params = function () {
 
         var pattern = /(http?|https?):\/\/([^\/]*)\/([\w\/]+)*\/(.)*/;
 		
         this.portal_protocol = document.URL.replace(pattern, "$1");
-        this.portal_ip   = document.URL.replace(pattern, "$2");
+        this.portal_ip = document.URL.replace(pattern, "$2");
         this.portal_path = document.URL.replace(pattern, "$3");
 
         _debug('stb.portal_path:', this.portal_path);
 
-       this.ajax_loader = this.portal_protocol+'://'+this.portal_ip+'/portal.php';
+       this.ajax_loader = this.portal_protocol+'://'+ this.portal_ip + '/portal.php';
 
         _debug('stb.ajax_loader:', this.ajax_loader);
     };
 
-    this.get_modules = function(){
+    this.get_modules = function () {
         _debug('stb.get_modules');
 
         this.load(
-
             {
-                "type"   : "stb",
-                "action" : "get_modules"
+                "type": "stb",
+                "action": "get_modules"
             },
 
-            function(result){
+            function (result) {
                 _debug('stb.get_modules callback', result);
                 var all_modules = result.all_modules;
                 this.switchable_modules = result.switchable_modules;
 
-                this.disabled_modules   = result.disabled_modules   || [];
+                this.disabled_modules = result.disabled_modules || [];
                 this.restricted_modules = result.restricted_modules || [];
 
                 this.all_modules = this.base_modules.concat(all_modules);
@@ -424,20 +423,20 @@ function common_xpcom(){
 
                 var self = this;
 
-                this.all_modules = this.all_modules.filter(function(module){
+                this.all_modules = this.all_modules.filter(function (module) {
                     return self.disabled_modules.indexOf(module) == -1;
                 });
 
-                if (result.template && result.template.indexOf('smart_launcher') != -1 && result['launcher_url']){
+                if (result.template && result.template.indexOf('smart_launcher') != -1 && result['launcher_url']) {
 
                     if (single_module.length == 0) {
                         _debug('redirect to the new launcher');
                         window.stop();
                         document.body.hide();
-                        _debug(result['launcher_url']+'?config=' + encodeURIComponent(result['launcher_profile_url']+'?uid=' + this.user['id'] + '&language='+this.stb_lang_orig));
-                        window.location = result['launcher_url']+'?config=' + encodeURIComponent(result['launcher_profile_url']+'?uid=' + this.user['id'] + '&language='+this.stb_lang_orig);
+                        _debug(result['launcher_url'] + '?config=' + encodeURIComponent(result['launcher_profile_url'] + '?uid=' + this.user['id'] + '&language=' + this.stb_lang_orig));
+                        window.location = result['launcher_url'] + '?config=' + encodeURIComponent(result['launcher_profile_url'] + '?uid=' + this.user['id'] + '&language=' + this.stb_lang_orig);
                         return;
-                    }else{
+                    } else {
                         result.template = 'default';
                     }
                 }
@@ -449,19 +448,19 @@ function common_xpcom(){
                 loader.append_style('load_bar');
                 loader.append_style('blocking');
 
-                if (result.supermodule){
+                if (result.supermodule) {
                     this.supermodule = result.supermodule;
                     loader.add(this.base_modules.concat([result.supermodule]));
-                }else{
+                } else {
                     loader.add(this.all_modules);
                 }
 
-                if (window.self !== window.top){
+                if (window.self !== window.top) {
                     // notify parent to show this window
                     parent && parent.postMessage('show', '*');
                 }
 
-                if (typeof(stbWebWindow) != 'undefined' && windowId != 1){
+                if (typeof (stbWebWindow) != 'undefined' && windowId != 1) {
                     // notify parent to show this window
                     stbWebWindow.messageSend(1, 'app:ready');
                 }
@@ -471,40 +470,39 @@ function common_xpcom(){
         );
     };
 
-    this.load_account_modules = function(){
+    this.load_account_modules = function () {
         _debug('stb.load_account_modules');
 
-        if (this.all_modules){
+        if (this.all_modules) {
             return;
         }
 
         this.load(
-
             {
-                "type"   : "stb",
-                "action" : "get_modules"
+                "type": "stb",
+                "action": "get_modules"
             },
 
-            function(result){
+            function (result) {
                 _debug('stb.load_account_modules callback', result);
 
                 var all_modules = result.all_modules;
 
-                all_modules = all_modules.filter(function(module){
+                all_modules = all_modules.filter(function (module) {
                     return module == 'account';
                 });
 
-                if (!all_modules){
+                if (!all_modules) {
                     return;
                 }
 
                 this.all_modules = this.base_modules.concat(all_modules);
                 _debug('all_modules', this.all_modules);
 
-                if (result.supermodule){
+                if (result.supermodule) {
                     this.supermodule = result.supermodule;
                     loader.add(this.base_modules.concat([result.supermodule]));
-                }else{
+                } else {
                     loader.add(this.all_modules);
                 }
 
@@ -514,21 +512,20 @@ function common_xpcom(){
         );
     };
 
-    this.update_modules = function(){
+    this.update_modules = function () {
         _debug('stb.update_modules');
 
         this.load(
-
             {
-                "type"   : "stb",
-                "action" : "get_modules"
+                "type": "stb",
+                "action": "get_modules"
             },
 
-            function(result){
+            function (result) {
                 _debug('update_modules result', result);
 
                 this.switchable_modules = result.switchable_modules || [];
-                this.disabled_modules   = result.disabled_modules   || [];
+                this.disabled_modules = result.disabled_modules || [];
                 this.restricted_modules = result.restricted_modules || [];
             },
 
@@ -536,56 +533,56 @@ function common_xpcom(){
         );
     };
 
-    this.is_restricted_module = function(module){
+    this.is_restricted_module = function (module) {
         _debug('stb.is_restricted_module');
         _debug('module.layer_name', module.layer_name);
 
         _debug('this.additional_services_on', this.additional_services_on);
 
-        if (this.restricted_modules.indexOf(module.layer_name) >= 0){
+        if (this.restricted_modules.indexOf(module.layer_name) >= 0) {
             return true;
         }
 
-        if (!this.additional_services_on && this.switchable_modules.indexOf(module.layer_name) >= 0){
+        if (!this.additional_services_on && this.switchable_modules.indexOf(module.layer_name) >= 0) {
             return true;
         }
 
         return false;
     };
 
-    this.check_additional_services = function(param){
+    this.check_additional_services = function (param) {
         _debug('check_additional_services', param);
 
         this.additional_services_on = parseInt(param, 10);
     };
 
-    this.get_stb_params = function (){
+    this.get_stb_params = function () {
 
-        try{
+        try {
 
-            this.video_mode   = stb.RDir('vmode');
+            this.video_mode = stb.RDir('vmode');
             //this.graphic_mode = stb.RDir('gmode');
 
             //this.mac = stb.RDir('MACAddress').toUpperCase().clearnl();
-            try{
+            try {
                 this.mac = stb.GetDeviceMacAddress().toUpperCase().clearnl();
-            }catch(e){
+            } catch (e) {
                 _debug('this.mac use old API');
                 this.mac = stb.RDir('MACAddress').toUpperCase().clearnl();
             }
 
-            this.ip  = stb.RDir('IPAddress').clearnl();
+            this.ip = stb.RDir('IPAddress').clearnl();
 
-            try{
-                this.serial_number  = stb.GetDeviceSerialNumber().clearnl();
-            }catch(e){
+            try {
+                this.serial_number = stb.GetDeviceSerialNumber().clearnl();
+            } catch (e) {
                 _debug('this.serial_number use old API');
-                this.serial_number  = stb.RDir('SerialNumber').clearnl();
+                this.serial_number = stb.RDir('SerialNumber').clearnl();
             }
 
-            try{
+            try {
                 this.type = stb.GetDeviceModelExt().clearnl();
-            }catch(e){
+            } catch (e) {
                 _debug('this.type use old API');
                 this.type = stb.RDir('Model').clearnl();
             }
@@ -599,10 +596,10 @@ function common_xpcom(){
             this.ntp_server = stb.RDir('getenv ntpurl').clearnl();
 
             this.firmware_version = this.image_version = stb.RDir('ImageVersion').clearnl();
-            this.image_desc    = stb.RDir('ImageDescription').clearnl();
-            this.image_date    = stb.RDir('ImageDate').clearnl();
+            this.image_desc = stb.RDir('ImageDescription').clearnl();
+            this.image_date = stb.RDir('ImageDate').clearnl();
 
-            this.version = 'ImageDescription: ' + this.image_desc + '; ImageDate: ' + this.image_date + '; PORTAL version: '+ver+'; API Version: ' + stb.Version();
+            this.version = 'ImageDescription: ' + this.image_desc + '; ImageDate: ' + this.image_date + '; PORTAL version: ' + ver + '; API Version: ' + stb.Version();
 
             this.hw_version = stb.GetDeviceVersionHardware ? stb.GetDeviceVersionHardware() : '';
 
@@ -610,45 +607,45 @@ function common_xpcom(){
 
             this.num_banks = mtdparts.indexOf('RootFs2') > 0 ? 2 : 1;
 
-            if (this.graphic_mode >= 720){
+            if (this.graphic_mode >= 720) {
                 _debug('gSTB.SetObjectCacheCapacities');
                 gSTB.SetObjectCacheCapacities(1000000, 7000000, 10000000);
             }
 
-            if (stb.GetWifiLinkStatus){
+            if (stb.GetWifiLinkStatus) {
                 var link = [];
 
-                if (stb.GetLanLinkStatus()){
+                if (stb.GetLanLinkStatus()) {
                     link.push('Ethernet');
                 }
 
-                if (stb.GetWifiLinkStatus()){
+                if (stb.GetWifiLinkStatus()) {
                     link.push('WiFi');
                 }
 
-                this.header_ua_ext.push('Link: '+link.join(','));
+                this.header_ua_ext.push('Link: ' + link.join(','));
             }
 
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
 
-        if (debug){
+        if (debug) {
 
-            if (_GET['mac']){
+            if (_GET['mac']) {
                 this.mac = _GET['mac'];
                 this.set_cookie('mac_emu', 1);
             }
 
             this.set_cookie('debug', 1);
 
-            if (_GET['debug_key']){
+            if (_GET['debug_key']) {
                 this.set_cookie('debug_key', _GET['debug_key']);
             }
 
         }
 
-        this.set_cookie('mac',      this.mac);
+        this.set_cookie('mac', this.mac);
         this.set_cookie('stb_lang', this.stb_lang);
         this.set_cookie('timezone', this.timezone);
         this.set_cookie('adid', this.get_ad_id());
@@ -662,27 +659,27 @@ function common_xpcom(){
         _debug('this.ip:', this.ip);
         _debug('this.type:', this.type);
         _debug('this.version:', this.version);
-        _debug('this.hd:',this.hd);
+        _debug('this.hd:', this.hd);
     };
 
-    this.set_cookie = function(name, val){
+    this.set_cookie = function (name, val) {
         document.cookie = name + '=' + encodeURIComponent(val) + '; path=/;';
     };
 
-    this.delete_cookie = function(name){
+    this.delete_cookie = function (name) {
         document.cookie = name + '=; path=/; expires=Thu, 01-Jan-1970 00:00:01 GMT;';
     };
 
-    this.get_localization = function(){
+    this.get_localization = function () {
         _debug('stb.get_localization');
 
         this.load(
             {
-                "type"   : "stb",
-                "action" : "get_localization"
+                "type": "stb",
+                "action": "get_localization"
             },
 
-            function(result){
+            function (result) {
 
                 word = result;
                 //this.clock.start();
@@ -700,7 +697,7 @@ function common_xpcom(){
         )
     };
 
-    this.load = function(params, var_args){
+    this.load = function (params, var_args) {
         _debug('stb.load()');
         _debug('params:', params);
 
@@ -709,89 +706,89 @@ function common_xpcom(){
         var context = window;
         var method = 'GET';
 
-        if (arguments.length == 3){
+        if (arguments.length == 3) {
             context = arguments[2];
         }
 
-        if (arguments.length == 4){
+        if (arguments.length == 4) {
             method = arguments[3];
         }
 
-        try{
+        try {
 
             var req = new XMLHttpRequest();
 
-            if (method == 'POST'){
-                req.open("POST", this.ajax_loader + '?JsHttpRequest='+(new Date().getTime())+'-xml', true);
+            if (method == 'POST') {
+                req.open("POST", this.ajax_loader + '?JsHttpRequest=' + (new Date().getTime()) + '-xml', true);
                 req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            }else{
+            } else {
                 req.open("GET", this.ajax_loader + '?' + this.params_to_query(params), true);
             }
 
-            if (this.header_ua_ext.length > 0){
+            if (this.header_ua_ext.length > 0) {
                 req.setRequestHeader("X-User-Agent", stb.header_ua_ext.join('; '));
             }
 
-            if (this.access_token){
+            if (this.access_token) {
                 req.setRequestHeader("Authorization", "Bearer " + this.access_token);
             }
 
-            req.addEventListener("error", function(){
+            req.addEventListener("error", function () {
                 console.log('XMLHttpRequest error event');
                 connection_problem.show();
             }, false);
 
-            req.onreadystatechange = function(){
+            req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        try{
+                        try {
                             var result = JSON.parse(req.responseText);
                             req = null;
-                        }catch(er){
+                        } catch (er) {
                             _debug('req.responseText', req.responseText);
-                            if (req.responseText == 'Authorization failed.' || req.responseText == 'Access denied.'){
-                                if (stb.auth_access){
+                            if (req.responseText == 'Authorization failed.' || req.responseText == 'Access denied.') {
+                                if (stb.auth_access) {
                                     keydown_observer.emulate_key(key.MENU);
                                     main_menu.hide();
                                     stb.loader.show();
                                     stb.key_lock = false;
-                                    if (!stb.auth_dialog){
+                                    if (!stb.auth_dialog) {
                                         stb.init_auth_dialog();
                                     }
                                     stb.auth_dialog.show();
-                                }else if (req.responseText == 'Access denied.'){
+                                } else if (req.responseText == 'Access denied.') {
                                     stb.cut_off();
-                                }else if (!stb.auth_dialog || !stb.auth_dialog.on){
+                                } else if (!stb.auth_dialog || !stb.auth_dialog.on) {
                                     authentication_problem.show();
                                 }
                             }
                             throw new Error(er);
                         }
                         _debug(result.text);
-                        if (connection_problem.on && stb.cur_place == 'tv' && stb.player.on){
+                        if (connection_problem.on && stb.cur_place == 'tv' && stb.player.on) {
                             stb.player.play_last();
                         }
                         connection_problem.hide();
                         authentication_problem.hide();
                         callback.call(context, result.js);
                         result = null;
-                    } else if (req.status == 0){
+                    } else if (req.status == 0) {
                         console.log('Abort request');
                         //connection_problem.show();
-                    }else{
+                    } else {
                         connection_problem.show();
-                        console.log('req.status: '+req.status);
+                        console.log('req.status: ' + req.status);
                         console.log(req.responseText);
                     }
                     req = null;
                 }
             };
-            if (method == 'POST'){
+            if (method == 'POST') {
                 req.send(this.params_to_query(params));
-            }else{
+            } else {
                 req.send(null);
             }
-        }catch(e){
+        } catch (e) {
             req = null;
             console.log(e);
         }
@@ -799,22 +796,22 @@ function common_xpcom(){
         return req;
     };
 
-    this.params_to_query = function(params){
+    this.params_to_query = function (params) {
         var query = [];
 
-        if (!params){
+        if (!params) {
             return null;
         }
 
         //params['JsHttpRequest'] = (new Date().getTime())+'-xml';
         params['JsHttpRequest'] = '1-xml';
 
-        for (var key in params){
-            if (params.hasOwnProperty(key)){
+        for (var key in params) {
+            if (params.hasOwnProperty(key)) {
 
-                if (params[key] === false){
+                if (params[key] === false) {
                     params[key] = 0;
-                }else if (params[key] === true){
+                } else if (params[key] === true) {
                     params[key] = 1;
                 }
 
@@ -825,51 +822,54 @@ function common_xpcom(){
         return query.join('&');
     };
 
-    this.preload_images = function(){
+    this.preload_images = function () {
 
         this.load(
-
             {
-                'type'   : 'stb',
-                'action' : 'get_preload_images',
-                'gmode'  : resolution_prefix.substr(1)
+                'type': 'stb',
+                'action': 'get_preload_images',
+                'gmode': resolution_prefix.substr(1)
             },
 
-            function(result){
+            function (result) {
                 _debug('on get_preload_images', result);
-                if (result != null){
-                    for (var i=0; i<result.length; i++){
+                if (result != null) {
+                    for (var i = 0; i < result.length; i++) {
                         stb.images[i] = new Image();
                         stb.images[i].src = result[i];
-                        stb.images.onload = function(){};
+                        stb.images.onload = function () {
+                        };
                     }
                 }
             }
         );
     };
 
-    this.hashCode = function(s){
-        return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+    this.hashCode = function (s) {
+        return s.split("").reduce(function (a, b) {
+            a = ((a << 5) - a) + b.charCodeAt(0);
+            return a & a
+        }, 0);
     };
 
-    this.get_saved_access_token = function(){
+    this.get_saved_access_token = function () {
         _debug('stb.get_saved_access_token');
 
-        if (stb.access_token){
+        if (stb.access_token) {
             return stb.access_token;
         }
 
-        var file = 'stalker_'+this.hashCode(window.location.origin+window.location.pathname);
+        var file = 'stalker_' + this.hashCode(window.location.origin + window.location.pathname);
 
-        if (!stb.LoadUserData){
+        if (!stb.LoadUserData) {
             return;
         }
 
         var data = stb.LoadUserData(file) || "{}";
 
-        try{
+        try {
             data = JSON.parse(data)
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
         data = data || {};
@@ -877,20 +877,20 @@ function common_xpcom(){
         return data.token;
     };
 
-    this.get_ad_id = function(){
+    this.get_ad_id = function () {
         _debug('stb.get_ad_id');
 
         var file = 'ad.json';
 
-        if (typeof(gSTB) == "undefined"){
+        if (typeof (gSTB) == "undefined") {
             return "";
         }
 
         var data = stb.LoadUserData(file) || "{}";
 
-        try{
+        try {
             data = JSON.parse(data)
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
 
@@ -898,7 +898,7 @@ function common_xpcom(){
 
         _debug('data', data);
 
-        if (!data.hasOwnProperty('tracking_id')){
+        if (!data.hasOwnProperty('tracking_id')) {
             data.tracking_id = md5(this.mac + (new Date().getTime()));
             stb.SaveUserData(file, JSON.stringify(data));
         }
@@ -908,45 +908,45 @@ function common_xpcom(){
         return data.tracking_id;
     };
 
-    this.save_access_token = function(){
+    this.save_access_token = function () {
         _debug('stb.save_access_token');
 
-        var file = 'stalker_'+this.hashCode(window.location.origin+window.location.pathname);
+        var file = 'stalker_' + this.hashCode(window.location.origin + window.location.pathname);
 
-        if (!stb.SaveUserData){
+        if (!stb.SaveUserData) {
             return;
         }
 
-        stb.SaveUserData(file, JSON.stringify({"token" : this.access_token}));
+        stb.SaveUserData(file, JSON.stringify({"token": this.access_token}));
     };
 
-    this.handshake = function(){
+    this.handshake = function () {
         _debug('stb.handshake');
 
         var prehash = stb.GetHashVersion1 ? stb.GetHashVersion1(this.type, this.version.substr(0, 56)) : 0;
 
         this.load(
             {
-                "type"    : "stb",
-                "action"  : "handshake",
-                "token"   : this.get_saved_access_token() || '',
-                "prehash" : prehash
+                "type": "stb",
+                "action": "handshake",
+                "token": this.get_saved_access_token() || '',
+                "prehash": prehash
             },
-            function(result){
+            function (result) {
                 _debug('on handshake', result);
                 this.access_token = result.token || '';
-                this.random       = result.random || '';
+                this.random = result.random || '';
 
                 this.not_valid_token = result.not_valid || 0;
 
                 _debug('this.access_token', this.access_token);
 
-                if (typeof(stbWebWindow) != 'undefined' && windowId != 1){
+                if (typeof (stbWebWindow) != 'undefined' && windowId != 1) {
                     stbWebWindow.messageSend(1, 'stalker:access_token', this.access_token);
                 }
 
                 if (window.self !== window.top) {
-                    parent.postMessage('access_token:'+this.access_token, '*');
+                    parent.postMessage('access_token:' + this.access_token, '*');
                 }
 
                 this.get_user_profile(false, prehash);
@@ -955,42 +955,57 @@ function common_xpcom(){
         )
     };
 
-    this.get_user_profile = function(auth_second_step, prehash){
+    this.get_user_profile = function (auth_second_step, prehash) {
         _debug('this.get_user_profile', auth_second_step, prehash);
 
         var device_id2 = stb.GetUID ? (stb.GetUID(this.access_token) == stb.GetUID(this.access_token, this.access_token) ? '' : stb.GetUID('device_id', this.access_token)) : '';
 
-        var metrics = {mac:this.mac, sn:this.serial_number, model:this.type, type:"STB", uid:device_id2, random:this.random};
+        var metrics = {
+            mac: this.mac,
+            sn: this.serial_number,
+            model: this.type,
+            type: "STB",
+            uid: device_id2,
+            random: this.random
+        };
 
         _debug('metrics', JSON.stringify(metrics));
 
         this.load(
             {
-                'type'             : 'stb',
-                'action'           : 'get_profile',
-                'hd'               : this.hd,
-                'ver'              : this.version,
-                'num_banks'        : this.num_banks,
-                'sn'               : this.serial_number,
-                'stb_type'         : this.type,
-                'client_type'      : 'STB',
-                'image_version'    : this.image_version,
-                'video_out'        : (stb.GetHDMIConnectionState ? (stb.GetHDMIConnectionState() == 0 && window.innerHeight <= 576 ? "rca" : "hdmi") : ""),
-                'device_id'        : stb.GetUID ? stb.GetUID() : '',
-                'device_id2'       : device_id2,
-                'signature'        : stb.GetUID ? stb.GetUID(this.random) : '',
-                'auth_second_step' : auth_second_step ? 1 : 0,
-                'hw_version'       : this.hw_version,
-                'not_valid_token'  : this.not_valid_token ? 1 : 0,
-                'metrics'          : encodeURIComponent(JSON.stringify(metrics)),
-                'hw_version_2'     : stb.GetHashVersion1 ? stb.GetHashVersion1(JSON.stringify(metrics), this.random) : '',
-                'timestamp'        : Math.round(new Date().getTime()/1000),
-                'api_signature'    : typeof(gSTB) == 'undefined' ? 0 : (function(){var p=0;for(var d in gSTB){if(gSTB.hasOwnProperty(d)){p++}} return p})(),
-                'prehash'          : prehash
+                'type': 'stb',
+                'action': 'get_profile',
+                'hd': this.hd,
+                'ver': this.version,
+                'num_banks': this.num_banks,
+                'sn': this.serial_number,
+                'stb_type': this.type,
+                'client_type': 'STB',
+                'image_version': this.image_version,
+                'video_out': (stb.GetHDMIConnectionState ? (stb.GetHDMIConnectionState() == 0 && window.innerHeight <= 576 ? "rca" : "hdmi") : ""),
+                'device_id': stb.GetUID ? stb.GetUID() : '',
+                'device_id2': device_id2,
+                'signature': stb.GetUID ? stb.GetUID(this.random) : '',
+                'auth_second_step': auth_second_step ? 1 : 0,
+                'hw_version': this.hw_version,
+                'not_valid_token': this.not_valid_token ? 1 : 0,
+                'metrics': encodeURIComponent(JSON.stringify(metrics)),
+                'hw_version_2': stb.GetHashVersion1 ? stb.GetHashVersion1(JSON.stringify(metrics), this.random) : '',
+                'timestamp': Math.round(new Date().getTime() / 1000),
+                'api_signature': typeof (gSTB) == 'undefined' ? 0 : (function () {
+                    var p = 0;
+                    for (var d in gSTB) {
+                        if (gSTB.hasOwnProperty(d)) {
+                            p++
+                        }
+                    } 
+                    return p
+                })(),
+                'prehash': prehash
             },
 
-            function(result){
-                if (result != null){
+            function (result) {
+                if (result != null) {
                     this.profile = result;
                     //this.user_init(result);
                     this.get_localization();
@@ -1002,19 +1017,19 @@ function common_xpcom(){
         )
     };
 
-    this.get_user_browser = function(){
+    this.get_user_browser = function () {
         var ua = navigator.userAgent.toLowerCase();
 
         if (ua.indexOf("webkit") != -1) {
             return "webkit"
-        }else if (ua.indexOf("firefox") != -1){
+        } else if (ua.indexOf("firefox") != -1) {
             return "firefox"
-        }else{
+        } else {
             return "na"
         }
     };
 
-    this.check_image_version = function(){
+    this.check_image_version = function () {
 
         _debug('this.image_version:', this.image_version);
         _debug('this.image_desc:', this.image_desc);
@@ -1023,49 +1038,49 @@ function common_xpcom(){
         _debug('this.hw_version:', this.hw_version);
 
         _debug('checking conditions');
-        _debug('typeof stb.user[autoupdate]', typeof(stb.user['autoupdate']));
+        _debug('typeof stb.user[autoupdate]', typeof (stb.user['autoupdate']));
         _debug('stb.user[autoupdate] is array', stb.user['autoupdate'] && stb.user['autoupdate'] instanceof Array);
 
-        if (stb.user['autoupdate'] && stb.user['autoupdate'] instanceof Array){
-            stb.user['autoupdate'].some(function(element){
+        if (stb.user['autoupdate'] && stb.user['autoupdate'] instanceof Array) {
+            stb.user['autoupdate'].some(function (element) {
                 return stb.check_update(element);
             });
         }
     };
 
-    this.check_update = function(params){
+    this.check_update = function (params) {
         _debug('stb.check_update', params);
 
         if (typeof params == 'object' &&
             (
                 (params.require_image_version != '' && params.require_image_version != this.image_version) ||
-                (params.require_image_date != ''    && params.require_image_date != this.image_date)
+                (params.require_image_date != '' && params.require_image_date != this.image_date)
             ) &&
             (
-                (params.image_version_contains == ''     || params.image_version_contains == this.image_version) &&
+                (params.image_version_contains == '' || params.image_version_contains == this.image_version) &&
                 (params.image_description_contains == '' || this.image_desc.indexOf(params.image_description_contains) != -1) &&
-                (params.hardware_version_contains == ''  || this.hw_version.indexOf(params.hardware_version_contains) != -1)
+                (params.hardware_version_contains == '' || this.hw_version.indexOf(params.hardware_version_contains) != -1)
             )
-           ){
+           ) {
 
             _debug('checking conditions 2');
 
-            if ((this.num_banks == 2 || ['MAG256', 'MAG257', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'MAG425'].indexOf(this.type) >= 0) && params.update_type == 'http_update'){
-                try{
+            if ((this.num_banks == 2 || ['MAG256', 'MAG257', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'MAG349', 'MAG350', 'MAG351', 'MAG352'].indexOf(this.type) >= 0) && params.update_type == 'http_update') {
+                try {
                     _debug('this.user[update_url]', this.user['update_url']);
 
                     _debug('stb.user[autoupdate]', stb.user['autoupdate']);
 
-                    this.user['update_url'] = this.user['update_url'].replace(/\/imageupdate$/, '/'+params.prefix+'imageupdate');
+                    this.user['update_url'] = this.user['update_url'].replace(/\/imageupdate$/, '/' + params.prefix + 'imageupdate');
 
                     _debug('this.user[update_url] 2', this.user['update_url']);
 
                     stbUpdate.startAutoUpdate(this.user['update_url'], false);
 
-                }catch(e){
+                } catch (e) {
                     _debug(e);
                 }
-            }else if (params.update_type == 'reboot_dhcp'){
+            } else if (params.update_type == 'reboot_dhcp') {
                 _debug('RebootDHCP');
                 stb.ExecAction('RebootDHCP');
             }
@@ -1076,7 +1091,7 @@ function common_xpcom(){
         return false;
     };
 
-    this.user_init = function(user_data){
+    this.user_init = function (user_data) {
 
         stb.loader.add_pos(this.load_step, 'call stb.user_init');
 
@@ -1088,73 +1103,73 @@ function common_xpcom(){
         _debug('this.type', this.type);
         _debug('screen.height', screen.height);
 
-        if (this.user['deny_720p_gmode_on_mag200'] && this.type == 'MAG200' && screen.height >= 720){
+        if (this.user['deny_720p_gmode_on_mag200'] && this.type == 'MAG200' && screen.height >= 720) {
             stb.ExecAction('graphicres 720');
             _debug('Reboot');
             stb.ExecAction('reboot');
         }
 
-        try{
+        try {
             gSTB.StandByMode = 1; // always active stand-by
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
 
         screensaver.init();
 
-        if (this.user['allowed_stb_types'] && !this.profile['strict_stb_type_check'] && this.user['allowed_stb_types'].indexOf('aurahd') !== -1){
+        if (this.user['allowed_stb_types'] && !this.profile['strict_stb_type_check'] && this.user['allowed_stb_types'].indexOf('aurahd') !== -1) {
             var cut_type = this.type.indexOf('AuraHD') != -1 ? 'AuraHD' : this.type;
-        }else{
+        } else {
             cut_type = this.type;
         }
 
-        if (this.user['allowed_stb_types'] && this.user['allowed_stb_types'].indexOf(cut_type.toLowerCase()) == -1 && !_GET['debug_key']){
+        if (this.user['allowed_stb_types'] && this.user['allowed_stb_types'].indexOf(cut_type.toLowerCase()) == -1 && !_GET['debug_key']) {
 
-            stb.loader.stop();
-            this.cut_off(get_word('stb_type_not_supported'));
+            //stb.loader.stop();
+            //this.cut_off(get_word('stb_type_not_supported'));
 
-            return;
+            //return;
         }
 
-        if (['MAG200','MAG245','MAG245D','MAG250','MAG254','MAG255','MAG256','MAG257','MAG260','MAG270','MAG275','MAG322','MAG322w1','MAG322w2','MAG322w3','MAG323','MAG324','MAG324C','MAG324w2','MAG325','MAG349','MAG350','MAG351','MAG352','MAG420','MAG420w1','MAG420w2','MAG422','MAG422А','MAG422Аw1','MAG424','MAG424w1','MAG424w2','MAG424w3','MAG424А','MAG424Аw3','MAG425','MAG425А','MAG520','MAG520W1','MAG520W3','MAG524','MAG524W3','AuraHD','AuraHD0','AuraHD1','AuraHD2','AuraHD3','AuraHD4','AuraHD8','AuraHD9','WR320','IM2100','IM2100w1','IM2100V','IM2100VI','IM2101','IM2101V','IM2101VI','IM2101VO','IM2101w2','IM2102','IM4410','IM4410w3','IM4411','IM4411w1','IM4412','IM4414','IM4414w1','IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']){
+        // disabled fw check by commenting these lines.
+        //
+        //if (['MAG200','MAG245','MAG245D','MAG250','MAG254','MAG255','MAG256','MAG257','MAG260','MAG270','MAG275','MAG322','MAG322w1','MAG322w2','MAG322w3','MAG323','MAG324','MAG324C','MAG324w2','MAG325','MAG349','MAG350','MAG351','MAG352','MAG420','MAG420w1','MAG420w2','MAG422','MAG422А','MAG422Аw1','MAG424','MAG424w1','MAG424w2','MAG424w3','MAG424А','MAG424Аw3','MAG425','MAG425А','MAG520','MAG520W1','MAG520W3','MAG524','MAG524W3','AuraHD','AuraHD0','AuraHD1','AuraHD2','AuraHD3','AuraHD4','AuraHD8','AuraHD9','WR320','IM2100','IM2100w1','IM2100V','IM2100VI','IM2101','IM2101V','IM2101VI','IM2101VO','IM2101w2','IM2102','IM4410','IM4410w3','IM4411','IM4411w1','IM4412','IM4414','IM4414w1','IP_STB_HD'].indexOf(this.type) === -1  && !_GET['debug_key']) {
 
 
-            var match = /Player Engine version: (\S+)/.exec(this.version);
-            _debug('match', match);
+        //    var match = /Player Engine version: (\S+)/.exec(this.version);
+        //    _debug('match', match);
 
-            if (match && match.length == 2){
-                var player_version = parseInt((match[1] + '').replace('0x', '').replace(/[^a-f0-9]/gi, ''), 16);
-                _debug('player_version', player_version);
-            }
+        //    if (match && match.length == 2) {
+        //        var player_version = parseInt((match[1] + '').replace('0x', '').replace(/[^a-f0-9]/gi, ''), 16);
+        //        _debug('player_version', player_version);
+        //    }
 
-            if (!match || match.length != 2){
+        //    if (!match || match.length != 2) {
 
-                stb.loader.stop();
-                this.cut_off(get_word('outdated_firmware'));
+        //        stb.loader.stop();
+        //        this.cut_off(get_word('outdated_firmware'));
 
-                if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'IM2101VI', 'IM2101VO', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
-                    this.check_image_version();
-                }
+        //        if (['MAG200', 'MAG245','MAG245D', 'MAG250', 'MAG254', 'MAG255', 'MAG256', 'MAG257', 'MAG270', 'MAG275', 'MAG322', 'MAG323', 'MAG324', 'MAG325', 'IM2101VI', 'IM2101VO', 'MAG349', 'MAG350', 'MAG351', 'MAG352', 'WR320', 'IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1) {
+        //            this.check_image_version();
+        //        }
 
-                return;
-            }
-        }
+        //        return;
+        //    }
+        //}
 
-
-
-        if (this.user['store_auth_data_on_stb']){
+        if (this.user['store_auth_data_on_stb']) {
             this.save_access_token();
         }
 
-        if (this.user['status'] == 2){
+        if (this.user['status'] == 2) {
 
             // redirect to the new launcher without auth
-            if (this.user['template'] && this.user['template'].indexOf('smart_launcher') != -1 && single_module.length == 0){
+            if (this.user['template'] && this.user['template'].indexOf('smart_launcher') != -1 && single_module.length == 0) {
                 _debug('redirect to the new launcher');
                 window.stop();
                 document.body.hide();
-                _debug(this.user['launcher_url']+'?config=' + encodeURIComponent(this.user['launcher_profile_url']+'?uid=' + this.user['id'] + '&language='+this.stb_lang_orig));
-                window.location = this.user['launcher_url']+'?config=' + encodeURIComponent(this.user['launcher_profile_url']+'?uid=' + this.user['id'] + '&language='+this.stb_lang_orig);
+                _debug(this.user['launcher_url'] + '?config=' + encodeURIComponent(this.user['launcher_profile_url'] + '?uid=' + this.user['id'] + '&language=' + this.stb_lang_orig));
+                window.location = this.user['launcher_url'] + '?config=' + encodeURIComponent(this.user['launcher_profile_url'] + '?uid=' + this.user['id'] + '&language=' + this.stb_lang_orig);
                 return;
             }
 
@@ -1165,8 +1180,8 @@ function common_xpcom(){
             this.auth_dialog.show();
             loader.append('alert');
 
-        }else if (this.user['status'] == 0){
-            try{
+        } else if (this.user['status'] == 0) {
+            try {
 
                 this.usbdisk.init();
 
@@ -1179,17 +1194,17 @@ function common_xpcom(){
                 this.player.ad_indication.init();
                 this.player.ad_skip_indication.init();
 
-                if (this.user.hasOwnProperty('cas_type')){
+                if (this.user.hasOwnProperty('cas_type')) {
                     this.player.set_cas(this.user);
                 }
 
-                if (this.user.hasOwnProperty('hls_fast_start')){
+                if (this.user.hasOwnProperty('hls_fast_start')) {
                     this.player.set_hls_fast_start(this.user.hls_fast_start);
                 }
 
                 this.user.fav_itv_on = parseInt(this.user.fav_itv_on, 10);
 
-                this.user['aspect']      = parseInt(this.user['aspect'],    10);
+                this.user['aspect'] = parseInt(this.user['aspect'], 10);
                 stb.player.ch_aspect_idx = this.aspect_array.getIdxByVal('mode', this.user['aspect']);
 
                 this.user['audio_out'] = parseInt(this.user['audio_out'], 10);
@@ -1197,10 +1212,10 @@ function common_xpcom(){
                 stb.user['playback_limit'] = parseInt(this.user['playback_limit'], 10);
 
                 this.user['screensaver_delay'] = parseInt(this.user['screensaver_delay'], 10);
-                this.user['watchdog_timeout']  = parseInt(this.user['watchdog_timeout'], 10);
-                this.user['tv_playback_retry_limit']  = parseInt(this.user['tv_playback_retry_limit'], 10);
-                this.user['timeslot']          = parseFloat(this.user['timeslot']);
-                this.user['timeslot_ratio']    = parseFloat(this.user['timeslot_ratio']);
+                this.user['watchdog_timeout'] = parseInt(this.user['watchdog_timeout'], 10);
+                this.user['tv_playback_retry_limit'] = parseInt(this.user['tv_playback_retry_limit'], 10);
+                this.user['timeslot'] = parseFloat(this.user['timeslot']);
+                this.user['timeslot_ratio'] = parseFloat(this.user['timeslot_ratio']);
 
                 this.auth_access = this.user['auth_access'] ? true : false;
 
@@ -1210,9 +1225,9 @@ function common_xpcom(){
 
                 stb.advert.config = this.user['advert'] || [];
 
-                if (stb.advert.config){
-                    for (var i=0; i<stb.advert.config.length; i++){
-                        if (stb.advert.config[i]['places'][104]){
+                if (stb.advert.config) {
+                    for (var i = 0; i < stb.advert.config.length; i++) {
+                        if (stb.advert.config[i]['places'][104]) {
                             stb.user['force_ch_link_check'] = true;
                             break;
                         }
@@ -1221,26 +1236,26 @@ function common_xpcom(){
 
                 _debug('stb.user[force_ch_link_check]', stb.user['force_ch_link_check']);
 
-                if (!this.user['update_url']){
-                    try{
+                if (!this.user['update_url']) {
+                    try {
                         this.user['update_url'] = stb.RDir('getenv update_url').clearnl();
-                    }catch(err){
+                    } catch (err) {
                         _debug(err);
                     }
                 }
 
                 var aspect_idx = this.aspect_array.getIdxByVal('alias', this.profile['tv_channel_default_aspect']);
-                if (aspect_idx === null){
+                if (aspect_idx === null) {
                     this.profile['tv_channel_default_aspect'] = 0x10;
-                }else{
+                } else {
                     this.profile['tv_channel_default_aspect'] = this.aspect_array[aspect_idx].mode;
                 }
 
                 _debug('this.user[update_url]', this.user['update_url']);
 
-                if (['MAG200','MAG245','MAG245D','MAG250','MAG254','MAG255','MAG256','MAG257','MAG260','MAG270','MAG275','MAG322','MAG322w1','MAG322w2','MAG322w3','MAG323','MAG324','MAG324C','MAG324w2','MAG325','MAG349','MAG350','MAG351','MAG352','MAG420','MAG420w1','MAG420w2','MAG422','MAG422А','MAG422Аw1','MAG424','MAG424w1','MAG424w2','MAG424w3','MAG424А','MAG424Аw3','MAG425','MAG425А','MAG520','MAG520W1','MAG520W3','MAG524','MAG524W3','AuraHD','AuraHD0','AuraHD1','AuraHD2','AuraHD3','AuraHD4','AuraHD8','AuraHD9','WR320','IM2100','IM2100w1','IM2100V','IM2100VI','IM2101','IM2101V','IM2101VI','IM2101VO','IM2101w2','IM2102','IM4410','IM4410w3','IM4411','IM4411w1','IM4412','IM4414','IM4414w1','IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1){
-                    this.check_image_version();
-                }
+                //if (['MAG200','MAG245','MAG245D','MAG250','MAG254','MAG255','MAG256','MAG257','MAG260','MAG270','MAG275','MAG322','MAG322w1','MAG322w2','MAG322w3','MAG323','MAG324','MAG324C','MAG324w2','MAG325','MAG349','MAG350','MAG351','MAG352','MAG420','MAG420w1','MAG420w2','MAG422','MAG422А','MAG422Аw1','MAG424','MAG424w1','MAG424w2','MAG424w3','MAG424А','MAG424Аw3','MAG425','MAG425А','MAG520','MAG520W1','MAG520W3','MAG524','MAG524W3','AuraHD','AuraHD0','AuraHD1','AuraHD2','AuraHD3','AuraHD4','AuraHD8','AuraHD9','WR320','IM2100','IM2100w1','IM2100V','IM2100VI','IM2101','IM2101V','IM2101VI','IM2101VO','IM2101w2','IM2102','IM4410','IM4410w3','IM4411','IM4411w1','IM4412','IM4414','IM4414w1','IP_STB_HD'].indexOf(this.type) >= 0 || this.type.indexOf('AuraHD') != -1) {
+                //   this.check_image_version();
+                //}
 
                 if (single_module.indexOf('tv') != -1 || single_module.length == 0) {
                     this.epg_loader.start();
@@ -1248,11 +1263,11 @@ function common_xpcom(){
 
                 this.locale = this.user.locale;
 
-                if (!this.user['pri_audio_lang']){
+                if (!this.user['pri_audio_lang']) {
                     this.user['pri_audio_lang'] = this.lang_map.hasOwnProperty(this.stb_lang) ? this.lang_map[this.stb_lang] : '';
                     this.user['sec_audio_lang'] = this.lang_map.hasOwnProperty(this.user.stb_lang) ? this.lang_map[this.user.stb_lang] : '';
 
-                    if (this.user['pri_audio_lang'] == this.user['sec_audio_lang']){
+                    if (this.user['pri_audio_lang'] == this.user['sec_audio_lang']) {
                         var default_lang = this.user['default_locale'].substr(0, 2);
                         _debug('default_lang', default_lang);
                         this.user['sec_audio_lang'] = this.lang_map.hasOwnProperty(default_lang) ? this.lang_map[default_lang] : '';
@@ -1264,7 +1279,7 @@ function common_xpcom(){
                     this.user['sec_audio_lang']
                 );
 
-                if (!this.user['pri_subtitle_lang'] && !this.user['sec_subtitle_lang'] && stb.profile['always_enabled_subtitles']){
+                if (!this.user['pri_subtitle_lang'] && !this.user['sec_subtitle_lang'] && stb.profile['always_enabled_subtitles']) {
                     this.user['pri_subtitle_lang'] = this.user['pri_audio_lang'];
                     this.user['sec_subtitle_lang'] = this.user['sec_audio_lang'];
                 }
@@ -1282,26 +1297,26 @@ function common_xpcom(){
 
                 this.check_additional_services(this.user['additional_services_on']);
 
-                if (this.aspect_idx == null){
+                if (this.aspect_idx == null) {
                     this.aspect_idx = 0;
                 }
 
-                try{
+                try {
 
                     var timezone = stb.RDir('getenv timezone_conf');
 
                     _debug('timezone', timezone);
 
-                    if (this.user['default_timezone'] && !timezone){
-                        _debug('setenv timezone_conf '+this.user['default_timezone']);
-                        stb.RDir('setenv timezone_conf '+this.user['default_timezone']);
+                    if (this.user['default_timezone'] && !timezone) {
+                        _debug('setenv timezone_conf ' + this.user['default_timezone']);
+                        stb.RDir('setenv timezone_conf ' + this.user['default_timezone']);
                     }
 
                     _debug('stb.GetBrightness before', stb.GetBrightness());
                     _debug('stb.GetContrast before', stb.GetContrast());
                     _debug('stb.GetSaturation before', stb.GetSaturation());
 
-                    if (this.stb_type == 'MAG200'){
+                    if (this.stb_type == 'MAG200') {
                         stb.SetBrightness(127);
                         stb.SetContrast(-27);
                         stb.SetSaturation(100);
@@ -1322,13 +1337,13 @@ function common_xpcom(){
                     stb.EnableAppButton && stb.EnableAppButton(false);
 
                     //stb.SetWebProxy(string proxy_addr,int proxy_port,string user_name,string passwd,string exclude_list);
-                    if (this.user['web_proxy_host']){
+                    if (this.user['web_proxy_host']) {
                         stb.SetWebProxy && stb.SetWebProxy(this.user['web_proxy_host'], this.user['web_proxy_port'], this.user['web_proxy_user'], this.user['web_proxy_pass'], this.user['web_proxy_exclude_list']);
                     }
 
                     stb.EnableServiceButton(!!this.user['enable_service_button']);
 
-                    if (gSTB.SetSettingsInitAttr){
+                    if (gSTB.SetSettingsInitAttr) {
                         gSTB.SetSettingsInitAttr(JSON.stringify({
                             url: '/home/web/system/settings/index.html',
                             backgroundColor: '#000'
@@ -1337,7 +1352,7 @@ function common_xpcom(){
 
                     stb.EnableVKButton(true);
 
-                    if (gSTB.SetLedIndicatorLevels && this.user.hasOwnProperty('default_led_level') && this.user.hasOwnProperty('standby_led_level')){
+                    if (gSTB.SetLedIndicatorLevels && this.user.hasOwnProperty('default_led_level') && this.user.hasOwnProperty('standby_led_level')) {
                         _debug('this.user[default_led_level]', parseInt(this.user['default_led_level'], 10));
                         _debug('this.user[standby_led_level]', parseInt(this.user['standby_led_level'], 10));
                         gSTB.SetLedIndicatorMode(1);
@@ -1345,18 +1360,18 @@ function common_xpcom(){
                     }
 
                     var mc_proxy_enabled = stb.RDir('getenv mc_proxy_enabled');
-                    var mc_proxy_url     = stb.RDir('getenv mc_proxy_url');
+                    var mc_proxy_url = stb.RDir('getenv mc_proxy_url');
 
-                    if (mc_proxy_enabled == 'true' && mc_proxy_url){
+                    if (mc_proxy_enabled == 'true' && mc_proxy_url) {
                         this.player.mc_proxy_url = mc_proxy_url;
                     }
 
-                    if (typeof(stb.SetCheckSSLCertificate) == 'function' && typeof(this.profile['check_ssl_certificate']) != 'undefined' && this.profile['check_ssl_certificate'] == 0) {
+                    if (typeof (stb.SetCheckSSLCertificate) == 'function' && typeof (this.profile['check_ssl_certificate']) != 'undefined' && this.profile['check_ssl_certificate'] == 0) {
                         _debug('SetCheckSSLCertificate = 0');
                         stb.SetCheckSSLCertificate(0);
                     }
 
-                }catch(e){
+                } catch (e) {
                     _debug(e);
                 }
 
@@ -1367,7 +1382,7 @@ function common_xpcom(){
                 if (single_module.length && single_module.indexOf('tv') == -1) {
                     stb.loader.add_pos(this.load_step, 'skip channels loading');
                     stb.loader.add_pos(this.load_step, 'skip fav_channels loading');
-                }else{
+                } else {
                     this.load_channels();
                     this.load_fav_channels();
                     this.load_fav_itv();
@@ -1375,19 +1390,19 @@ function common_xpcom(){
 
                 this.load_recordings();
 
-            }catch(e){
+            } catch (e) {
                 _debug(e);
             }
-        }else if(this.user['status'] == 1){
+        } else if (this.user['status'] == 1) {
 
-            if (this.ntp_server && this.user.hasOwnProperty('ntp_wait_timeout') && this.ntp_wait_time <= this.user['ntp_wait_timeout']){
+            if (this.ntp_server && this.user.hasOwnProperty('ntp_wait_timeout') && this.ntp_wait_time <= this.user['ntp_wait_timeout']) {
 
                 _debug('wait for ntp');
                 _debug('this.ntp_wait_time', this.ntp_wait_time);
 
-                window.setTimeout(function(){
+                window.setTimeout(function () {
                     stb.get_user_profile();
-                }, 10*1000);
+                }, 10 * 1000);
 
                 this.ntp_wait_time += 10;
 
@@ -1399,22 +1414,22 @@ function common_xpcom(){
             this.cut_off(this.user.hasOwnProperty('block_msg') ? this.user['block_msg'] : '');
             loader.append('alert');
 
-            if (this.user.hasOwnProperty('enable_settings') && this.user['enable_settings']){
+            if (this.user.hasOwnProperty('enable_settings') && this.user['enable_settings']) {
                 stb.EnableServiceButton(true);
             }
 
-            if (this.user['portal_disabled']){
+            if (this.user['portal_disabled']) {
 
-                this.portal_status_interval = window.setInterval(function(){
+                this.portal_status_interval = window.setInterval(function () {
                     stb.load(
                         {
-                            "type"   : "stb",
-                            "action" : "check_portal_status"
+                            "type": "stb",
+                            "action": "check_portal_status"
                         },
-                        function(result){
+                        function (result) {
                             _debug('on check_portal_status', result);
 
-                            if (result){
+                            if (result) {
                                 window.clearInterval(stb.portal_status_interval);
                                 window.location = window.location;
                             }
@@ -1427,14 +1442,15 @@ function common_xpcom(){
         this.watchdog.run(this.user['watchdog_timeout'], this.user['timeslot']);
     };
 
-    this.on_first_menu_show = function(){};
+    this.on_first_menu_show = function () {
+    };
 
-    this.post_loading_handle = function(){
+    this.post_loading_handle = function () {
         _debug('stb.post_loading_handle');
 
         _debug('this.user[display_menu_after_loading]', this.user['display_menu_after_loading']);
 
-        if (this.GetHDMIConnectionState){
+        if (this.GetHDMIConnectionState) {
             this.hdmi_on = this.GetHDMIConnectionState() == 2;
         }
 
@@ -1442,27 +1458,27 @@ function common_xpcom(){
 
         this.key_lock = false;
 
-        if (single_module.length > 0 && module[single_module[0]]){
+        if (single_module.length > 0 && module[single_module[0]]) {
 
             stb.cur_single_module = single_module[0];
 
-            if (module[single_module[0]]._show){
+            if (module[single_module[0]]._show) {
                 module[single_module[0]]._show();
-            }else if (module[single_module[0]].show){
+            } else if (module[single_module[0]].show) {
                 module[single_module[0]].show();
             }
 
             return;
         }
 
-        if (module.tv){
+        if (module.tv) {
             this.player.init_first_channel();
         }
 
-        if (this.user['display_menu_after_loading'] || focus_module || !this.player.channels || this.player.channels.length == 0 || !module.tv){
+        if (this.user['display_menu_after_loading'] || focus_module || !this.player.channels || this.player.channels.length == 0 || !module.tv) {
             main_menu.show();
             this.on_first_menu_show();
-        }else{
+        } else {
             this.player.first_play();
         }
     };
@@ -1471,45 +1487,45 @@ function common_xpcom(){
      * @deprecated
      * @param storages
      */
-    this.mount_home_dir = function(storages){
+    this.mount_home_dir = function (storages) {
         _debug('stb.mount_home_dir: ', storages);
 
         this.set_storages(storages);
 
         stb.loader.add_pos(this.load_step, 'call stb.mount_home_dir');
 
-        for(var i in storages){
-            if (storages.hasOwnProperty(i)){
-                stb.ExecAction('make_dir /media/'+storages[i]['storage_name']);
+        for (var i in storages) {
+            if (storages.hasOwnProperty(i)) {
+                stb.ExecAction('make_dir /media/' + storages[i]['storage_name']);
 
-                var mount_cmd = '"'+storages[i]['storage_ip']+':'+storages[i]['nfs_home_path']+stb.mac+'" /media/'+storages[i]['storage_name'];
-                _debug('mount_cmd: '+mount_cmd);
+                var mount_cmd = '"' + storages[i]['storage_ip'] + ':' + storages[i]['nfs_home_path'] + stb.mac + '" /media/' + storages[i]['storage_name'];
+                _debug('mount_cmd: ' + mount_cmd);
 
-                try{
-                    stb.ExecAction('mount_dir '+mount_cmd);
-                }catch(e){
+                try {
+                    stb.ExecAction('mount_dir ' + mount_cmd);
+                } catch (e) {
                     _debug(e);
                 }
             }
         }
     };
 
-    this.set_storages = function(storages){
+    this.set_storages = function (storages) {
         _debug('stb.set_storages', storages);
 
         this.storages = this.user['storages'] = storages;
     };
 
-    this.remount_storages = function(callback){
+    this.remount_storages = function (callback) {
         _debug('stb.remount_storages');
 
         stb.load(
             {
-                "type"   : "stb",
-                "action" : "get_storages"
+                "type": "stb",
+                "action": "get_storages"
             },
 
-            function(result){
+            function (result) {
                 _debug('storages', result);
 
                 this.set_storages(result);
@@ -1523,12 +1539,12 @@ function common_xpcom(){
         );
     };
 
-    this.Mount = function(link_cmd){
+    this.Mount = function (link_cmd) {
         _debug('stb.Mount', link_cmd);
 
-        var mounted_storage = link_cmd.replace(/[\s\S]*\/media\/(.*)\/(.*)/ , "$1");
+        var mounted_storage = link_cmd.replace(/[\s\S]*\/media\/(.*)\/(.*)/, "$1");
 
-        if (mounted_storage == this.mounted_storage){
+        if (mounted_storage == this.mounted_storage) {
             _debug('clear Umount Timeout', mounted_storage);
             window.clearTimeout(stb.player.umount_timer);
         }
@@ -1536,37 +1552,37 @@ function common_xpcom(){
         this.mounted_storage = mounted_storage;
 
         _debug('stb.mounted_storage', this.mounted_storage);
-        try{
-            gSTB.ExecAction('make_dir /media/'+this.mounted_storage);
+        try {
+            gSTB.ExecAction('make_dir /media/' + this.mounted_storage);
             var mount_cmd = '"' + this.storages[this.mounted_storage]['storage_ip'] + ':' + this.storages[this.mounted_storage]['nfs_home_path'] + this.mac + '" /media/' + this.mounted_storage;
-            gSTB.ExecAction('mount_dir '+mount_cmd);
-        }catch(e){
+            gSTB.ExecAction('mount_dir ' + mount_cmd);
+        } catch (e) {
             _debug(e);
         }
     };
 
-    this.Umount = function(storage){
+    this.Umount = function (storage) {
         _debug('stb.Umount', storage);
         //_debug('stb.mounted_storage', this.mounted_storage);
 
-        if (storage){
-            try{
-                gSTB.ExecAction('umount_dir /media/'+storage);
+        if (storage) {
+            try {
+                gSTB.ExecAction('umount_dir /media/' + storage);
                 //this.mounted_storage = '';
-            }catch(e){
+            } catch (e) {
                 _debug(e);
             }
         }
     };
 
-    this.switchPower = function(){
+    this.switchPower = function () {
         _debug('stb.switchPower()');
 
-        if (stb.GetStandByStatus){
+        if (stb.GetStandByStatus) {
             this.power_off = stb.GetStandByStatus();
         }
 
-        if(this.power_off){
+        if (this.power_off) {
             //this.StandBy(0);
             this.power_off = false;
             keydown_observer.emulate_key(key.MENU);
@@ -1574,12 +1590,12 @@ function common_xpcom(){
 
             this.StandBy(0);
 
-            if (!this.user['display_menu_after_loading'] && !module.blocking.on){
+            if (!this.user['display_menu_after_loading'] && !module.blocking.on) {
                 main_menu.hide();
                 stb.player.play_last();
             }
 
-        }else{
+        } else {
             keydown_observer.emulate_key(key.MENU);
             this.StandBy(1);
             this.power_off = true;
@@ -1587,12 +1603,12 @@ function common_xpcom(){
         }
     };
 
-    this.get_image_version = function(){
+    this.get_image_version = function () {
         _debug('get_image_version');
 
         var ver = '';
 
-        try{
+        try {
             var full_ver = stb.RDir('Img_Ver');
 
             _debug('full_ver:', full_ver);
@@ -1601,59 +1617,59 @@ function common_xpcom(){
 
             var short_ver = full_ver.replace(pattern, "$1");
 
-            if (short_ver.length < 30){
+            if (short_ver.length < 30) {
                 ver = short_ver.clearnl();
             }
 
             _debug('ver:', ver);
 
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
 
         return ver;
     };
 
-    this.check_graphic_res = function(){
+    this.check_graphic_res = function () {
         _debug('check_graphic_res');
 
-        try{
+        try {
 
             var res = {
-                "r480" :{
-                    "w"        : 720,
-                    "h"        : 480,
-                    "window_w" : 720,
-                    "window_h" : 480,
-                    "prefix"   : '_480'
+                "r480": {
+                    "w": 720,
+                    "h": 480,
+                    "window_w": 720,
+                    "window_h": 480,
+                    "prefix": '_480'
                 },
-                "r576" :{
-                    "w"        : 720,
-                    "h"        : 576,
-                    "window_w" : 720,
-                    "window_h" : 576,
-                    "prefix"   : ''
+                "r576": {
+                    "w": 720,
+                    "h": 576,
+                    "window_w": 720,
+                    "window_h": 576,
+                    "prefix": ''
                 },
-                "r720" : {
-                    "w"        : 1280,
-                    "h"        : 720,
-                    "window_w" : 1280,
-                    "window_h" : 720,
-                    "prefix"   : '_720'
+                "r720": {
+                    "w": 1280,
+                    "h": 720,
+                    "window_w": 1280,
+                    "window_h": 720,
+                    "prefix": '_720'
 
                 },
-                "r1080" : {
-                    "w"        : 1920,
-                    "h"        : 1080,
-                    "window_w" : 1280,
-                    "window_h" : 720,
-                    "prefix"   : '_720'
+                "r1080": {
+                    "w": 1920,
+                    "h": 1080,
+                    "window_w": 1280,
+                    "window_h": 720,
+                    "prefix": '_720'
                 }
             };
 
-            if (typeof(Proxy) !== "undefined" && gSTB && typeof(gSTB.prototype) === "function"){
+            if (typeof (Proxy) !== "undefined" && gSTB && typeof (gSTB.prototype) === "function") {
                 var gres = window.innerHeight;
-            }else{
+            } else {
                 gres = screen.height;
             }
 
@@ -1661,61 +1677,61 @@ function common_xpcom(){
 
             _debug('gres', gres);
 
-            if (gres == 1080 && !window.referrer){
+            if (gres == 1080 && !window.referrer) {
                 stb.ExecAction('graphicres 1280');
                 _debug('Reboot');
                 stb.ExecAction('reboot');
-            }else if (!res["r"+gres]){
+            } else if (!res["r" + gres]) {
                 stb.ExecAction('graphicres 720');
                 debug('Reboot');
                 stb.ExecAction('reboot');
             }
 
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
     };
 
-    this.resize_window = function(){
+    this.resize_window = function () {
         _debug('resize_window');
 
-        try{
+        try {
 
             var res = {
-                "r480" :{
-                    "w"        : 720,
-                    "h"        : 480,
-                    "window_w" : 720,
-                    "window_h" : 480,
-                    "prefix"   : '_480'
+                "r480": {
+                    "w": 720,
+                    "h": 480,
+                    "window_w": 720,
+                    "window_h": 480,
+                    "prefix": '_480'
                 },
-                "r576" :{
-                    "w"        : 720,
-                    "h"        : 576,
-                    "window_w" : 720,
-                    "window_h" : 576,
-                    "prefix"   : ''
+                "r576": {
+                    "w": 720,
+                    "h": 576,
+                    "window_w": 720,
+                    "window_h": 576,
+                    "prefix": ''
                 },
-                "r720" : {
-                    "w"        : 1280,
-                    "h"        : 720,
-                    "window_w" : 1280,
-                    "window_h" : 720,
-                    "prefix"   : '_720'
+                "r720": {
+                    "w": 1280,
+                    "h": 720,
+                    "window_w": 1280,
+                    "window_h": 720,
+                    "prefix": '_720'
 
                 },
-                "r1080" : {
-                    "w"        : 1920,
-                    "h"        : 1080,
-                    "window_w" : 1920,
-                    "window_h" : 1080,
-                    "prefix"   : '_720'
+                "r1080": {
+                    "w": 1920,
+                    "h": 1080,
+                    "window_w": 1920,
+                    "window_h": 1080,
+                    "prefix": '_720'
                 }
             };
 
-            if (typeof(Proxy) !== "undefined" && gSTB && typeof(gSTB.prototype) === "function"){
+            if (typeof (Proxy) !== "undefined" && gSTB && typeof (gSTB.prototype) === "function") {
                 var gres = window.innerHeight;
-            }else{
+            } else {
                 gres = screen.height;
             }
 
@@ -1723,61 +1739,57 @@ function common_xpcom(){
 
             _debug('gres', gres);
 
-            if (res["r"+gres]){
+            if (res["r" + gres]) {
 
-                resolution_prefix = res["r"+gres].prefix;
+                resolution_prefix = res["r" + gres].prefix;
                 _debug('resolution_prefix', resolution_prefix);
 
-                window.resizeTo(res["r"+gres].window_w, res["r"+gres].window_h);
+                window.resizeTo(res["r" + gres].window_w, res["r" + gres].window_h);
 
-                _debug('window.moveTo', (res["r"+gres].w - res["r"+gres].window_w)/2, (res["r"+gres].h - res["r"+gres].window_h)/2);
-                window.moveTo((res["r"+gres].w - res["r"+gres].window_w)/2, (res["r"+gres].h - res["r"+gres].window_h)/2);
+                _debug('window.moveTo', (res["r" + gres].w - res["r" + gres].window_w) / 2, (res["r" + gres].h - res["r" + gres].window_h) / 2);
+                window.moveTo((res["r" + gres].w - res["r" + gres].window_w) / 2, (res["r" + gres].h - res["r" + gres].window_h) / 2);
             }
-        }catch(e){
+        } catch (e) {
             _debug(e);
         }
     };
 
-    this.load_channels = function(){
+    this.load_channels = function () {
 
         this.load(
-
             {
-                'type'  : 'itv',
+                'type': 'itv',
                 'action': 'get_all_channels',
                 'force_ch_link_check': stb.user['force_ch_link_check']
             },
 
-            function(result){
+            function (result) {
                 _debug('all_channels', result);
-
                 stb.loader.add_pos(this.load_step, 'channels loaded');
 
                 this.player.channels = result.data || [];
 
                 _debug('this.player.is_tv', this.player.is_tv);
-
                 _debug('this.player.cur_media_item', this.player.cur_media_item);
                 _debug('this.player.cur_tv_item', this.player.cur_tv_item);
 
-                if (this.player.is_tv){
-
+                if (this.player.is_tv) {
                     var ch_idx = this.player.channels.getIdxByVal('id', this.player.cur_media_item.id);
 
                     _debug('ch_idx', ch_idx);
 
-                    if (ch_idx !== null){
+                    if (ch_idx !== null) {
                         this.player.cur_media_item = this.player.cur_tv_item = this.player.channels[ch_idx];
 
                         _debug('this.player.cur_tv_item', this.player.cur_tv_item);
 
-                        if (this.player.cur_tv_item.lock != '1'){
+                        if (this.player.cur_tv_item.lock != '1') {
                             this.player.last_not_locked_tv_item = this.player.cur_tv_item;
                         }
 
                         _debug('this.player.on', this.player.on);
 
-                        if (this.player.on){
+                        if (this.player.on) {
                             this.player.play(this.player.cur_tv_item);
                         }
                     }
@@ -1791,18 +1803,17 @@ function common_xpcom(){
         )
     };
 
-    this.load_fav_channels = function(){
+    this.load_fav_channels = function () {
 
         this.load(
-
             {
-                'type'  : 'itv',
+                'type': 'itv',
                 'action': 'get_all_fav_channels',
-                'fav'   : 1,
-                'force_ch_link_check' : stb.user['force_ch_link_check']
+                'fav': 1,
+                'force_ch_link_check': stb.user['force_ch_link_check']
             },
 
-            function(result){
+            function (result) {
                 _debug('all_fav_channels', result);
 
                 stb.loader.add_pos(this.load_step, 'fav_channels loaded');
@@ -1816,20 +1827,19 @@ function common_xpcom(){
         )
     };
 
-    this.load_fav_itv = function(){
+    this.load_fav_itv = function () {
 
         this.load(
-
             {
-                'type'   : 'itv',
-                'action' : 'get_fav_ids',
-                'force_ch_link_check' : stb.user['force_ch_link_check']
+                'type': 'itv',
+                'action': 'get_fav_ids',
+                'force_ch_link_check': stb.user['force_ch_link_check']
             },
 
-            function(result){
+            function (result) {
                 _debug('fav_itv_ids', result);
                 this.player.fav_channels_ids = result || [];
-                if (this.player.fav_channels_ids.length == 0){
+                if (this.player.fav_channels_ids.length == 0) {
                     this.user.fav_itv_on = 0;
                 }
 
@@ -1840,22 +1850,22 @@ function common_xpcom(){
         )
     };
 
-    this.load_recordings = function(){
+    this.load_recordings = function () {
         _debug('stb.load_recordings');
 
         stb.load(
             {
-                "type"    : "remote_pvr",
-                "action"  : "get_active_recordings"
+                "type": "remote_pvr",
+                "action": "get_active_recordings"
             },
-            function(result){
+            function (result) {
                 _debug('load_recordings result', result);
 
                 this.recordings = result || [];
 
-                if (typeof(pvrManager) == "undefined"){
+                if (typeof (pvrManager) == "undefined") {
                     var active_tasks = [];
-                }else{
+                } else {
                     active_tasks = JSON.parse(pvrManager.GetAllTasks()) || [];
                 }
 
@@ -1863,35 +1873,35 @@ function common_xpcom(){
 
                 _debug('this.recordings before', this.recordings);
 
-                var now_ts = Math.ceil(new Date().getTime()/1000);
+                var now_ts = Math.ceil(new Date().getTime() / 1000);
 
                 _debug('now_ts', now_ts);
 
                 _debug('this.recordings after', this.recordings);
 
-                stb.player.on_play = function(ch_id){
+                stb.player.on_play = function (ch_id) {
                     _debug('player.on_play', ch_id);
 
-                    if (stb.player.is_tv){
+                    if (stb.player.is_tv) {
 
                         var rec_idx = stb.recordings.getIdxByVal('ch_id', ch_id);
 
-                        if(rec_idx !== null){
+                        if (rec_idx !== null) {
 
-                            var now_ts = Math.ceil(new Date().getTime()/1000);
+                            var now_ts = Math.ceil(new Date().getTime() / 1000);
 
                             _debug('now_ts', now_ts);
 
-                            if (stb.recordings[rec_idx].local == 0 || (stb.recordings[rec_idx].t_start_ts < now_ts && stb.recordings[rec_idx].t_stop_ts > now_ts)){
+                            if (stb.recordings[rec_idx].local == 0 || (stb.recordings[rec_idx].t_start_ts < now_ts && stb.recordings[rec_idx].t_stop_ts > now_ts)) {
                                 stb.player.show_rec_icon(stb.recordings[rec_idx]);
-                            }else{
+                            } else {
                                 stb.player.hide_rec_icon();
                             }
 
-                        }else{
+                        } else {
                             stb.player.hide_rec_icon();
                         }
-                    }else{
+                    } else {
                         stb.player.rec.hide();
                     }
                 }
@@ -1925,16 +1935,16 @@ function common_xpcom(){
         }
     };
 
-    this.log_stream_error = function(ch_id, event){
+    this.log_stream_error = function (ch_id, event) {
 
         this.load(
             {
-                "type"   : "stb",
-                "action" : "set_stream_error",
-                "ch_id"  : ch_id,
-                "event"  : event
+                "type": "stb",
+                "action": "set_stream_error",
+                "ch_id": ch_id,
+                "event": event
             },
-            function(result){
+            function (result) {
 
             },
             this
@@ -1943,37 +1953,39 @@ function common_xpcom(){
 
     this.epg_loader = {
 
-        timeout  : 21600000, // 6h
-        timer_id : 0,
-        epg : [],
+        timeout: 21600000, // 6h
+        timer_id: 0,
+        epg: [],
 
-        start : function(){
+        start: function () {
             _debug('epg_loader.start');
 
             this.load();
             var self = this;
-            this.timer_id = window.setInterval(function(){self.load()}, (stb.type == 'MAG200' ? 3 : stb.profile['epg_data_block_period_for_stb'])*3600000);
+            this.timer_id = window.setInterval(function () {
+                self.load()
+            }, (stb.type == 'MAG200' ? 3 : stb.profile['epg_data_block_period_for_stb']) * 3600000);
         },
 
-        stop : function(){
+        stop: function () {
             _debug('epg_loader.stop');
 
             window.clearInterval(this.timer_id);
         },
 
-        load : function(){
+        load: function () {
             _debug('epg_loader.load');
 
             this.epg = [];
 
             stb.load(
                 {
-                    "type"   : "itv",
-                    "action" : "get_epg_info",
-                    "period" : stb.type == 'MAG200' ? 3 : stb.profile['epg_data_block_period_for_stb']
+                    "type": "itv",
+                    "action": "get_epg_info",
+                    "period": stb.type == 'MAG200' ? 3 : stb.profile['epg_data_block_period_for_stb']
                 },
 
-                function(result){
+                function (result) {
                     this.set_epg(result.data);
                 },
 
@@ -1981,59 +1993,59 @@ function common_xpcom(){
             )
         },
 
-        set_epg : function(data){
+        set_epg: function (data) {
             _debug('epg_loader.set_epg', data);
             this.epg = data || [];
-            _debug('typeof(this.epg)', typeof(this.epg));
+            _debug('typeof(this.epg)', typeof (this.epg));
         },
 
-        get_curr_and_next : function(ch_id, from_ts, length){
+        get_curr_and_next: function (ch_id, from_ts, length) {
             _debug('epg_loader.get_curr_and_next', ch_id, from_ts, length);
 
             length = length || 2;
 
-            ch_id = ''+ch_id;
+            ch_id = '' + ch_id;
 
-            _debug('typeof(ch_id)', typeof(ch_id));
+            _debug('typeof(ch_id)', typeof (ch_id));
 
-            if (!from_ts){
-                var now = Date.parse(new Date())/1000;
-            }else{
+            if (!from_ts) {
+                var now = Date.parse(new Date()) / 1000;
+            } else {
                 now = parseInt(from_ts, 10);
             }
             var result = [];
 
             _debug('now', now);
-            _debug('typeof this.epg[ch_id]', typeof(this.epg[ch_id]));
+            _debug('typeof this.epg[ch_id]', typeof (this.epg[ch_id]));
 
-            try{
-                if (typeof(this.epg[ch_id]) == 'object' && this.epg[ch_id].length > 0){
+            try {
+                if (typeof (this.epg[ch_id]) == 'object' && this.epg[ch_id].length > 0) {
                     _debug('this.epg[ch_id]', this.epg[ch_id]);
-                    _debug('this.epg[ch_id].length: '+this.epg[ch_id].length);
-                    for (var i=0; i < this.epg[ch_id].length; i++){
+                    _debug('this.epg[ch_id].length: ' + this.epg[ch_id].length);
+                    for (var i = 0; i < this.epg[ch_id].length; i++) {
                         _debug('i', i);
-                        if (this.epg[ch_id][i]['start_timestamp'] < now){
+                        if (this.epg[ch_id][i]['start_timestamp'] < now) {
                             _debug('continue');
-                        }else if (this.epg[ch_id][i]['start_timestamp'] == now){
+                        } else if (this.epg[ch_id][i]['start_timestamp'] == now) {
                             _debug('==');
                             result.push(this.epg[ch_id][i]);
 
-                            for (var j = 0; j < length - 1; j++){
-                                if (typeof(this.epg[ch_id][i+1+j]) == 'object'){
-                                    result.push(this.epg[ch_id][i+1+j]);
+                            for (var j = 0; j < length - 1; j++) {
+                                if (typeof (this.epg[ch_id][i + 1 + j]) == 'object') {
+                                    result.push(this.epg[ch_id][i + 1 + j]);
                                 }
                             }
                             break;
-                        }else{
-                            if (typeof(this.epg[ch_id][i-1]) == 'object'){
-                                result.push(this.epg[ch_id][i-1]);
+                        } else {
+                            if (typeof (this.epg[ch_id][i - 1]) == 'object') {
+                                result.push(this.epg[ch_id][i - 1]);
 
-                                for (j = 0; j < length - 1; j++){
-                                    if (typeof(this.epg[ch_id][i + j]) == 'object'){
+                                for (j = 0; j < length - 1; j++) {
+                                    if (typeof (this.epg[ch_id][i + j]) == 'object') {
                                         result.push(this.epg[ch_id][i + j]);
                                     }
                                 }
-                            }else{
+                            } else {
                                 result.push(this.epg[ch_id][i]);
                             }
 
@@ -2041,12 +2053,12 @@ function common_xpcom(){
                         }
                     }
                 }
-            }catch(e){
+            } catch (e) {
                 _debug(e);
             }
 
-            if (length > 2 && module.epg_reminder && Array.isArray(module.epg_reminder.memos)){
-                for (i=0; i<result.length; i++){
+            if (length > 2 && module.epg_reminder && Array.isArray(module.epg_reminder.memos)) {
+                for (i = 0; i < result.length; i++) {
                     result[i]['mark_memo'] = module.epg_reminder.memos.getIdxByVal('tv_program_id', result[i]['id']) != null ? 1 : 0
                 }
 
@@ -2055,7 +2067,7 @@ function common_xpcom(){
             return result;
         },
 
-        get_epg : function(ch_id){
+        get_epg: function (ch_id) {
             _debug('epg_loader.get_epg', ch_id);
 
             var epg = this.get_curr_and_next(ch_id);
@@ -2063,14 +2075,14 @@ function common_xpcom(){
             return this.get_osd_info(epg);
         },
 
-        get_osd_info : function(programs){
+        get_osd_info: function (programs) {
             _debug('epg_loader.get_osd_info', programs);
 
             var epg_str = '';
 
-            programs.map(function(prog, idx){
+            programs.map(function (prog, idx) {
 
-                if (idx != 0){
+                if (idx != 0) {
                     epg_str += '<br>';
                 }
 
@@ -2080,12 +2092,12 @@ function common_xpcom(){
             return epg_str;
         },
 
-        get_cur_program : function(ch_id){
+        get_cur_program: function (ch_id) {
             _debug('epg_loader.get_cur_program', ch_id);
 
             var epg = this.get_curr_and_next(ch_id);
 
-            if (epg && epg.length > 0){
+            if (epg && epg.length > 0) {
                 return epg[0];
             }
 
@@ -2093,10 +2105,10 @@ function common_xpcom(){
         }
     };
 
-    this.cut_off = function(msg){
+    this.cut_off = function (msg) {
         _debug('stb.cut_off');
 
-        if (module.blocking.on){
+        if (module.blocking.on) {
             return;
         }
 
@@ -2106,7 +2118,7 @@ function common_xpcom(){
 
         this.player.stop();
 
-        if(this.cur_layer){
+        if (this.cur_layer) {
             this.cur_layer.on = false;
         }
 
@@ -2115,87 +2127,87 @@ function common_xpcom(){
         module.blocking.show(msg);
     };
 
-    this.cut_on = function(){
+    this.cut_on = function () {
         _debug('stb.cut_on');
 
-        if (module.blocking.on){
+        if (module.blocking.on) {
             stb.ExecAction('reboot');
         }
     };
 
-    this.set_cur_place = function(place){
+    this.set_cur_place = function (place) {
         this.cur_place = place;
     };
 
-    this.reset_cur_place = function(place){
+    this.reset_cur_place = function (place) {
         this.cur_place = '';
     };
 
-    this.set_cur_layer = function(obj){
+    this.set_cur_layer = function (obj) {
         this.cur_layer = obj;
     };
 
-    this.get_current_place = function(){
+    this.get_current_place = function () {
 
         var cur_place_num = 0;
 
         _debug('stb.player.media_type', this.player.media_type);
         _debug('stb.cur_place', this.cur_place);
 
-        if(this.player.media_type == 'stream'){ // TV
-            if (this.player.on){
-                if (this.cur_place == 'tv'){
-                    if (this.player.active_time_shift){
+        if (this.player.media_type == 'stream') { // TV
+            if (this.player.on) {
+                if (this.cur_place == 'tv') {
+                    if (this.player.active_time_shift) {
                         cur_place_num = 14;
-                    }else{
+                    } else {
                         cur_place_num = 1;
                     }
-                }else if(this.cur_place == 'radio'){ // Radio
+                } else if (this.cur_place == 'radio') { // Radio
                     cur_place_num = 5;
-                }else if(this.cur_place == 'vclub'){
+                } else if (this.cur_place == 'vclub') {
                     cur_place_num = 2;
-                }else if(this.cur_place == 'karaoke'){  // Karaoke
+                } else if (this.cur_place == 'karaoke') {  // Karaoke
                     cur_place_num = 3;
-                }else if(this.cur_place == 'audioclub'){ // Audio Club
+                } else if (this.cur_place == 'audioclub') { // Audio Club
                         cur_place_num = 4;
-                }else if (this.cur_place == 'epg_simple' || this.cur_place == 'epg'){ // TV archive
+                } else if (this.cur_place == 'epg_simple' || this.cur_place == 'epg') { // TV archive
                     cur_place_num = 11;
-                }else{
+                } else {
                     cur_place_num = 1;
                 }
             }
-        }else if(this.player.media_type == 'file'){
-            if (this.player.on){
-                if (this.cur_place == 'vclub'){ // Video Club
+        } else if (this.player.media_type == 'file') {
+            if (this.player.on) {
+                if (this.cur_place == 'vclub') { // Video Club
                     cur_place_num = 2;
-                }else if(this.cur_place == 'karaoke'){ // Karaoke
+                } else if (this.cur_place == 'karaoke') { // Karaoke
                     cur_place_num = 3;
-                }else if(this.cur_place == 'audioclub'){ // Audio Club
+                } else if (this.cur_place == 'audioclub') { // Audio Club
                     cur_place_num = 4;
-                }else if(this.cur_place == 'video_clips'){ // Video Clips
+                } else if (this.cur_place == 'video_clips') { // Video Clips
                     cur_place_num = 8;
-                }else if(this.cur_place == 'ad'){
+                } else if (this.cur_place == 'ad') {
                     cur_place_num = 9;
-                }else if(this.cur_place == 'media_browser'){
+                } else if (this.cur_place == 'media_browser') {
                     cur_place_num = 10;
-                }else if (this.cur_place == 'epg_simple' || this.cur_place == 'epg'){ // TV archive
+                } else if (this.cur_place == 'epg_simple' || this.cur_place == 'epg') { // TV archive
                     cur_place_num = 11;
-                }else if (this.cur_place == 'records'){
+                } else if (this.cur_place == 'records') {
                     cur_place_num = 12;
                 }
             }
-        }else{
-            if (this.cur_place == 'city_info'){
+        } else {
+            if (this.cur_place == 'city_info') {
                 cur_place_num = 20;
-            }else if(this.cur_place == 'anec_page'){
+            } else if (this.cur_place == 'anec_page') {
                 cur_place_num = 21;
-            }else if(this.cur_place == 'weather_page'){
+            } else if (this.cur_place == 'weather_page') {
                 cur_place_num = 22;
-            }else if(this.cur_place == 'game_page'){
+            } else if (this.cur_place == 'game_page') {
                 cur_place_num = 23;
-            }else if(this.cur_place == 'horoscope_page'){
+            } else if (this.cur_place == 'horoscope_page') {
                 cur_place_num = 24;
-            }else if(this.cur_place == 'course_page'){
+            } else if (this.cur_place == 'course_page') {
                 cur_place_num = 25;
             }
         }
@@ -2205,18 +2217,18 @@ function common_xpcom(){
 
     this.advert = {
 
-        campaigns : [],
-        ticking_timeout : 0,
-        disabled : false,
-        disabled_time : 900,
-        tracking_pixels : [],
-        tracking_block : null,
-        tracking_block_name : "",
+        campaigns: [],
+        ticking_timeout: 0,
+        disabled: false,
+        disabled_time: 900,
+        tracking_pixels: [],
+        tracking_block: null,
+        tracking_block_name: "",
 
-        disable : function(){
+        disable: function () {
             _debug('stb.advert.disable');
 
-            if (this.disabled){
+            if (this.disabled) {
                 return;
             }
 
@@ -2230,22 +2242,22 @@ function common_xpcom(){
             }, this.disabled_time * 1000)
         },
 
-        enable : function(){
+        enable: function () {
             _debug('stb.advert.enable');
 
             this.disabled = false;
         },
 
-        start : function (cb) {
+        start: function (cb) {
             _debug('stb.advert.get_ad');
 
             var callback = function () {
 
                 stb.key_lock = false;
 
-                try{
+                try {
                     stb.Stop();
-                }catch(e){
+                } catch (e) {
                     _debug(e);
                 }
                 stb.player.on = false;
@@ -2254,7 +2266,7 @@ function common_xpcom(){
                 cb();
             };
 
-            if (this.disabled){
+            if (this.disabled) {
                 callback();
                 return;
             }
@@ -2263,9 +2275,9 @@ function common_xpcom(){
 
             stb.load(
                 {
-                    "type"   : "stb",
-                    "action" : "get_ad",
-                    "video_mode" : stb.video_mode
+                    "type": "stb",
+                    "action": "get_ad",
+                    "video_mode": stb.video_mode
                 },
                 function (result) {
                     _debug('on get_ad', result);
@@ -2280,20 +2292,20 @@ function common_xpcom(){
 
                     _debug('this.campaigns', this.campaigns);
 
-                    var adverts  = result.filter(function (item) {
+                    var adverts = result.filter(function (item) {
                         return item['campaign'].hasOwnProperty('places') && item['campaign']['places'] && item['campaign']['places'][101];
                     });
 
-                    if (!adverts || adverts.length == 0){
+                    if (!adverts || adverts.length == 0) {
                         callback();
                         return;
                     }
 
-                    for (var i=0; i<adverts.length; i++){
+                    for (var i = 0; i < adverts.length; i++) {
 
                         var advert = adverts[i];
 
-                        if (i != adverts.length-1){
+                        if (i != adverts.length - 1) {
 
                             callback = (function (ad, cb) {
 
@@ -2334,11 +2346,11 @@ function common_xpcom(){
 
                     stb.player.play({
                         'id': 0,
-                        'cmd': 'ffmpeg '+adverts[0].ad,
+                        'cmd': 'ffmpeg ' + adverts[0].ad,
                         'media_type': 'advert',
                         'is_advert': true,
                         'ad_tracking': adverts[0].tracking,
-                        'ad_must_watch' : adverts[0].ad_must_watch,
+                        'ad_must_watch': adverts[0].ad_must_watch,
                         'stop_callback': callback
 
                     });
@@ -2348,12 +2360,12 @@ function common_xpcom(){
             )
         },
 
-        track : function (urls, type) {
+        track: function (urls, type) {
             _debug('stb.advert.track', urls, type);
 
             type = type || '';
 
-            if (!Array.isArray(urls)){
+            if (!Array.isArray(urls)) {
                 return false;
             }
 
@@ -2364,7 +2376,7 @@ function common_xpcom(){
                 stb.advert.call_img(url);
             });
 
-            if (['stop', 'close', 'error', 'complete'].indexOf(type) != -1){
+            if (['stop', 'close', 'error', 'complete'].indexOf(type) != -1) {
                 var name = this.tracking_block_name;
                 this.tracking_block = null;
                 window.setTimeout(function () {
@@ -2373,7 +2385,7 @@ function common_xpcom(){
             }
         },
 
-        call_img : function (url) {
+        call_img: function (url) {
             _debug('stb.advert.call_img', url);
 
             var pixel = document.createElement("img");
@@ -2385,9 +2397,9 @@ function common_xpcom(){
                 _debug('tracking pixel loaded')
             };
 
-            if (!this.tracking_block){
+            if (!this.tracking_block) {
                 var tracking_block = document.createElement("div");
-                this.tracking_block_name = 'tracking_block_'+(new Date().getTime());
+                this.tracking_block_name = 'tracking_block_' + (new Date().getTime());
                 _debug('tracking_block_name', this.tracking_block_name);
                 tracking_block.id = this.tracking_block_name;
                 tracking_block.style.position = 'absolute';
@@ -2399,36 +2411,36 @@ function common_xpcom(){
             this.tracking_pixels.push(this.tracking_block.appendChild(pixel));
         },
 
-        destroy_block : function(name){
+        destroy_block: function (name) {
             _debug('stb.advert.destroy_block', name);
             var block = document.getElementById(name);
-            if (block){
+            if (block) {
                 document.body.removeChild(block);
             }
         },
 
-        destroy_img : function(){
+        destroy_img: function () {
             _debug('stb.advert.destroy_img');
 
-            stb.advert.tracking_pixels.map(function(tracking_pixel){
+            stb.advert.tracking_pixels.map(function (tracking_pixel) {
                 stb.advert.tracking_block.removeChild(tracking_pixel);
             });
 
             stb.advert.tracking_pixels = []
         },
 
-        call_ajax : function(url){
+        call_ajax: function (url) {
             _debug('stb.advert.call_ajax', url);
 
             var req = new XMLHttpRequest();
 
             req.open("GET", url);
 
-            req.onreadystatechange = function(){
+            req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
                         _debug('on track ok');
-                    }else{
+                    } else {
                         _debug('on track error', req.status);
                     }
                     req = null;
@@ -2438,27 +2450,27 @@ function common_xpcom(){
             req.send(null);
         },
 
-        start_ticking : function(media_len){
+        start_ticking: function (media_len) {
             _debug('stb.advert.start_ticking', media_len);
             window.clearInterval(this.ticking_timeout);
             this.ticking_timeout = window.setInterval(function () {
 
                 var pos_time = stb.GetPosTime();
 
-                var quartile = media_len/4;
+                var quartile = media_len / 4;
 
-                if (Math.abs(quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('firstQuartile')){
+                if (Math.abs(quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('firstQuartile')) {
                     stb.advert.track(stb.player.cur_media_item.ad_tracking['firstQuartile'])
-                }else if(Math.abs(2*quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('midpoint')){
+                } else if (Math.abs(2 * quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('midpoint')) {
                     stb.advert.track(stb.player.cur_media_item.ad_tracking['midpoint'])
-                }else if(Math.abs(3*quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('thirdQuartile')){
+                } else if (Math.abs(3 * quartile - pos_time) <= 1 && stb.player.cur_media_item.ad_tracking.hasOwnProperty('thirdQuartile')) {
                     stb.advert.track(stb.player.cur_media_item.ad_tracking['thirdQuartile'])
                 }
 
             }, 1000);
         },
 
-        stop_ticking : function () {
+        stop_ticking: function () {
             _debug('stb.advert.stop_ticking');
             window.clearInterval(this.ticking_timeout);
         }
@@ -2466,10 +2478,10 @@ function common_xpcom(){
 
     this.clock = {
 
-        start : function(){
+        start: function () {
             _debug('clock.start()');
 
-            if (this.t_clock){
+            if (this.t_clock) {
                 _debug('exit clock.start');
                 return;
             }
@@ -2478,115 +2490,122 @@ function common_xpcom(){
 
             var self = this;
 
-            try{
-                this.t_clock   = window.setInterval(function(){self.tick()}, 30000);
-                this.t_clock_s = window.setInterval(function(){self.tick_s()}, 1000);
-            }catch(e){
+            try {
+                this.t_clock = window.setInterval(function () {
+                    self.tick()
+                }, 30000);
+                this.t_clock_s = window.setInterval(function () {
+                    self.tick_s()
+                }, 1000);
+            } catch (e) {
                 _debug(e);
             }
         },
 
-        stop : function(){
+        stop: function () {
             _debug('clock.stop');
 
             _debug('self.t_clock', this.t_clock);
 
             var self = this;
 
-            try{
+            try {
                 window.clearInterval(self.t_clock);
                 window.clearInterval(self.t_clock_s);
-            }catch(e){
+            } catch (e) {
                 _debug(e);
             }
         },
 
-        tick_s : function(){
+        tick_s: function () {
             this.timestamp = Math.round(new Date().getTime() / 1000);
         },
 
-        tick : function(){
+        tick: function () {
 
             this.current_date = new Date();
 
-            this.year  = this.current_date.getFullYear();
+            this.year = this.current_date.getFullYear();
 
             this.month = this.current_date.getMonth();
 
-            this.date  = this.current_date.getDate();
+            this.date = this.current_date.getDate();
 
-            this.day   = this.current_date.getDay();
+            this.day = this.current_date.getDay();
 
             this.hours = this.current_date.getHours();
 
-            if (this.hours > 11){
+            if (this.hours > 11) {
                 this.ap_mark = 'PM';
-            }else{
+            } else {
                 this.ap_mark = 'AM';
             }
 
             this.ap_hours = this.hours % 12 || 12;
 
             this.minutes = this.current_date.getMinutes();
-            if (this.minutes<10){
-                this.minutes = '0'+this.minutes;
+            if (this.minutes < 10) {
+                this.minutes = '0' + this.minutes;
+            }
+            if (this.hours < 10) {
+                this.hours = '0' + this.hours;
             }
 
             this.show();
         },
 
-        show : function(){
-            if (typeof(main_menu) != 'undefined' && main_menu && main_menu.time && main_menu.date && main_menu.on){
+        show: function () {
+            if (typeof (main_menu) != 'undefined' && main_menu && main_menu.time && main_menu.date && main_menu.on) {
                 main_menu.time.innerHTML = get_word('time_format').format(this.hours, this.minutes, this.ap_hours, this.ap_mark);
                 main_menu.date.innerHTML = get_word('date_format').format(get_word('week_arr')[this.day], this.date, get_word('month_arr')[this.month], this.year);
             }
 
-            if (stb.player && stb.player.info && stb.player.info.on && stb.player.info.clock){
+            if (stb.player && stb.player.info && stb.player.info.on && stb.player.info.clock) {
                 stb.player.info.clock.innerHTML = get_word('time_format').format(this.hours, this.minutes, this.ap_hours, this.ap_mark);
             }
 
-            if (module && module.tv && module.tv.on && module.tv.clock_box){
+            if (module && module.tv && module.tv.on && module.tv.clock_box) {
                 module.tv.clock_box.innerHTML = get_word('time_format').format(this.hours, this.minutes, this.ap_hours, this.ap_mark);
             }
 
-            if (stb.type == 'MAG200' && (!stb.player.on || (stb.player.on && !stb.player.is_tv))){
+            if (stb.type == 'MAG200' && (!stb.player.on || (stb.player.on && !stb.player.is_tv))) {
                 stb.setFrontPanel(this.hours + '' + this.minutes, true);
             }
 
             this.triggerCustomEventListener("tick", this);
         },
 
-        convert_sec_to_human_time : function(sec){
+        convert_sec_to_human_time: function (sec) {
 
-            if (sec < 0 || isNaN(sec)){
+            if (sec < 0 || isNaN(sec)) {
                 sec = 0;
             }
 
-            var h = Math.floor(sec/3600);
+            var h = Math.floor(sec / 3600);
 
-            var m = Math.floor((sec - (h*3600)) / 60);
+            var m = Math.floor((sec - (h * 3600)) / 60);
 
-            var s = sec - (h*3600) - (m*60);
+            var s = sec - (h * 3600) - (m * 60);
 
             var time = '';
 
-            if(h){
+            if (h) {
 
-                if (h<10){
-                    h = '0'+h;
+                if (h < 10) {
+                    h = '0' + h;
                 }
 
-                time += h+':';
+                time += h + ':';
             }
 
-            if (m<10){
-                m = '0'+m;
+            if (m < 10) {
+                m = '0' + m;
             }
 
-            time += m+':';
+            time += m + ':';
 
-            if (s<10){
-                s = '0'+s;
+            if (s < 10) {
+                s = '0' + s;
             }
 
             time += s;
@@ -2594,16 +2613,16 @@ function common_xpcom(){
             return time;
         },
 
-        convert_sec_to_human_hours : function(sec){
+        convert_sec_to_human_hours: function (sec) {
 
-            var h = Math.floor(sec/3600);
-            var m = Math.floor((sec - (h*3600)) / 60);
+            var h = Math.floor(sec / 3600);
+            var m = Math.floor((sec - (h * 3600)) / 60);
             var time = '';
 
-            time += h+':';
+            time += h + ':';
 
-            if (m<10){
-                m = '0'+m;
+            if (m < 10) {
+                m = '0' + m;
             }
 
             time += m;
@@ -2611,54 +2630,54 @@ function common_xpcom(){
             return time;
         },
 
-        convert_timestamp_to_human_time : function(timestamp){
+        convert_timestamp_to_human_time: function (timestamp) {
 
-            var date = new Date(parseInt(timestamp, 10)*1000);
+            var date = new Date(parseInt(timestamp, 10) * 1000);
 
             var hours = date.getHours();
 
-            if (hours > 11){
+            if (hours > 11) {
                 var ap_mark = 'PM';
-            }else{
+            } else {
                 ap_mark = 'AM';
             }
 
             var ap_hours = hours % 12 || 12;
 
-            if (hours<10){
-                hours = '0'+hours;
+            if (hours < 10) {
+                hours = '0' + hours;
             }
 
-            if (ap_hours<10){
-                ap_hours = '0'+ap_hours;
+            if (ap_hours < 10) {
+                ap_hours = '0' + ap_hours;
             }
 
             var minutes = date.getMinutes();
-            if (minutes<10){
-                minutes = '0'+minutes;
+            if (minutes < 10) {
+                minutes = '0' + minutes;
             }
 
             return get_word('time_format').format(hours, minutes, ap_hours, ap_mark);
         },
 
-        format_XX : function(value){
-            if (value < 10){
-                value = '0'+value;
+        format_XX: function (value) {
+            if (value < 10) {
+                value = '0' + value;
             }
             return value;
         }
     };
 
-    this.add_referrer = function(paramStr, layer_name){
+    this.add_referrer = function (paramStr, layer_name) {
         var returnParams = paramStr || '';
-        returnParams += (returnParams.length == 0? '?': '&');
+        returnParams += (returnParams.length == 0 ? '?' : '&');
         var tmpLocation = window.location.toString();
-        returnParams += 'referrer='+encodeURIComponent(tmpLocation);
+        returnParams += 'referrer=' + encodeURIComponent(tmpLocation);
         if (tmpLocation.indexOf('?') == -1) {
             returnParams += encodeURIComponent('?');
         }
         var amp = '(\\' + encodeURIComponent('&') + ')';
-        var regStr = new RegExp(amp + 'focus_module[^\\1,\\&,$]*?(\\1|\\&|$)','ig');
+        var regStr = new RegExp(amp + 'focus_module[^\\1,\\&,$]*?(\\1|\\&|$)', 'ig');
         if (regStr.test(returnParams)) {
             returnParams = returnParams.replace(regStr, '$2');
             if (regStr.test(returnParams)) {
@@ -2666,7 +2685,7 @@ function common_xpcom(){
             }
         }
         focus_module = layer_name;
-        returnParams += encodeURIComponent('&focus_module='+layer_name);
+        returnParams += encodeURIComponent('&focus_module=' + layer_name);
         return returnParams;
     };
 
@@ -2683,7 +2702,7 @@ function common_xpcom(){
         return remoteControlFileData;
     };
 
-    this.init_rc = function(){
+    this.init_rc = function () {
         _debug("this.init_rc");
         if (typeof (gSTB) == 'undefined' || !gSTB.ConfigNetRc || !gSTB.SetNetRcStatus) {
             _debug("remote control not init");
@@ -2700,16 +2719,16 @@ function common_xpcom(){
 
 var screensaver = {
 
-    on : false,
+    on: false,
 
-    init : function(){
+    init: function () {
         //_debug('screensaver.init');
 
-        if (typeof(gSTB) != "undefined" && gSTB.SetScreenSaverTime){
+        if (typeof (gSTB) != "undefined" && gSTB.SetScreenSaverTime) {
             gSTB.SetScreenSaverTime(0);
         }
 
-        if (this.dom_obj){
+        if (this.dom_obj) {
             _debug('exit screensaver.init');
             return;
         }
@@ -2718,10 +2737,10 @@ var screensaver = {
 
         var self = this;
 
-        keydown_observer.addCustomEventListener("keypress", function(event){
+        keydown_observer.addCustomEventListener("keypress", function (event) {
             //_debug('screensaver keypress', event);
 
-            if (self.on){
+            if (self.on) {
                 self.hide();
                 self.restart_timer.call(self);
                 return false;
@@ -2733,44 +2752,44 @@ var screensaver = {
 
         this.restart_timer();
 
-        stb.player.addCustomEventListener("onplay", function(event){
-            if (self.on && stb.player.file_type != 'audio'){
+        stb.player.addCustomEventListener("onplay", function (event) {
+            if (self.on && stb.player.file_type != 'audio') {
                 self.hide();
                 self.restart_timer.call(self);
             }
         });
 
-        stb.clock.addCustomEventListener("tick", function(date){
-            if (self.on){
+        stb.clock.addCustomEventListener("tick", function (date) {
+            if (self.on) {
                 self.clock.innerHTML = get_word('time_format').format(date.hours, date.minutes, date.ap_hours, date.ap_mark);
             }
         });
     },
 
-    restart_timer : function(){
+    restart_timer: function () {
         //_debug('screensaver.restart_timer');
 
         var self = this;
 
         window.clearTimeout(this.activate_timer);
 
-        if (stb.user['screensaver_delay'] > 0){
-            this.activate_timer = window.setTimeout(function(){
+        if (stb.user['screensaver_delay'] > 0) {
+            this.activate_timer = window.setTimeout(function () {
                 self.show.call(self);
             }, stb.user['screensaver_delay'] * 60000);
             //}, 30000);
         }
     },
 
-    build : function(){
+    build: function () {
         //_debug('screensaver.build');
 
         this.dom_obj = create_block_element("screensaver");
-        this.clock   = create_block_element("screensaver_clock", this.dom_obj);
+        this.clock = create_block_element("screensaver_clock", this.dom_obj);
         this.hide();
     },
 
-    show : function(){
+    show: function () {
         _debug('screensaver.show');
 
         window.clearTimeout(this.activate_timer);
@@ -2779,19 +2798,19 @@ var screensaver = {
 
         var is_playing = false;
 
-        if (stb.IsPlaying){
+        if (stb.IsPlaying) {
 
             is_playing = stb.IsPlaying();
 
             _debug('stb.IsPlaying', is_playing);
 
-        }else if (stb.GetVideoInfo){
+        } else if (stb.GetVideoInfo) {
             var video_info = stb.GetVideoInfo();
             _debug('video_info', video_info);
 
-            try{
-                video_info = eval('('+video_info+')');
-            }catch(e){
+            try {
+                video_info = eval('(' + video_info + ')');
+            } catch (e) {
                 _debug(e);
             }
 
@@ -2804,7 +2823,7 @@ var screensaver = {
 
         _debug('is_playing', is_playing);
 
-        if (stb.player.on && is_playing){
+        if (stb.player.on && is_playing) {
             this.restart_timer();
             return;
         }
@@ -2819,10 +2838,12 @@ var screensaver = {
 
         this.move();
         var self = this;
-        this.move_timer = window.setInterval(function(){self.move.call(self)}, 5000);
+        this.move_timer = window.setInterval(function () {
+            self.move.call(self)
+        }, 5000);
     },
 
-    hide : function(){
+    hide: function () {
         _debug('screensaver.hide');
 
         //stb.cur_layer && stb.cur_layer.dom_obj.show();
@@ -2831,21 +2852,23 @@ var screensaver = {
         window.clearInterval(this.move_timer);
     },
 
-    toggle : function(){
+    toggle: function () {
         _debug('screensaver.toggle');
 
-        if (this.on){
+        if (this.on) {
             this.hide();
-        }else{
-            window.setTimeout(function(){screensaver.show()}, 500);
+        } else {
+            window.setTimeout(function () {
+                screensaver.show()
+            }, 500);
         }
     },
 
-    move : function(){
+    move: function () {
         _debug('screensaver.start');
 
-        var top  = Math.floor(Math.random() * (screen.height - this.clock.offsetHeight));
-        var left = Math.floor(Math.random() * (screen.width  - this.clock.offsetWidth));
+        var top = Math.floor(Math.random() * (screen.height - this.clock.offsetHeight));
+        var left = Math.floor(Math.random() * (screen.width - this.clock.offsetWidth));
         _debug('top', top);
         _debug('left', left);
 
@@ -2858,32 +2881,32 @@ var connection_problem = {
 
     on: true,
 
-    init : function(){
+    init: function () {
         this.dom_obj = create_block_element("connection_problem_container");
         this.block_obj = create_block_element("connection_problem_block", this.dom_obj);
         this.block_obj.innerHTML = get_word('Connection problem');
         this.hide();
     },
 
-    refresh_msg : function(){
+    refresh_msg: function () {
         this.block_obj.innerHTML = get_word('Connection problem');
     },
 
-    show : function(){
+    show: function () {
         _debug('connection_problem.show');
 
         _debug('stb.user.enable_connection_problem_indication', stb.user.enable_connection_problem_indication);
 
-        if (stb.user.enable_connection_problem_indication == 1){
+        if (stb.user.enable_connection_problem_indication == 1) {
             this.dom_obj.show();
             this.on = true;
         }
     },
 
-    hide : function(){
+    hide: function () {
         _debug('connection_problem.hide');
 
-        if (!this.on){
+        if (!this.on) {
             return;
         }
 
@@ -2896,32 +2919,32 @@ var authentication_problem = {
 
     on: true,
 
-    init : function(){
+    init: function () {
         this.dom_obj = create_block_element("authentication_problem_container");
         this.block_obj = create_block_element("authentication_problem_block", this.dom_obj);
         this.block_obj.innerHTML = get_word('Authentication problem');
         this.hide();
     },
 
-    refresh_msg : function(){
+    refresh_msg: function () {
         this.block_obj.innerHTML = get_word('Authentication problem');
     },
 
-    show : function(){
+    show: function () {
         _debug('authentication_problem.show');
 
         this.dom_obj.show();
         this.on = true;
 
-        if (stb.player && stb.player.on){
+        if (stb.player && stb.player.on) {
             stb.player.stop();
         }
     },
 
-    hide : function(){
+    hide: function () {
         _debug('authentication_problem.hide');
 
-        if (!this.on){
+        if (!this.on) {
             return;
         }
 
@@ -2933,8 +2956,8 @@ var authentication_problem = {
 
 var Utf8 = {
     // public method for url encoding
-    encode : function (string) {
-        string = string.replace(/\r\n/g,"\n");
+    encode: function (string) {
+        string = string.replace(/\r\n/g, "\n");
         var utftext = "";
 
         for (var n = 0; n < string.length; n++) {
@@ -2943,12 +2966,10 @@ var Utf8 = {
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            }
-            else if((c > 127) && (c < 2048)) {
+            } else if ((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
+            } else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
@@ -2959,27 +2980,25 @@ var Utf8 = {
     },
 
     // public method for url decoding
-    decode : function (utftext) {
+    decode: function (utftext) {
         var string = "";
         var i = 0;
         var c = c1 = c2 = 0;
 
-        while ( i < utftext.length ) {
+        while (i < utftext.length) {
 
             c = utftext.charCodeAt(i);
 
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            }
-            else if((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i+1);
+            } else if ((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i + 1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            }
-            else {
-                c2 = utftext.charCodeAt(i+1);
-                c3 = utftext.charCodeAt(i+2);
+            } else {
+                c2 = utftext.charCodeAt(i + 1);
+                c3 = utftext.charCodeAt(i + 2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
                 i += 3;
             }
