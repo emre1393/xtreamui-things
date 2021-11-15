@@ -232,7 +232,8 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,4,6]}
+                    {"className": "dt-center", "targets": [0,4,6]},
+                    {"className": "ellipsis", "targets": [7]}
                     //{"orderable": false, "targets": [5]}
                 ],
                 "order": [[ 0, "desc" ]],
