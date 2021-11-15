@@ -82,10 +82,12 @@ if ($rSettings["sidebar"]) {
                                             <th><?=$_["username"]?></th>
                                             <th><?=$_["stream"]?></th>
                                             <th><?=$_["server"]?></th>
-                                            <th><?=$_["useragent"]?></th>
+                                            <th class="text-center">Container</th>
+                                            <th class="text-center"><?=$_["useragent"]?></th>
                                             <th class="text-center"><?=$_["time"]?></th>
                                             <th class="text-center"><?=$_["ip"]?></th>
-                                            <th>Country/ISP</th>
+                                            <th class="text-center">Country</th>
+                                            <th class="text-center">ISP</th>
                                             <th class="text-center"><?=$_["actions"]?></th>
                                         </tr>
                                     </thead>
@@ -219,8 +221,9 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,1,6,7,8,9]},
-                    {"className": "ellipsis", "targets": [5]}
+                    {"className": "dt-center", "targets": [0,1,5,7,8,9,10,11]},
+                    {"className": "ellipsis", "targets": [6]},
+                    {"orderable": false, "targets": [11]}
                 ],
                 order: [[ 0, "desc" ]],
                 pageLength: <?=$rAdminSettings["default_entries"] ?: 10?>,

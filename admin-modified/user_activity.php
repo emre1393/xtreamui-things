@@ -83,11 +83,13 @@ if ($rSettings["sidebar"]) {
                                             <th>Username</th>
                                             <th>Stream</th>
                                             <th>Server</th>
-                                            <th>ISP</th>
                                             <th class="text-center">Start</th>
                                             <th class="text-center">Stop</th>
+                                            <th class="text-center">Container</th>
                                             <th class="text-center">IP</th>
                                             <th class="text-center">Country</th>
+                                            <th>ISP</th>
+                                            <th><?=$_["useragent"]?></th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -278,7 +280,9 @@ if ($rSettings["sidebar"]) {
                     }
                 },
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,5,6,7,8]}
+                    {"className": "dt-center", "targets": [0,4,5,6,7,8,9]},
+                    {"className": "ellipsis", "targets": [10]}
+                    //{"orderable": false, "targets": []}
                 ],
                 "order": [[ 0, "desc" ]],
                 pageLength: <?=$rAdminSettings["default_entries"] ?: 10?>,
