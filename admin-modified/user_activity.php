@@ -83,9 +83,9 @@ if ($rSettings["sidebar"]) {
                                             <th>Username</th>
                                             <th>Stream</th>
                                             <th>Server</th>
+                                            <th class="text-center">Container</th>
                                             <th class="text-center">Start</th>
                                             <th class="text-center">Stop</th>
-                                            <th class="text-center">Container</th>
                                             <th class="text-center">IP</th>
                                             <th class="text-center">Country</th>
                                             <th>ISP</th>
