@@ -1271,7 +1271,7 @@ if ($rType == "users") {
                     $rIP = "";
                 }
                 if (strlen($rRow["geoip_country_code"]) > 0) {
-                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'></img>";
+                    $rGeoCountry = "<img src='./assets/images/countries/".strtolower($rRow["geoip_country_code"]).".png'>".$rRow["geoip_country_code"]."</img>";
                 } else {
                     $rGeoCountry = "";
                 }
@@ -1762,7 +1762,7 @@ if ($rType == "users") {
 } else if ($rType == "client_logs") {
 	if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "client_request_log"))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`client_logs`.`id`", "`users`.`username`", "`streams`.`stream_display_name`", "`client_logs`.`client_status`", "`client_logs`.`ip`", "`client_logs`.`extra_data`","`client_logs`.`date`", "`client_logs`.`user_agent`");
+    $rOrder = Array("`client_logs`.`id`", "`users`.`username`", "`streams`.`stream_display_name`", "`client_logs`.`client_status`", "`client_logs`.`ip`", "`client_logs`.`extra_data`", "`client_logs`.`date`", "`client_logs`.`user_agent`");
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
@@ -1771,7 +1771,7 @@ if ($rType == "users") {
     $rWhere = Array();
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`client_logs`.`client_status` LIKE '%{$rSearch}%' OR `client_logs`.`query_string` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`date`) LIKE '%{$rSearch}%' OR `client_logs`.`user_agent` LIKE '%{$rSearch}%' OR `client_logs`.`ip` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`client_logs`.`client_status` LIKE '%{$rSearch}%' OR `client_logs`.`query_string` LIKE '%{$rSearch}%' OR `client_logs`.`extra_data` LIKE '%{$rSearch}%' OR FROM_UNIXTIME(`date`) LIKE '%{$rSearch}%' OR `client_logs`.`user_agent` LIKE '%{$rSearch}%' OR `client_logs`.`ip` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `users`.`username` LIKE '%{$rSearch}%')";
     }
     if (strlen($_GET["range"]) > 0) {
         $rStartTime = substr($_GET["range"], 0, 10);
@@ -1818,12 +1818,15 @@ if ($rType == "users") {
 				}
                 $ipinfo = "<a target='_blank' href='https://db-ip.com/".$rRow["ip"]."'>".$rRow["ip"]."</a>";
 
-                $extrainfo = json_decode($rRow["extra_data"], True);
+                $extrainfo = []; 
+                $extradata = "";
 
-                if ($rRow["client_status"] == "CON_SVP") {
-                    $rExtradata = "".$extrainfo["isp"]."/".$extrainfo["type"]."";
-                } else if ($rRow["client_status"] == "ISP_LOCK_FAILED") {
-                    $extradata = "ISP: ".$extrainfo["new"]."";
+                if (strlen($rRow["extra_data"]) > 0 && $rRow["client_status"] == "CON_SVP") {
+                    $extrainfo = json_decode($rRow["extra_data"], True);
+                    $extradata = "ISP: ".$extrainfo["isp"]." / Type: ".$extrainfo["type"];
+                } else if (strlen($rRow["extra_data"]) > 0 && $rRow["client_status"] == "ISP_LOCK_FAILED") {
+                    $extrainfo = json_decode($rRow["extra_data"], True);
+                    $extradata = "ISP: ".$extrainfo["new"];
                 }else {
                   $extradata = "";
                 }
