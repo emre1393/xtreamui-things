@@ -42,7 +42,8 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP))) {
                     "ip" => $rData["demoInfo"]["ipAddress"],
                     "country_code" => $rData["demoInfo"]["countryCode"],
                     "country_name" => $rData["demoInfo"]["countryName"],
-                    "is_server" => $rData["demoInfo"]["usageType"] != "corporate" ? true : false
+                    "is_server" => $rData["demoInfo"]["usageType"] != "consumer" ? true : false
+                    // note: if api is not returning correct usagetype, try another isp api source.
                 )
             );
             //? END
