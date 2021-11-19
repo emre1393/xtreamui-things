@@ -2,6 +2,15 @@
 include "session.php"; include "functions.php";
 if ((!$rPermissions["is_admin"]) OR (!hasPermissions("adv", "stream_tools"))) { exit; }
 
+$rStreamTypes = Array(
+    "0" => "Everything",
+    "1" => "Live Streams",
+    "2" => "Movies",
+    "3" => "Created Channels",
+    "4" => "Radio Stations",
+    "5" => "Series Episodes"
+);
+
 if (isset($_POST["replace_dns"])) {
 	$rOldDNS = ESC(str_replace("/", "\/", $_POST["old_dns"]));
 	$rNewDNS = ESC(str_replace("/", "\/", $_POST["new_dns"]));
@@ -10,23 +19,42 @@ if (isset($_POST["replace_dns"])) {
 } else if (isset($_POST["move_streams"])) {
 	$rSource = $_POST["source_server"];
 	$rReplacement = $_POST["replacement_server"];
+    $rStreamType = $_POST["stream_type"];
 	$rExisting = Array();
-	$result = $db->query("SELECT `id` FROM `streams_sys` WHERE `server_id` = ".intval($rReplacement).";");
-	if (($result) && ($result->num_rows > 0)) {
-		while ($row = $result->fetch_assoc()) {
-			$rExisting[] = intval($row["id"]);
-		}
-	}
-	$result = $db->query("SELECT `id` FROM `streams_sys` WHERE `server_id` = ".intval($rSource).";");
-	if (($result) && ($result->num_rows > 0)) {
-		while ($row = $result->fetch_assoc()) {
-			if (in_array(intval($row["id"]), $rExisting)) {
-				$db->query("DELETE FROM `streams_sys` WHERE `id` = ".intval($row["id"]).";");
-			}
-		}
-	}
-	$db->query("UPDATE `streams_sys` SET `server_id` = ".intval($rReplacement)." WHERE `server_id` = ".intval($rSource).";");
-	$_STATUS = 2;
+    if (intval($rStreamType) == 0) {
+        $result = $db->query("SELECT `id` FROM `streams_sys` WHERE `server_id` = ".intval($rReplacement).";");
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $rExisting[] = intval($row["id"]);
+            }
+        }
+        $result = $db->query("SELECT `id` FROM `streams_sys` WHERE `server_id` = ".intval($rSource).";");
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                if (in_array(intval($row["id"]), $rExisting)) {
+                    $db->query("DELETE FROM `streams_sys` WHERE `id` = ".intval($row["id"]).";");
+                }
+            }
+        }
+        $db->query("UPDATE `streams_sys` SET `server_id` = ".intval($rReplacement)." WHERE `server_id` = ".intval($rSource).";");
+    } else {
+        $result = $db->query("SELECT `id` FROM `streams_sys` LEFT JOIN `streams` ON `streams_sys`.`stream_id` = `streams`.`id` WHERE `streams_sys`.`server_id` = ".intval($rReplacement)." AND `streams`.`type` = ".intval($rStreamType).";");
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $rExisting[] = intval($row["id"]);
+            }
+        }
+        $result = $db->query("SELECT `id` FROM `streams_sys` LEFT JOIN `streams` ON `streams_sys`.`stream_id` = `streams`.`id` WHERE `server_id` = ".intval($rSource)." AND `streams`.`type` = ".intval($rStreamType).";");
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                if (in_array(intval($row["id"]), $rExisting)) {
+                    $db->query("DELETE FROM `streams_sys` WHERE `id` = ".intval($row["id"]).";");
+                }
+            }
+        }
+        $db->query("UPDATE `streams_sys`  LEFT JOIN `streams` ON `streams_sys`.`stream_id` = `streams`.`id` SET `streams_sys`.`server_id` = ".intval($rReplacement)." WHERE `server_id` = ".intval($rSource)." AND `streams`.`type` = ".intval($rStreamType).";");
+    }
+        $_STATUS = 2;
 } else if (isset($_POST["cleanup_streams"])) {
     $rStreams = getStreamList();
     $rStreamArray = Array();
@@ -214,6 +242,16 @@ if ($rSettings["sidebar"]) {
 																	<?php foreach ($rServers as $rServer) { ?>
 																	<option value="<?=$rServer["id"]?>"><?=$rServer["server_name"]?></option>
 																	<?php } ?>
+																</select>
+															</div>
+														</div>
+                                                        <div class="form-group row mb-4">
+															<label class="col-md-4 col-form-label" for="stream_type">Choose Stream Type</label>
+															<div class="col-md-8">
+																<select name="stream_type" id="stream_type" class="form-control select2" data-toggle="select2">
+                                                                <?php foreach ($rStreamTypes as $rSType => $rTypeName) { ?>
+                                                                <option value="<?=$rSType?>"><?=$rTypeName?></option>
+																<?php } ?>
 																</select>
 															</div>
 														</div>
