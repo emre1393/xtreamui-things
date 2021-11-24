@@ -33,12 +33,12 @@ if (isset($_GET["action"])) {
             echo APIRequest(Array("action" => "vod", "sub" => "start", "stream_ids" => Array($rStreamID), "servers" => Array($rServerID)));exit;
         } else if ($rSub == "delete") {
             $db->query("DELETE FROM `streams_sys` WHERE `stream_id` = ".intval($rStreamID)." AND `server_id` = ".intval($rServerID).";");
+            if ( intval($rAdminSettings["delete_vod"]) == 1 && intval(getStream($rStreamID)["movie_symlink"]) == 1) {
+                deleteActualMovieFile($rServerID, $rStreamID);
+            }
+            deleteMovieFile($rServerID, $rStreamID);
             $result = $db->query("SELECT COUNT(`server_stream_id`) AS `count` FROM `streams_sys` WHERE `stream_id` = ".intval($rStreamID).";");
             if ($result->fetch_assoc()["count"] == 0) {
-                if ( intval($rAdminSettings["delete_vod"]) == 1 && intval(getStream($rStreamID)["movie_symlink"]) == 1) {
-                    deleteActualMovieFile($rServerID, $rStreamID);
-                }
-                deleteMovieFile($rServerID, $rStreamID);
                 $db->query("DELETE FROM `streams` WHERE `id` = ".intval($rStreamID).";");
                 scanBouquets();
             }
@@ -55,12 +55,12 @@ if (isset($_GET["action"])) {
             echo APIRequest(Array("action" => "vod", "sub" => "start", "stream_ids" => Array($rStreamID), "servers" => Array($rServerID)));exit;
         } else if ($rSub == "delete") {
             $db->query("DELETE FROM `streams_sys` WHERE `stream_id` = ".intval($rStreamID)." AND `server_id` = ".intval($rServerID).";");
+            if ( intval($rAdminSettings["delete_vod"]) == 1 && intval(getStream($rStreamID)["movie_symlink"]) == 1) {
+                deleteActualMovieFile($rServerID, $rStreamID);
+            }
+            deleteMovieFile($rServerID, $rStreamID);
             $result = $db->query("SELECT COUNT(`server_stream_id`) AS `count` FROM `streams_sys` WHERE `stream_id` = ".intval($rStreamID).";");
             if ($result->fetch_assoc()["count"] == 0) {
-                if ( intval($rAdminSettings["delete_vod"]) == 1 && intval(getStream($rStreamID)["movie_symlink"]) == 1) {
-                    deleteActualMovieFile($rServerID, $rStreamID);
-                }
-                deleteMovieFile($rServerID, $rStreamID);
                 $db->query("DELETE FROM `streams` WHERE `id` = ".intval($rStreamID).";");
                 $db->query("DELETE FROM `series_episodes` WHERE `stream_id` = ".intval($rStreamID).";");
                 scanBouquets();
