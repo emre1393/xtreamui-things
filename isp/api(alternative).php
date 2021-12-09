@@ -2,7 +2,7 @@
 
 //rename this file to api.php and place into /home/xtreamcodes/iptv_xtream_codes/isp folder
 
-if ($_SERVER['REMOTE_ADDR'] !== "127.0.0.1") {
+if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
     die;
 }
 if (basename(__FILE__, '.php') != "api") {
