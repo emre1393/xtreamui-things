@@ -13,7 +13,7 @@ if (basename(__FILE__, '.php') != "api") {
     
 function url_result($url) {
     $ch = curl_init();
-    $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36';
+    $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36';
     curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -50,33 +50,35 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         //? GET INFO ABOUT THE IP WE WANNA TO CONSULT
         $dataports = url_result("https://awebanalysis.com/en/ip-lookup/$clientip/");
 
+//        echo $dataports;
+
         $ip_info = array();
 
-        $startipaddr = "<th><b>IP address</b></th>\n                                <td>";
+        $startipaddr = "<th><b>IP address</b></th>\n                            <td>";
         $endipaddr = "</td>";
         $ip_info["ipaddr"] = trim(get_between($dataports, $startipaddr, $endipaddr));
         if ($clientip !== $ip_info["ipaddr"]){
             die;
         }
 
-        $startispdesc = "<th><b>ISP</b></th>\n                                <td>";
+        $startispdesc = "<th><b>ISP</b></th>\n                            <td>";
         $endispdesc = '</td>';
         $ip_info["ispdesc"] = trim(get_between($dataports, $startispdesc, $endispdesc));
     
-        $startasn = "<th>AS Number</th>\n                                            <td><a href=\"https://awebanalysis.com/en/ipv4-as-number-directory/";
+        $startasn = "awebanalysis.com/en/ipv4-as-number-directory/";
         $endasn = "/\">AS";
         $ip_info["asnnumber"] = trim(get_between($dataports, $startasn, $endasn));
-/*        
+        
         $startcountry = "mt2\"></span>";
         $endcountry = '</td>';
         $ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
        
-        $startccode = "<td>CCTLD Code</td>\n                                        <td>";
+        $startccode = "<td>CCTLD Code</td>\n                                <td>";
         $endccode = '</td>';
         $ip_info["countrycode"] = trim(get_between($dataports, $startccode, $endccode));
-*/           
+           
         $proxyfound = "Proxy Detected";
-        $startprxy = "<b>Proxy Type</b></th>\n                                            <td><b>";
+        $startprxy = "<b>Proxy Type</b></th>\n                              <td><b>";
         $endprxy = '</b>'; 
            
     
@@ -105,11 +107,11 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
                 "status" => "1",
                 "isp_info" => array(   
                     "description" => $ip_info["ispdesc"],
-                    "as_number" => $ip_info["asnnumber"],               
+                    "as_number" => "AS".$ip_info["asnnumber"],               
                     "type" => $ip_info["isptype"],
-                    "ip" => $ip_info["ipaddr"],
-//                    "country_code" => $ip_info["countrycode"],
-//                    "country_name" => $ip_info["country"],
+//                    "ip" => $ip_info["ipaddr"],
+                    "country_code" => $ip_info["countrycode"],
+                    "country_name" => $ip_info["country"],
                     "is_server" => $ip_info["isserver"]
                 )
             );
