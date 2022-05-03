@@ -398,6 +398,8 @@ if (isset($_GET["action"])) {
             if ($rServers[$_GET["server_id"]]["can_delete"] == 1) {
                 $db->query("DELETE FROM `streaming_servers` WHERE `id` = ".intval($rServerID).";");
                 $db->query("DELETE FROM `streams_sys` WHERE `server_id` = ".intval($rServerID).";");
+                $db->query("DELETE FROM `user_activity_now` WHERE `server_id` = ".intval($rServerID).";");
+                $db->query("DELETE FROM `user_activity` WHERE `server_id` = ".intval($rServerID).";");
                 echo json_encode(Array("result" => True));exit;
             } else {
                 echo json_encode(Array("result" => False));exit;
@@ -408,6 +410,7 @@ if (isset($_GET["action"])) {
                 while ($rRow = $rResult->fetch_assoc()) {
                     sexec($rRow["server_id"], "kill -9 ".$rRow["pid"]);
                 }
+                $db->query("DELETE FROM `user_activity_now` WHERE `server_id` = ".intval($rServerID).";");
             }
             echo json_encode(Array("result" => True));exit;
         } else if ($rSub == "start") {
