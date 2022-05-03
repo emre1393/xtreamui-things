@@ -109,6 +109,8 @@ if (isset($_POST["replace_dns"])) {
     if (count($rDelete) > 0) {
         $db->query("DELETE FROM `user_activity` WHERE `activity_id` IN (".join(",", $rDelete).");");
     }
+    $db->query("DELETE FROM `user_activity_now` WHERE `server_id` NOT IN(SELECT `id` FROM `streaming_servers`) ;");
+
     $_STATUS = 3;
 }
 
