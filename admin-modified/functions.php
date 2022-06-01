@@ -1351,7 +1351,9 @@ function doLogin($rUsername, $rPassword) {
     $result = $db->query("SELECT `id`, `username`, `password`, `member_group_id`, `google_2fa_sec`, `status` FROM `reg_users` WHERE `username` = '".ESC($rUsername)."' LIMIT 1;");
     if (($result) && ($result->num_rows == 1)) {
         $rRow = $result->fetch_assoc();
-        if (cryptPassword($rPassword) == $rRow["password"]) {
+        $things = explode('$', $rRow["password"], -1);
+        $salt = $things[3];
+        if (cryptPassword($rPassword, $salt) == $rRow["password"]) {
             return $rRow;
         }
     }
