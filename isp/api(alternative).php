@@ -54,14 +54,14 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
 
         $ip_info = array();
 
-        $startipaddr = "<th><b>IP address</b></th>\n                            <td>";
+        $startipaddr = "<b>IP address</b></td>\n                        <td>";
         $endipaddr = "</td>";
         $ip_info["ipaddr"] = trim(get_between($dataports, $startipaddr, $endipaddr));
         if ($clientip !== $ip_info["ipaddr"]){
             die;
         }
 
-        $startispdesc = "<th><b>ISP</b></th>\n                            <td>";
+        $startispdesc = "<td><b>ISP</b></td>\n                        <td>";
         $endispdesc = '</td>';
         $ip_info["ispdesc"] = trim(get_between($dataports, $startispdesc, $endispdesc));
     
@@ -69,16 +69,16 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         $endasn = "/\">AS";
         $ip_info["asnnumber"] = trim(get_between($dataports, $startasn, $endasn));
         
-        $startcountry = "mt2\"></span>";
-        $endcountry = '</td>';
+        $startcountry = ", <b>";
+        $endcountry = '</b>, ';
         $ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
        
-        $startccode = "<td>CCTLD Code</td>\n                                <td>";
+        $startccode = "<td>CCTLD Code</td>\n                            <td>";
         $endccode = '</td>';
         $ip_info["countrycode"] = trim(get_between($dataports, $startccode, $endccode));
            
         $proxyfound = "Proxy Detected";
-        $startprxy = "<b>Proxy Type</b></th>\n                              <td><b>";
+        $startprxy = "class=\"leading-relaxed\"><b>";
         $endprxy = '</b>'; 
            
     
@@ -88,16 +88,18 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
             if($thetype == "Public Proxy"){
                 $ip_info["isptype"] = "PUBLIC_SERVER_PROXY";
             } elseif($thetype == "DCH"){
-                $ip_info["isptype"] = "BUSINESS_HOSTING";
+                $ip_info["isptype"] = "DATA_CENTER_HOSTING";
             } elseif($thetype == "RES"){
                 $ip_info["isptype"] = "RESIDENTIAL_PROXY";
+            } elseif($thetype == "SES"){
+                $ip_info["isptype"] = "SEARCH_ENGINE_ROBOT";
             } else{
                 $ip_info["isptype"] = $thetype;
             }
         
         } else {
             $ip_info["isserver"] = "0";
-            $ip_info["isptype"] = "Consumer";        
+            $ip_info["isptype"] = "ISP";        // or Consumer
         }
         
 
@@ -105,14 +107,14 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         //? CREATE JSON STRUCTURE
             $newjson = array(
                 "status" => "1",
-                "isp_info" => array(   
+                "isp_info" => array(
+                    "is_server" => $ip_info["isserver"],
                     "description" => $ip_info["ispdesc"],
                     "as_number" => "AS".$ip_info["asnnumber"],               
                     "type" => $ip_info["isptype"],
-//                    "ip" => $ip_info["ipaddr"],
+                    "ip" => $ip_info["ipaddr"],
                     "country_code" => $ip_info["countrycode"],
-                    "country_name" => $ip_info["country"],
-                    "is_server" => $ip_info["isserver"]
+                    "country_name" => $ip_info["country"]
                 )
             );
             //? END
