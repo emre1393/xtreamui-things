@@ -54,14 +54,14 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
 
         $ip_info = array();
 
-        $startipaddr = "<th><b>IP address</b></th>\n                            <td>";
+        $startipaddr = "<th><b>IP address</b></td>\n                        <td>";
         $endipaddr = "</td>";
         $ip_info["ipaddr"] = trim(get_between($dataports, $startipaddr, $endipaddr));
         if ($clientip !== $ip_info["ipaddr"]){
             die;
         }
 
-        $startispdesc = "<th><b>ISP</b></th>\n                            <td>";
+        $startispdesc = "<th><b>ISP</b></td>\n                        <td>";
         $endispdesc = '</td>';
         $ip_info["ispdesc"] = trim(get_between($dataports, $startispdesc, $endispdesc));
     
@@ -69,11 +69,11 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         $endasn = "/\">AS";
         $ip_info["asnnumber"] = trim(get_between($dataports, $startasn, $endasn));
         
-        $startcountry = "mt2\"></span>";
-        $endcountry = '</td>';
+        $startcountry = "mr-2"></span>\n                                    <span>";
+        $endcountry = '</span>';
         $ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
        
-        $startccode = "<td>CCTLD Code</td>\n                                <td>";
+        $startccode = "<td>CCTLD Code</td>\n                            <td>";
         $endccode = '</td>';
         $ip_info["countrycode"] = trim(get_between($dataports, $startccode, $endccode));
            
