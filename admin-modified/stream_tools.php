@@ -73,6 +73,7 @@ if (isset($_POST["replace_dns"])) {
     if (count($rDelete) > 0) {
         $db->query("DELETE FROM `streams_sys` WHERE `server_stream_id` IN (".join(",", $rDelete).");");
     }
+    /*
     $rDelete = Array();
     $result = $db->query("SELECT `id`, `stream_id` FROM `client_logs`;");
     if (($result) && ($result->num_rows > 0)) {
@@ -108,8 +109,15 @@ if (isset($_POST["replace_dns"])) {
     }
     if (count($rDelete) > 0) {
         $db->query("DELETE FROM `user_activity` WHERE `activity_id` IN (".join(",", $rDelete).");");
-    }
+    } */
     $db->query("DELETE FROM `user_activity_now` WHERE `server_id` NOT IN(SELECT `id` FROM `streaming_servers`) ;");
+
+    //clear all the logs instead of picking only related ones with invalid stream ids.
+    $result = $db->query("TRUNCATE `user_activity`;");
+    $result = $db->query("TRUNCATE `client_logs`;");
+    $result = $db->query("TRUNCATE `stream_logs`;");
+
+
 
     $_STATUS = 3;
 }
@@ -277,7 +285,7 @@ if ($rSettings["sidebar"]) {
 												<div class="row">
 													<div class="col-12">
 														<p class="sub-header">
-															This tool will clean up your streams database, removing invalid entries from the streams sys table and all logs. Xtream Codes monitors your streams sys table and will use resources doing so, it's best to clean this up periodically.
+															This tool will clean up your streams database, removing invalid entries from the streams sys table and remove all client logs, user activity logs and stream logs. Xtream Codes monitors your streams sys table and will use resources doing so, it's best to clean this up periodically.
 														</p>
 													</div> <!-- end col -->
 												</div> <!-- end row -->
@@ -285,7 +293,7 @@ if ($rSettings["sidebar"]) {
 													<li class="list-inline-item">
 														<div class="custom-control custom-checkbox">
 															<input type="checkbox" class="custom-control-input" id="confirmReplace3">
-															<label class="custom-control-label" for="confirmReplace3">I confirm that I want to clean up my streams database.</label>
+															<label class="custom-control-label" for="confirmReplace3">I confirm that I want to clean up my streams databases and client logs.</label>
 														</div>
 													</li>
 													<li class="list-inline-item float-right">
