@@ -69,8 +69,8 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         $endasn = "/\">AS";
         $ip_info["asnnumber"] = trim(get_between($dataports, $startasn, $endasn));
         
-        $startcountry = ", <b>";
-        $endcountry = '</b>, ';
+        $startcountry = "mr-2\"></span>\n                                    <span>";
+        $endcountry = '</span>, ';
         $ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
        
         $startccode = "<td>CCTLD Code</td>\n                            <td>";
