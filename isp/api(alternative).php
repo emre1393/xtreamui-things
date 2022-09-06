@@ -65,13 +65,13 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
         $endispdesc = '</td>';
         $ip_info["ispdesc"] = trim(get_between($dataports, $startispdesc, $endispdesc));
     
-        $startasn = "awebanalysis.com/en/ipv4-as-number-directory/";
-        $endasn = "/\">AS";
+        $startasn = "/\">AS";
+        $endasn = "</a></td>";
         $ip_info["asnnumber"] = trim(get_between($dataports, $startasn, $endasn));
         
-        $startcountry = "mr-2\"></span>\n                                    <span>";
-        $endcountry = '</span>, ';
-        $ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
+        #$startcountry = "mr-2\"></span>\n                                    <span>";
+        #$endcountry = '</span>\n                                </div>\n                            </td>';
+        #$ip_info["country"] = trim(get_between($dataports, $startcountry, $endcountry));
        
         $startccode = "<td>CCTLD Code</td>\n                            <td>";
         $endccode = '</td>';
@@ -113,8 +113,9 @@ if ((isset($_GET["ip"])) && (filter_var($_GET["ip"], FILTER_VALIDATE_IP, FILTER_
                     "as_number" => "AS".$ip_info["asnnumber"],               
                     "type" => $ip_info["isptype"],
                     "ip" => $ip_info["ipaddr"],
-                    "country_code" => $ip_info["countrycode"],
-                    "country_name" => $ip_info["country"]
+                    "country_code" => $ip_info["countrycode"]//,
+                    //broken
+                    //"country_name" => $ip_info["country"]
                 )
             );
             //? END
