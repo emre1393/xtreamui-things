@@ -1456,7 +1456,7 @@ if ($rType == "users") {
 } else if ($rType == "movie_list") {
 	if ((!$rPermissions["is_admin"]) OR ((!hasPermissions("adv", "import_movies")) && (!hasPermissions("adv", "mass_delete")))) { exit; }
     $rReturn = Array("draw" => $_GET["draw"], "recordsTotal" => 0, "recordsFiltered" => 0, "data" => Array());
-    $rOrder = Array("`streams`.`id`", "`streams`.`stream_display_name`", "`stream_categories`.`category_name`");
+    $rOrder = Array("`streams`.`id`", "`streams`.`stream_display_name`",  "`streaming_servers`.`server_name`", "`stream_categories`.`category_name`");
     if (strlen($_GET["order"][0]["column"]) > 0) {
         $rOrderRow = intval($_GET["order"][0]["column"]);
     } else {
@@ -1467,9 +1467,12 @@ if ($rType == "users") {
     if (strlen($_GET["category"]) > 0) {
         $rWhere[] = "`streams`.`category_id` = ".intval($_GET["category"]);
     }
+    if (strlen($_GET["server"]) > 0) {
+        $rWhere[] = "`streams_sys`.`server_id` = ".intval($_GET["server"]);
+    }
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%') OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
     }
     if (strlen($_GET["filter"]) > 0) {
         if ($_GET["filter"] == 1) {
@@ -1495,7 +1498,7 @@ if ($rType == "users") {
     } else {
         $rWhereString = "";
     }
-    $rCountQuery = "SELECT COUNT(*) AS `count` FROM `streams` LEFT JOIN `stream_categories` ON `stream_categories`.`id` = `streams`.`category_id` LEFT JOIN `streams_sys` ON `streams_sys`.`stream_id` = `streams`.`id` {$rWhereString};";
+    $rCountQuery = "SELECT COUNT(*) AS `count` FROM `streams` LEFT JOIN `streams_sys` ON `streams_sys`.`stream_id` = `streams`.`id` LEFT JOIN `stream_categories` ON `stream_categories`.`id` = `streams`.`category_id` LEFT JOIN `streaming_servers` ON `streaming_servers`.`id` = `streams_sys`.`server_id` {$rWhereString};";
     $rResult = $db->query($rCountQuery);
     if (($rResult) && ($rResult->num_rows == 1)) {
         $rReturn["recordsTotal"] = $rResult->fetch_assoc()["count"];
@@ -1504,7 +1507,7 @@ if ($rType == "users") {
     }
     $rReturn["recordsFiltered"] = $rReturn["recordsTotal"];
     if ($rReturn["recordsTotal"] > 0) {
-        $rQuery = "SELECT `streams`.`id`, `streams`.`stream_display_name`, `stream_categories`.`category_name`, `streams`.`direct_source`, `streams_sys`.`to_analyze`, `streams_sys`.`pid` FROM `streams` LEFT JOIN `stream_categories` ON `stream_categories`.`id` = `streams`.`category_id` LEFT JOIN `streams_sys` ON `streams_sys`.`stream_id` = `streams`.`id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
+        $rQuery = "SELECT `streams`.`id`, `streams_sys`.`to_analyze`,  `streams`.`stream_display_name`, `streams_sys`.`server_id`, `streams`.`notes`, `streams`.`direct_source`, `streams_sys`.`pid`,  `streams_sys`.`stream_status`, `stream_categories`.`category_name`, `streaming_servers`.`server_name` FROM `streams` LEFT JOIN `streams_sys` ON `streams_sys`.`stream_id` = `streams`.`id` LEFT JOIN `stream_categories` ON `stream_categories`.`id` = `streams`.`category_id` LEFT JOIN `streaming_servers` ON `streaming_servers`.`id` = `streams_sys`.`server_id` {$rWhereString} {$rOrderBy} LIMIT {$rStart}, {$rLimit};";
         $rResult = $db->query($rQuery);
         if (($rResult) && ($rResult->num_rows > 0)) {
             while ($rRow = $rResult->fetch_assoc()) {
@@ -1524,7 +1527,12 @@ if ($rType == "users") {
                     // Not Encoded
                     $rActualStatus = 0;
                 }
-                $rReturn["data"][] = Array($rRow["id"], $rRow["stream_display_name"], $rRow["category_name"], $rVODStatusArray[$rActualStatus]);
+                if ($rRow["server_name"]) {
+                    $rServerName = $rRow["server_name"];
+                } else {
+                    $rServerName = "No Server Selected";
+                }
+                $rReturn["data"][] = Array($rRow["id"], $rRow["stream_display_name"], $rServerName, $rRow["category_name"], $rVODStatusArray[$rActualStatus]);
             }
         }
     }

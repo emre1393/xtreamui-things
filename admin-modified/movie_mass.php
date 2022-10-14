@@ -146,7 +146,7 @@ if ($rSettings["sidebar"]) {
         if ($rSettings["sidebar"]) { ?>
         <div class="content-page"><div class="content boxed-layout"><div class="container-fluid">
         <?php } else { ?>
-        <div class="wrapper boxed-layout"><div class="container-fluid">
+        <div class="wrapper boxed-layout-ext"><div class="container-fluid">
         <?php } ?>
                 <!-- start page title -->
                 <div class="row">
@@ -212,6 +212,14 @@ if ($rSettings["sidebar"]) {
                                                         <input type="text" class="form-control" id="stream_search" value="" placeholder="Search Movies...">
                                                     </div>
                                                     <div class="col-md-3 col-6">
+                                                        <select id="movies_server" class="form-control" data-toggle="select2">
+                                                            <option value="" selected><?=$_["all_servers"]?></option>
+                                                            <?php foreach (getStreamingServers() as $rServer) { ?>
+                                                            <option value="<?=$rServer["id"]?>"<?php if ((isset($_GET["server"])) && ($_GET["server"] == $rServer["id"])) { echo " selected"; } ?>><?=$rServer["server_name"]?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-8">
                                                         <select id="category_search" class="form-control" data-toggle="select2">
                                                             <option value="" selected><?=$_["all_categories"]?></option>
                                                             <?php foreach ($rCategories as $rCategory) { ?>
@@ -219,7 +227,7 @@ if ($rSettings["sidebar"]) {
                                                             <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3 col-6">
+                                                    <div class="col-md-2 col-8">
                                                         <select id="filter" class="form-control" data-toggle="select2">
                                                             <option value="" selected><?=$_["no_filter"]?></option>
                                                             <option value="1"><?=$_["encoded"]?></option>
@@ -230,7 +238,7 @@ if ($rSettings["sidebar"]) {
                                                             <option value="6"><?=$_["no_tmdb_match"]?></option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-2 col-8">
+                                                    <div class="col-md-1 col-4">
                                                         <select id="show_entries" class="form-control" data-toggle="select2">
                                                             <?php foreach (Array(10, 25, 50, 250, 500, 1000) as $rShow) { ?>
                                                             <option<?php if ($rAdminSettings["default_entries"] == $rShow) { echo " selected"; } ?> value="<?=$rShow?>"><?=$rShow?></option>
@@ -247,6 +255,7 @@ if ($rSettings["sidebar"]) {
                                                             <tr>
                                                                 <th class="text-center"><?=$_["id"]?></th>
                                                                 <th><?=$_["stream_name"]?></th>
+                                                                <th><?=$_["server"]?></th>
                                                                 <th><?=$_["category"]?></th>
                                                                 <th class="text-center"><?=$_["status"]?></th>
                                                             </tr>
@@ -468,6 +477,9 @@ if ($rSettings["sidebar"]) {
         function getFilter() {
             return $("#filter").val();
         }
+        function getServer() {
+            return $("#movies_server").val();
+        }
         function toggleStreams() {
             $("#datatable-mass tr").each(function() {
                 if ($(this).hasClass('selected')) {
@@ -583,6 +595,7 @@ if ($rSettings["sidebar"]) {
                     "data": function(d) {
                         d.id = "movie_list",
                         d.category = getCategory(),
+                        d.server = getServer(),
                         d.filter = getFilter()
                     }
                 },
@@ -603,6 +616,9 @@ if ($rSettings["sidebar"]) {
                 rTable.page.len($(this).val()).draw();
             })
             $('#category_search').change(function(){
+                rTable.ajax.reload(null, false);
+            })
+            $('#movies_server').change(function(){
                 rTable.ajax.reload(null, false);
             })
             $('#filter').change(function(){
