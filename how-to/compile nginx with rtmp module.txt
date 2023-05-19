@@ -13,11 +13,11 @@ mkdir xc_nginx
 
 cd xc_nginx
 
-wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1p.tar.gz
-tar -xzvf OpenSSL_1_1_1p.tar.gz
+wget https://www.openssl.org/source/openssl-1.1.1t.tar.gz
+tar -xzvf openssl-1.1.1t.tar.gz
 
-wget https://nginx.org/download/nginx-1.23.0.tar.gz
-tar -xzvf nginx-1.23.0.tar.gz
+wget https://nginx.org/download/nginx-1.24.0.tar.gz
+tar -xzvf nginx-1.24.0.tar.gz
 
 sudo add-apt-repository ppa:maxmind/ppa -y
 sudo apt-get update
@@ -31,7 +31,7 @@ cd nginx-1.23.0
 
 make clean
 
-./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/ --lock-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx_rtmp.lock --conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf --error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_error.log --http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_access.log --pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx.pid --add-module=../nginx-rtmp-module-1.2.2 --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --without-http_rewrite_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=../openssl-OpenSSL_1_1_1p --add-module=../ngx_http_geoip2_module --with-http_ssl_module
+./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/ --lock-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx_rtmp.lock --conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf --error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_error.log --http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_access.log --pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/nginx.pid --add-module=../nginx-rtmp-module-1.2.2 --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --without-http_rewrite_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=../openssl-1.1.1t --add-module=../ngx_http_geoip2_module --with-http_ssl_module
 
 -compile,
 
