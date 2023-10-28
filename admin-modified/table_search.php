@@ -1472,7 +1472,7 @@ if ($rType == "users") {
     }
     if (strlen($_GET["search"]["value"]) > 0) {
         $rSearch = $_GET["search"]["value"];
-        $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%') OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
+        $rWhere[] = "(`streams`.`id` LIKE '%{$rSearch}%' OR `streams`.`stream_display_name` LIKE '%{$rSearch}%' OR `stream_categories`.`category_name` LIKE '%{$rSearch}%' OR `streaming_servers`.`server_name` LIKE '%{$rSearch}%')";
     }
     if (strlen($_GET["filter"]) > 0) {
         if ($_GET["filter"] == 1) {
