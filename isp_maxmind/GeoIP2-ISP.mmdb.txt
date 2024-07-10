@@ -1,0 +1,3 @@
+Buy the maxmind ISP database from https://www.maxmind.com/en/solutions/ip-geolocation-databases-api-services or find the file from somewhere else.
+
+Then put the file into this folder.
