@@ -34,10 +34,17 @@ if (isset($_POST["submit_stream"])) {
 	if (isset($_POST["custom_map"])) {
 		$rArray["custom_map"] = $_POST["custom_map"];
 	}
-	if (isset($_POST["custom_ffmpeg"])) {
+/*	if (isset($_POST["custom_ffmpeg"])) {
 		$rArray["custom_ffmpeg"] = $_POST["custom_ffmpeg"];
-	}
-	if (isset($_POST["custom_sid"])) {
+	}*/
+    if (isset($_POST["custom_ffmpeg"])) {
+        $custom_ffmpeg = $_POST["custom_ffmpeg"];
+        // Replace newlines with spaces
+        $custom_ffmpeg = str_replace(["\r", "\n"], ' ', $custom_ffmpeg);
+        $rArray["custom_ffmpeg"] = $custom_ffmpeg;
+    }
+    
+    if (isset($_POST["custom_sid"])) {
 		$rArray["custom_sid"] = $_POST["custom_sid"];
 	}
     if (isset($_POST["gen_timestamps"])) {
@@ -640,10 +647,11 @@ if ($rSettings["sidebar"]) {
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-4">
-                                                            <label class="col-md-4 col-form-label" for="custom_sid">Custom Channel SID <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Here you can specify the SID of the channel in order to work with the epg on the enigma2 devices. You have to specify the code with the ':' but without the first number, 1 or 4097 . Example: if we have this code:  '1:0:1:13f:157c:13e:820000:0:0:0:2097' then you have to add on this field:  ':0:1:13f:157c:13e:820000:0:0:0:" class="mdi mdi-information"></i></label>
+                                                             <label class="col-md-4 col-form-label" for="probesize_ondemand">On Demand Probesize <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Adjustable probesize for ondemand streams. Adjust this setting if you experience issues with no audio." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="custom_sid" name="custom_sid" value="<?php if (isset($rStream)) { echo htmlspecialchars($rStream["custom_sid"]); } ?>">
+                                                                <input type="text" class="form-control" id="probesize_ondemand" name="probesize_ondemand" value="<?php if (isset($rStream)) { echo $rStream["probesize_ondemand"]; } else { echo "128000"; } ?>">
                                                             </div>
+ 
                                                             <label class="col-md-4 col-form-label" for="delay_minutes">Minute Delay <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Delay stream by X minutes. Will not work with on demand streams." class="mdi mdi-information"></i></label>
                                                             <div class="col-md-2">
                                                                 <input type="text" class="form-control" id="delay_minutes" name="delay_minutes" value="<?php if (isset($rStream)) { echo $rStream["delay_minutes"]; } else { echo "0"; } ?>">
@@ -651,14 +659,23 @@ if ($rSettings["sidebar"]) {
                                                         </div>
                                                         <div class="form-group row mb-4">
                                                             <label class="col-md-4 col-form-label" for="custom_ffmpeg">Custom FFmpeg Command <i data-toggle="tooltip" data-placement="top" title="" data-original-title="In this field you can write your own custom FFmpeg command. Please note that this command will be placed after the input and before the output. If the command you will specify here is about to do changes in the output video or audio, it may require to transcode the stream. In this case, you have to use and change at least the Video/Audio Codecs using the transcoding attributes below. The custom FFmpeg command will only be used by the server(s) that take the stream from the Source." class="mdi mdi-information"></i></label>
+                                                            <!--
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="custom_ffmpeg" name="custom_ffmpeg" value="<?php if (isset($rStream)) { echo htmlspecialchars($rStream["custom_ffmpeg"]); } ?>">
+                                                                <input type="text" class="form-control" id="custom_ffmpeg" name="custom_ffmpeg" value="<#####?php if (isset($rStream)) { echo htmlspecialchars($rStream["custom_ffmpeg"]); } ?>">
                                                             </div>
-                                                            <label class="col-md-4 col-form-label" for="probesize_ondemand">On Demand Probesize <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Adjustable probesize for ondemand streams. Adjust this setting if you experience issues with no audio." class="mdi mdi-information"></i></label>
-                                                            <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="probesize_ondemand" name="probesize_ondemand" value="<?php if (isset($rStream)) { echo $rStream["probesize_ondemand"]; } else { echo "128000"; } ?>">
+                                                            -->
+                                                            <div class="col-md-8">
+                                                                <textarea id="custom_ffmpeg" name="custom_ffmpeg" rows="2" class="form-control" placeholder='-arguments -i  {INPUT} -codec_related_arguments '><?php if (isset($rStream)) { echo htmlspecialchars($rStream["custom_ffmpeg"]); } ?></textarea>
                                                             </div>
-                                                        </div>
+
+                                                       </div>
+                                                       <div class="form-group row mb-4">
+                                                       <label class="col-md-4 col-form-label" for="custom_sid">Custom Channel SID <i data-toggle="tooltip" data-placement="top" title="" data-original-title="Here you can specify the SID of the channel in order to work with the epg on the enigma2 devices. You have to specify the code with the ':' but without the first number, 1 or 4097 . Example: if we have this code:  '1:0:1:13f:157c:13e:820000:0:0:0:2097' then you have to add on this field:  ':0:1:13f:157c:13e:820000:0:0:0:" class="mdi mdi-information"></i></label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" id="custom_sid" name="custom_sid" value="<?php if (isset($rStream)) { echo htmlspecialchars($rStream["custom_sid"]); } ?>">
+                                                            </div>
+
+                                                       </div>
                                                         <div class="form-group row mb-4">
                                                             <label class="col-md-4 col-form-label" for="user_agent">User Agent</label>
                                                             <div class="col-md-8">
@@ -704,6 +721,31 @@ if ($rSettings["sidebar"]) {
                                                         <a href="javascript: void(0);" class="btn btn-secondary">Next</a>
                                                     </li>
                                                 </ul>
+                                                <div class="form-group row mb-4">
+                                                    <p><strong>  </strong></p>
+                                                </div>
+                                                <div class="form-group row mb-4">
+                                                    <p><strong>Custom FFmpeg Examples for CPU, Nvidia, and Intel Encoders</strong></p>
+                                                </div>
+                                                <div class="form-group row mb-4">
+                                                    <p><strong>
+                                                        CPU Encoding Example:</strong></p>
+                                                    <div>
+                                                        -fflags +genpts -re -probesize 15000000 -analyzeduration 15000000 -i <strong>{INPUT}</strong> -vcodec libx264 -b:v 1200k -bufsize 4000k -acodec aac -b:a 128k -ac 2
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group row mb-4">
+                                                    <p><strong>Nvidia HW Encoding Example (requires updated FFmpeg with HW encoders):</strong></p>
+                                                    <div >
+                                                        -err_detect ignore_err -user_agent "Mozilla/5.0" -fflags +genpts -async 1 -re -hwaccel_output_format cuda -fflags +genpts -re -probesize 15000000 -analyzeduration 15000000 -i <strong>{INPUT}</strong> -map 0:0 -map 0:1 -vcodec h264_nvenc -vf "scale=1280x720:flags=lanczos" -b:v 1500k -minrate 1200k -maxrate 1800k -bufsize 5000k -acodec aac -b:a 128k -ac 2
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group row mb-4">
+                                                    <p><strong>Intel HW Encoding Example (requires updated FFmpeg with HW encoder and set chmod 666 /dev/dri/*):</strong></p>
+                                                    <div >
+                                                        -err_detect ignore_err -user_agent "Mozilla/5.0 Chrome/90.0.4430.212 Safari/537.36" -fflags +genpts -async 1 -re -analyzeduration 20M -probesize 20M -init_hw_device vaapi=va:,kernel_driver=i915,driver=iHD -init_hw_device qsv=qs@va -filter_hw_device qs -i <strong>{INPUT}</strong> -vcodec h264_qsv -preset veryfast -b:v 1200k -maxrate 2000k -bufsize 6000k -vf "scale=1280:720" -acodec aac -ac 2 -ab 128k
+                                                    </div>
+                                                </div>
                                             </div>
 											<?php if (!isset($_GET["import"])) { ?>
                                             <div class="tab-pane" id="stream-map">
